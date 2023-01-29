@@ -1,11 +1,11 @@
 # Chattanooga Unite / Senior Capstone Project
 
-This project is focused on rebranding the Chattanooga area Veteran Resource Center's [existing website](https://setnvets.org) as well adding additional functionality to the website.
+This project is focused on rebranding the Chattanooga area Veterans Resource Center's [existing website](https://setnvets.org) as well adding additional functionality to the website.
 
 
 
 ### Developing
-To run the application. Simply run ```npm install ``` in the root directory. 
+To run the application, simply run ```npm install ``` in the root directory. 
 
 Then run ```npm run dev```
 
