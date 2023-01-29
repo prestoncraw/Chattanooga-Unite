@@ -21,6 +21,5 @@
 }
 
 .container li:hover {
-    border-bottom: 2px solid rgb(199, 199, 199);
     color:rgb(199, 199, 199);
 }
