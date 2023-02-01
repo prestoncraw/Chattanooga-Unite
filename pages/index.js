@@ -21,7 +21,7 @@ export default function Home() {
           Providing outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies.
         </p>
         <a href='/dashboard'><div className={styles.card}>Service Provders Login Here</div></a>
-
+        <Footer/>
       </main>
     </div>
   )
