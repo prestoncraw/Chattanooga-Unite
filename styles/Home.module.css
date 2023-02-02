@@ -234,26 +234,24 @@
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  border: .5vw solid #BB133E;
-  background-color: white;
-  margin: 0.5vw;
+  border: .25vw solid #BB133E;
+  background-color: #FFFFFF77;
+  margin: 1vw;
   justify-content: space-evenly;
+}
+
+.square_box:hover {
+  background-color: white;
 }
 
 .square_content{
   color: #002147;
   text-align: center;
-  font-size: 2vw;
+  font-size: min(max(2vw, 8px), 15px);
 }
 
 .square_icon {
   color: #002147;
   text-align: center;
   font-size: 5vw;
-}
-
-@media screen and (max-width: 950) {
-  .square_icon {
-     font-size: 8px;
-  }
 }
