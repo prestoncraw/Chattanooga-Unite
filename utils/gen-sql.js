@@ -135,13 +135,13 @@ async function genSql() {
     // Save rejected rows to separate csv so the missing information can be gathered for those service providers
     let rejected_csv = 'Reject Reason,Provider,Service,Counties Served,Phone,Email,Website/URL,Street,City,State,Zip\n';
     for (let i = 0; i < no_email.length; i++) {
-        rejected_csv+= `no email, ${no_email[i][0]},${no_email[i][1]},${no_email[i][2]},${no_email[i][3]},${no_email[i][4]},${no_email[i][5]},${no_email[i][6]},${no_email[i][7]},${no_email[i][8]},${no_email[i][9]}\n`;
+        rejected_csv+= `no email,"${no_email[i][0]}","${no_email[i][1]}","${no_email[i][2]}",${no_email[i][3]},${no_email[i][4]},${no_email[i][5]},${no_email[i][6]},${no_email[i][7]},${no_email[i][8]},${no_email[i][9]}\n`;
     }
     for (let i = 0; i < no_county.length; i++) {
-        rejected_csv+= `no counties served, ${no_county[i][0]},${no_county[i][1]},${no_county[i][2]},${no_county[i][3]},${no_county[i][4]},${no_county[i][5]},${no_county[i][6]},${no_county[i][7]},${no_county[i][8]},${no_county[i][9]}\n`;
+        rejected_csv+= `no counties served,"${no_county[i][0]}","${no_county[i][1]}","${no_county[i][2]}",${no_county[i][3]},${no_county[i][4]},${no_county[i][5]},${no_county[i][6]},${no_county[i][7]},${no_county[i][8]},${no_county[i][9]}\n`;
     }
     for (let i = 0; i < no_service.length; i++) {
-        rejected_csv+= `no services provided, ${no_service[i][0]},${no_service[i][1]},${no_service[i][2]},${no_service[i][3]},${no_service[i][4]},${no_service[i][5]},${no_service[i][6]},${no_service[i][7]},${no_service[i][8]},${no_service[i][9]}\n`;
+        rejected_csv+= `no services provided,"${no_service[i][0]}","${no_service[i][1]}","${no_service[i][2]}",${no_service[i][3]},${no_service[i][4]},${no_service[i][5]},${no_service[i][6]},${no_service[i][7]},${no_service[i][8]},${no_service[i][9]}\n`;
     }
     fs.writeFile(rejected_save_path, rejected_csv, err => {
         if (err) {
