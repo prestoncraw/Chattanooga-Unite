@@ -1,1 +1,18 @@
-INSERT INTO `county`(`name`) VALUES ('Bradley'), ('Catoosa'), ('Dekalb'), ('Grundy'), ('Bledsoe'), ('Dade'), ('Hamilton'), ('Jackson'), ('Marion'), ('McMinn'), ('Meigs'), ('Murray'), ('Polk'), ('Rhea'), ('Sequatchie'), ('Walker'), ('Whitfield');
+INSERT INTO `county`(`name`) VALUES 
+('Bradley'),
+('Catoosa'),
+('Dekalb'), 
+('Grundy'), 
+('Bledsoe'), 
+('Dade'), 
+('Hamilton'), 
+('Jackson'), 
+('Marion'), 
+('McMinn'), 
+('Meigs'), 
+('Murray'), 
+('Polk'), 
+('Rhea'), 
+('Sequatchie'), 
+('Walker'), 
+('Whitfield');

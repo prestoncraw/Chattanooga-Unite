@@ -1,13 +1,10 @@
 const fs = require("fs");
 const { readFile } = require('fs/promises')
-const { parse } = require("csv-parse");
-
+const { parse } = require("csv-parse/sync");
 
 async function content(path) {
     return await readFile(path, 'utf8')
 }
-
-
 
 county_ids = {
     "bradley": 1,
@@ -37,7 +34,7 @@ service_ids = {
     "education": 5,
     "employment": 6,
     "food": 7,
-    "health Care": 8,
+    "health care": 8,
     "housing": 9,
     "memorial and burial benefits": 10,
     "other": 11,
@@ -47,42 +44,104 @@ service_ids = {
 }
 
 async function genSql() {
-    console.log("beginning generation of schema file...");
+    console.log("starting generation of schema file...");
 
     let sql = "";
     const save_path = './utils/out/schema.sql';
-    const create_db_sql = "CREATE DATABASE va_resource_center CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;\nUSE va_resource_center;\n";
+    const rejected_save_path = './utils/out/rejected.csv';
+
+    const create_db_sql = "DROP DATABASE IF EXISTS va_resource_center;\nCREATE DATABASE va_resource_center CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;\nUSE va_resource_center;\n\n";
     const create_tables_sql = await content("./utils/data/Capstone_DB.sql") + "\n";
     const create_counties_sql = await content("./utils/data/counties.sql") + "\n";
     const create_services_sql = await content("./utils/data/services.sql") + "\n";
+    const read_csv = await content("./utils/data/Service_Provider_Info.csv");
 
-
-    sp_count = 0;
+    const records = parse(read_csv);
+    let no_email = [];
+    let no_county = [];
+    let no_service = [];
+    let valid_count = 0;
     let populate_data_sql = "";
 
-    fs.createReadStream("./utils/data/Service_Provider_Info.csv")
-        .pipe(parse({ delimiter: ",", from_line: 2 }))
-        .on("data", function (row) {
+    for (let i = 1; i < records.length; i++) {
+        // fix weird line breaks from csv
+        records[i][0] = records[i][0].replace(/(\r\n|\n|\r)/gm, "");
+        records[i][1] = records[i][1].replace(/(\r\n|\n|\r)/gm, "");
+        records[i][2] = records[i][2].replace(/(\r\n|\n|\r)/gm, "");
 
-            // first check if email is supplied.. 
-            if (row[4] == "") {
-                console.log(`No email supplied for ${row[0].replace(/(\r\n|\n|\r)/gm, "")} (row ${sp_count+3})! Skipping row.`)
+        let counties_served = records[i][2].split(",");
+        let services_provided = records[i][1].split(",");
+
+        // first check if email is supplied.. 
+        if (records[i][4] == "") {
+            //console.log(`No email supplied for ${records[i][0]} (row ${i + 2})! Skipping row.`)
+            no_email.push(records[i]);
+        }
+        else if (counties_served == '') {
+            no_county.push(records[i]);
+        }
+
+        else if (services_provided == '') {
+            no_service.push(records[i]);
+        }
+
+        else {
+            valid_count++;
+            // first create the user 
+            let user_insert_sql = `INSERT IGNORE INTO \`users\` (\`email\`, \`is_admin\`) VALUES ('${records[i][4]}', 0);\n`;
+
+            // create service_provider
+            // note: sometimes the sp name will contain a ' which will mess up the insert statement
+            // an escape has manually been added to the 5 that currently exist in the csv
+            let sp_insert_sql = `INSERT INTO \`service_providers\` (\`logo_url\`, \`name\`, \`description\`, \`contact_phone_number\`, \`contact_email\`, \`website_url\`, \`address\`, \`login_email\`) \n` +
+                `VALUES ('', '${records[i][0]}', '', '${records[i][3]}', '${records[i][4]}', '${records[i][5]}', '${records[i][6]} ${records[i][7]} ${records[i][8]} ${records[i][9]}', '${records[i][4]}');\n`;
+
+            // create county and service associations
+            let county_asso_sql = `INSERT INTO \`sp_counties\`\nVALUES`;
+            let service_asso_sql = 'INSERT INTO \`sp_services\`\nVALUES';
+            //console.log(counties_served);
+
+            for (let j = 0; j < counties_served.length; j++) {
+                let county_normalized = counties_served[j].toLowerCase().trim();
+                //console.log(valid_count, counties_served[j], county_normalized);
+                if (j + 1 == counties_served.length) {
+                    county_asso_sql += ` (${valid_count}, ${county_ids[county_normalized]});\n`;
+                }
+                else {
+                    county_asso_sql += ` (${valid_count}, ${county_ids[county_normalized]}),`;
+                }
             }
 
+            for (let j = 0; j < services_provided.length; j++) {
+                let service_normalized = services_provided[j].toLowerCase().trim();
+                //console.log(valid_count, services_provided[j], service_normalized);
+                if (j + 1 == services_provided.length) {
+                    service_asso_sql += ` (${valid_count}, ${service_ids[service_normalized]});\n`;
+                }
+                else {
+                    service_asso_sql += ` (${valid_count}, ${service_ids[service_normalized]}),`;
+                }
+            }
 
+            populate_data_sql += user_insert_sql + sp_insert_sql + county_asso_sql + service_asso_sql + "\n";
 
-            // console.log(sp_count);
-            sp_count++;
-        })
+        }
 
-    sql = create_db_sql + create_tables_sql + create_counties_sql + create_services_sql;
+    }
+    console.log(`skipped ${no_email.length} rows due to lack of email address. see ${rejected_save_path}`);
+    console.log(`skipped ${no_county.length} rows due to lack of county served. see ${rejected_save_path}`);
+    console.log(`skipped ${no_service.length} rows due to lack of service provided. see ${rejected_save_path}`);
+
+    // TODO: Save rejected rows to separate csv so the missing information can be gathered for those service providers
+
+    sql = create_db_sql + create_tables_sql + create_counties_sql + create_services_sql + populate_data_sql;
 
     fs.writeFile(save_path, sql, err => {
         if (err) {
             console.error(err);
         }
     });
-    console.log(`schema file saved to ${save_path}`);
+    console.log(`schema file saved to ${save_path} with ${valid_count} valid service providers`);
 }
 
 genSql();
