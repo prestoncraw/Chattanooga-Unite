@@ -10,7 +10,7 @@ export default function Footer() {
             <div className={styles.container}>
                 <div className={styles.navy}>
                 <Image
-                    src="/images/navylogo.jpg"
+                    src="/images/navylogo.png"
                     alt="Logo"
                     width={25}
                     height={25}
@@ -18,7 +18,7 @@ export default function Footer() {
                 </div>
                 <div className={styles.army}>
                 <Image
-                    src="/images/armylogo.jpg"
+                    src="/images/armylogo.png"
                     alt="Logo"
                     width={25}
                     height={25}
@@ -26,7 +26,7 @@ export default function Footer() {
                 </div>
                 <div className={styles.coastgaurd}>
                 <Image
-                    src="/images/coastgaurd.jpg"
+                    src="/images/coastgaurd.png"
                     alt="Logo"
                     width={25}
                     height={25}
@@ -36,7 +36,7 @@ export default function Footer() {
                 <Image
                     src="/images/airforcelogo.png"
                     alt="Logo"
-                    width={25}
+                    width={35}
                     height={25}
                 />
                 </div>
@@ -50,7 +50,7 @@ export default function Footer() {
                 </div>
                 <div className={styles.spaceforce}>
                 <Image
-                    src="/images/space_force_logo1.jpg"
+                    src="/images/space_force_logo.png"
                     alt="Logo"
                     width={25}
                     height={25}
