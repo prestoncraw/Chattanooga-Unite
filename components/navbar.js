@@ -19,6 +19,9 @@ export default function NavBar() {
                         <Link href='/key-numbers'>Key Numbers</Link>
                     </li>
                     <li id='contact-li'>
+                        <Link href='/participating-organizations'>Participating Organizations</Link>
+                    </li>
+                    <li id='contact-li'>
                         <Link href='/contact'>Contact</Link>
                     </li>
                 </ul>
