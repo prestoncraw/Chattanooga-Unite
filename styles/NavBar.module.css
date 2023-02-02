@@ -24,3 +24,9 @@
 .container li:hover {
     color:rgb(199, 199, 199);
 }
+
+.container i {
+    font-weight: 900;
+    font-size: larger;
+    padding-right: 0.5vw;
+}

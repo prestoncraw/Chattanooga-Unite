@@ -6,7 +6,7 @@ This project is focused on rebranding the Chattanooga area Veterans Resource Cen
 
 ### Developing
 #### Next.JS Setup
-To run the application, simply run ```npm install ``` in the root directory. 
+To run the application, simply run ```npm install ``` in the root directory of repo.  
 
 Then run ```npm run dev```
 
