@@ -89,7 +89,8 @@
   }
 }
 
-.grayBackground, .blueBackground {
+.blueBackground {
+  background-color: #002147CC;
   height: fit-content;
   width: 100%;
   display: flex;
@@ -98,12 +99,23 @@
   padding: 1vw;
 }
 
-.blueBackground {
-  background-color: #002147CC;
-}
-
 .grayBackground {
   background-color: #CBD1D7AA;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  margin-top: 25px;
+  flex-direction: column;
+  padding: 1vw;
+}
+
+.grayBackgroundContact {
+  background-color: #CBD1D7AA;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1vw;
 }
 
 .white_decoration, .blue_decoration, .red_decoration {
@@ -254,4 +266,9 @@
   color: #002147;
   text-align: center;
   font-size: 5vw;
+}
+
+.bold {
+  font-weight: bold;
+  font-size: large;
 }
