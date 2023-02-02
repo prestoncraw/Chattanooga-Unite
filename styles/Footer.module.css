@@ -1,64 +1,64 @@
 .container {
-    background-color: #CBD1D7;
-    color:white;
-    font-size: 18px;
-    font-weight: bold;
-    width: 100vw;
-    min-height: 160px;
-    position: fixed;
-    bottom: 0;
+  background-color: #CBD1D7;
+  color:white;
+  font-size: 18px;
+  font-weight: bold;
+  width: 100vw;
+  min-height: 160px;
+  position: fixed;
+  bottom: 0;
 }
 
 .navy {
-    position: absolute;
-    top: 20%;
-    left: 4%;
-  }
+  position: absolute;
+  top: 20%;
+  left: 4%;
+}
 
-  .airforce {
-    position: absolute;
-    top: 40%;
-    left: 3.75%;
-  }
+.airforce {
+  position: absolute;
+  top: 40%;
+  left: 3.75%;
+}
 
-  .army {
-    position: absolute;
-    top: 60%;
-    left: 4%;
-  }
+.army {
+  position: absolute;
+  top: 60%;
+  left: 4%;
+}
 
-  .marine {
-    position: absolute;
-    top: 20%;
-    left: 5.5%;
-  }
+.marine {
+  position: absolute;
+  top: 20%;
+  left: 5.5%;
+}
 
-  .spaceforce {
-    position: absolute;
-    top: 40%;
-    left: 5.5%;
-  }
+.spaceforce {
+  position: absolute;
+  top: 40%;
+  left: 5.5%;
+}
 
-  .coastgaurd {
-    position: absolute;
-    top: 60%;
-    left: 5.5%;
-  }
+.coastgaurd {
+  position: absolute;
+  top: 60%;
+  left: 5.5%;
+}
 
-  .unitedway{
-    position: absolute;
-    top: 5%;
-    left: 75%;
-  }
+.unitedway{
+  position: absolute;
+  top: 5%;
+  left: 75%;
+}
 
-  .twoOneOne{
-    position: absolute;
-    top: 5%;
-    left: 85%;
-  }
+.twoOneOne{
+  position: absolute;
+  top: 5%;
+  left: 85%;
+}
 
-  .chattunite{
-    position: absolute;
-    top: 50%;
-    left: 85%;
-  }
+.chattunite{
+  position: absolute;
+  top: 50%;
+  left: 85%;
+}

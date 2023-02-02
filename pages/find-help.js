@@ -6,50 +6,68 @@ import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import Link from 'next/link'
 //import styles from '../styles/NavBar.module.css';
-import styles from '../styles/test.module.css';
-
+import styles from '../styles/Home.module.css';
 
 export default function FindHelp({ serviceProviders }) {
-  const SELECTED_OPTION_INITIAL_STATE = {
-    service: 'Advocacy',
-    county: 'Bledsoe',
-  };
-  const [selectedOption, setSelectedOption] = useState(SELECTED_OPTION_INITIAL_STATE);
-
-  const handleServiceChange = (event) => {
-    setSelectedOption({
-      ...selectedOption,
-      service: event.target.value,
-    });
-  };
-
-  const handleCountyChange = (event) => {
-    setSelectedOption({
-      ...selectedOption,
-      county: event.target.value,
-    });
-  };
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    Router.push({
-      pathname: '/find-help',
-      query: {
-        service: selectedOption.service,
-        county: selectedOption.county
-      }
-    });
-  };
-
-  return (
-    <>
-      <Head>
-        <title>Find Help &raquo; Chattanooga Unite - Veterans Resource Center</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <NavBar />
-        <div>Welcome to the Find Help (services provided) page</div>
+    const SELECTED_OPTION_INITIAL_STATE = {
+        service: 'Advocacy',
+        county: 'Bledsoe',
+      };
+      const [selectedOption, setSelectedOption] = useState(SELECTED_OPTION_INITIAL_STATE);
+    
+      const handleServiceChange = (event) => {
+        setSelectedOption({
+          ...selectedOption,
+          service: event.target.value,
+        });
+      };
+    
+      const handleCountyChange = (event) => {
+        setSelectedOption({
+          ...selectedOption,
+          county: event.target.value,
+        });
+      };
+    
+      const handleFormSubmit = (event) => {
+        event.preventDefault();
+        Router.push({
+          pathname: '/find-help',
+          query: {
+            service: selectedOption.service,
+            county: selectedOption.county
+          }
+        });
+      };
+    
+    return (
+        <>
+            <Head>
+                <title>Contact us &raquo; Chattanooga Unite - Veterans Resource Center</title>
+                <link rel="icon" href="/favicon.ico" />
+                <script src="https://kit.fontawesome.com/8e69a0977a.js" crossorigin="anonymous"></script>
+            </Head>
+            <main>
+            <NavBar/>
+                <div className={styles.grayBackground}>
+                    <h1 className={styles.title}>What Do You Need Help With?</h1>
+                    <div className={styles.cards_container}>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-bullhorn"></i></span><span className={styles.square_content}>Advocacy</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-handshake-angle"></i></span><span className={styles.square_content}>Benefits</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-shirt"></i></span><span className={styles.square_content}>Clothing</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-tooth"></i></span><span className={styles.square_content}>Dental</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-graduation-cap"></i></span><span className={styles.square_content}>Education</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-briefcase"></i></span><span className={styles.square_content}>Employment</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-utensils"></i></span><span className={styles.square_content}>Food</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-house-user"></i></span><span className={styles.square_content}>Housing</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-monument"></i></span><span className={styles.square_content}>Memorial and Burial</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-person-swimming"></i></span><span className={styles.square_content}>Theraputic Recreation</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-car-side"></i></span><span className={styles.square_content}>Transportation</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-faucet-drip"></i></span><span className={styles.square_content}>Utility</span></div>
+                        <div className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-circle-question"></i></span><span className={styles.square_content}>Other</span></div>
+                    </div>
+                </div>
+                <div>Welcome to the Find Help (services provided) page</div>
         <form onSubmit={handleFormSubmit}>
             <div>
                 <label htmlFor="service">Choose a service:</label>
@@ -101,10 +119,12 @@ export default function FindHelp({ serviceProviders }) {
   
   }
 </div>
-      </main>
-      <Footer />
-    </>
-  );
+            </main>
+            
+
+        </>
+
+    )
 }
 
 export async function getServerSideProps(context) {
@@ -125,4 +145,3 @@ export async function getServerSideProps(context) {
         },
     };
 }
-    
