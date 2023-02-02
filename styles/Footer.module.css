@@ -4,9 +4,8 @@
   font-size: 18px;
   font-weight: bold;
   width: 100vw;
-  min-height: 160px;
-  position: fixed;
-  bottom: 0;
+  min-height: 13vh;
+  position: relative;
 }
 
 .navy {
