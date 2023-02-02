@@ -4,12 +4,15 @@ import NavBar from '../components/navbar'
 import Footer from '../components/footer';
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
+import Link from 'next/link'
+//import styles from '../styles/NavBar.module.css';
+import styles from '../styles/test.module.css';
 
 
 export default function FindHelp({ serviceProviders }) {
   const SELECTED_OPTION_INITIAL_STATE = {
-    service: '',
-    county: '',
+    service: 'Advocacy',
+    county: 'Bledsoe',
   };
   const [selectedOption, setSelectedOption] = useState(SELECTED_OPTION_INITIAL_STATE);
 
@@ -70,7 +73,7 @@ export default function FindHelp({ serviceProviders }) {
                 <label htmlFor="county">Choose a county:</label>
                 <select name="county" id="county" onChange={handleCountyChange} value={selectedOption.county}>
                     <option value="Bradley">Bradley</option>
-                    <option value="Catoosa">Catoose</option>
+                    <option value="Catoosa">Catoosa</option>
                     <option value="Bledsoe">Bledsoe</option>
                     <option value="Hamilton">Hamilton</option>
                     <option value="Marion">Marion</option>
@@ -84,17 +87,18 @@ export default function FindHelp({ serviceProviders }) {
         </form>
         <div>
   {
-    Object.values(JSON.parse(serviceProviders)).map((serviceProvider, index) => (
-      <div key={index}>
-        <h2>{serviceProvider.name}</h2>
-        <p>Address: {serviceProvider.address}</p>
-        <p>Description: {serviceProvider.description}</p>
-        <p>Phone Number: {serviceProvider.contact_phone_number}</p>
-        <p>Contact Email: {serviceProvider.contact_email}</p>
-        <p>Phone: {serviceProvider.login_email}</p>
-        <p>Website: {serviceProvider.website_url}</p>
-      </div>
-    ))
+   Object.values(JSON.parse(serviceProviders)).map((serviceProvider, index) => (
+    <div key={index}>
+      <h2>{serviceProvider.name}</h2>
+      <p>Address: {serviceProvider.address}</p>
+      <p>Description: {serviceProvider.description}</p>
+      <p>Phone Number: {serviceProvider.contact_phone_number}</p>
+      <p>Contact Email: {serviceProvider.contact_email}</p>
+      <p>Phone: {serviceProvider.login_email}</p>
+      <p>Website: <a className={styles.websiteurl}href={serviceProvider.website_url}>{serviceProvider.website_url}</a></p>
+    </div>
+  ))
+  
   }
 </div>
       </main>
