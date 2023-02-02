@@ -65,9 +65,9 @@ async function genSql() {
 
     for (let i = 1; i < records.length; i++) {
         // fix weird line breaks from csv
-        records[i][0] = records[i][0].replace(/(\r\n|\n|\r)/gm, "");
-        records[i][1] = records[i][1].replace(/(\r\n|\n|\r)/gm, "");
-        records[i][2] = records[i][2].replace(/(\r\n|\n|\r)/gm, "");
+        for (let j = 0; j < records[i].length; j++) {
+            records[i][j] = records[i][j].replace(/(\r\n|\n|\r)/gm, "");
+        }
 
         let counties_served = records[i][2].split(",");
         let services_provided = records[i][1].split(",");
@@ -120,7 +120,7 @@ async function genSql() {
                 }
                 else {
                     service_asso_sql += ` (${valid_count}, ${service_ids[service_normalized]}),`;
-                }
+                }[i]
             }
 
             populate_data_sql += user_insert_sql + sp_insert_sql + county_asso_sql + service_asso_sql + "\n";
@@ -132,7 +132,23 @@ async function genSql() {
     console.log(`skipped ${no_county.length} rows due to lack of county served. see ${rejected_save_path}`);
     console.log(`skipped ${no_service.length} rows due to lack of service provided. see ${rejected_save_path}`);
 
-    // TODO: Save rejected rows to separate csv so the missing information can be gathered for those service providers
+    // Save rejected rows to separate csv so the missing information can be gathered for those service providers
+    let rejected_csv = 'Reject Reason,Provider,Service,Counties Served,Phone,Email,Website/URL,Street,City,State,Zip\n';
+    for (let i = 0; i < no_email.length; i++) {
+        rejected_csv+= `no email, ${no_email[i][0]},${no_email[i][1]},${no_email[i][2]},${no_email[i][3]},${no_email[i][4]},${no_email[i][5]},${no_email[i][6]},${no_email[i][7]},${no_email[i][8]},${no_email[i][9]}\n`;
+    }
+    for (let i = 0; i < no_county.length; i++) {
+        rejected_csv+= `no counties served, ${no_county[i][0]},${no_county[i][1]},${no_county[i][2]},${no_county[i][3]},${no_county[i][4]},${no_county[i][5]},${no_county[i][6]},${no_county[i][7]},${no_county[i][8]},${no_county[i][9]}\n`;
+    }
+    for (let i = 0; i < no_service.length; i++) {
+        rejected_csv+= `no services provided, ${no_service[i][0]},${no_service[i][1]},${no_service[i][2]},${no_service[i][3]},${no_service[i][4]},${no_service[i][5]},${no_service[i][6]},${no_service[i][7]},${no_service[i][8]},${no_service[i][9]}\n`;
+    }
+    fs.writeFile(rejected_save_path, rejected_csv, err => {
+        if (err) {
+            console.error(err);
+        }
+    });
+    
 
     sql = create_db_sql + create_tables_sql + create_counties_sql + create_services_sql + populate_data_sql;
 
