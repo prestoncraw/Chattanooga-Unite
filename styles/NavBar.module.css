@@ -1,9 +1,8 @@
 .container {
     background-color: #002147;
     color:white;
-    font-size: 18px;
-    font-weight: bold;
-    width: 100vw;
+    font-size: 1.5vmax;
+    width: 100%;
 }
 
 .container ul {
@@ -12,9 +11,8 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    min-height: 80px;
-    margin: 0;
-    padding: 0;
+    min-height: 70px;
+    padding: 0 1vw 0 1vw;
 }
 
 .container li {
