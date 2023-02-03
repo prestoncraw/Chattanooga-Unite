@@ -18,12 +18,13 @@ export default function NavBar() {
                     <li id='key-numbers-li'>
                         <Link href='/key-numbers'>Key Numbers</Link>
                     </li>
-                    <li id='contact-li'>
+                    <li id='participating-orginaizations-li'>
                         <Link href='/participating-organizations'>Participating Organizations</Link>
                     </li>
                     <li id='contact-li'>
                         <Link href='/contact'>Contact</Link>
                     </li>
+                    
                 </ul>
             </div>
         </div>

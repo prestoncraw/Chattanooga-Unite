@@ -1,63 +1,28 @@
 .container {
   background-color: #CBD1D7;
-  color:white;
+  color: white;
   font-size: 18px;
   font-weight: bold;
   width: 100vw;
-  min-height: 13vh;
-  position: relative;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1vw;
+  align-items: center;
 }
 
-.navy {
-  position: absolute;
-  top: 20%;
-  left: 4%;
+.branch_container {
+  display: flex;
+  flex-direction: row;
 }
 
-.airforce {
-  position: absolute;
-  top: 40%;
-  left: 3.75%;
+.branch_columns {
+  display: flex;
+  flex-direction: column;
 }
 
-.army {
-  position: absolute;
-  top: 60%;
-  left: 4%;
-}
-
-.marine {
-  position: absolute;
-  top: 20%;
-  left: 5.5%;
-}
-
-.spaceforce {
-  position: absolute;
-  top: 40%;
-  left: 5.5%;
-}
-
-.coastgaurd {
-  position: absolute;
-  top: 60%;
-  left: 5.5%;
-}
-
-.unitedway{
-  position: absolute;
-  top: 5%;
-  left: 75%;
-}
-
-.twoOneOne{
-  position: absolute;
-  top: 5%;
-  left: 85%;
-}
-
-.chattunite{
-  position: absolute;
-  top: 50%;
-  left: 85%;
+.logo_container {
+  display: flex;
+  flex-direction: row;
 }
