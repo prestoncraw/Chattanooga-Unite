@@ -90,15 +90,23 @@ export default function FindHelp({ serviceProviders }) {
             <div>
                 <label htmlFor="county">Choose a county:</label>
                 <select name="county" id="county" onChange={handleCountyChange} value={selectedOption.county}>
+                    <option value="Bledsoe">Bledsoe</option>
                     <option value="Bradley">Bradley</option>
                     <option value="Catoosa">Catoosa</option>
-                    <option value="Bledsoe">Bledsoe</option>
+                    <option value="Dade">Dade</option>
+                    <option value="Dekalb">Dekalb</option>
+                    <option value="Grundy">Grundy</option>
                     <option value="Hamilton">Hamilton</option>
+                    <option value="Jackson">Jackson</option>
                     <option value="Marion">Marion</option>
                     <option value="McMinn">McMinn</option>
                     <option value="Meigs">Meigs</option>
+                    <option value="Murray">Murray</option>
                     <option value="Polk">Polk</option>
                     <option value="Rhea">Rhea</option>
+                    <option value="Sequatchie">Sequatchie</option>
+                    <option value="Walker">Walker</option>
+                    <option value="Whitfield">Whitfield</option>
                     </select>
             </div>
             <button type="submit">Submit</button>
