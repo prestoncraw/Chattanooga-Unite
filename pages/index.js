@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
             <p className={styles["corners"] + " " + styles["contact_description"]}>
               Providing outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies.
             </p>
-            <button className={styles.btn_outline_dark}>Find Help <i class="fa-solid fa-arrow-right"></i></button>
+            <Link href="/find-help"><button className={styles.btn_outline_dark}>Find Help<i class="fa-solid fa-arrow-right"></i></button></Link>
         </div>
 
         <div className={styles["blueBackground"] + " " + styles["left"]}>
