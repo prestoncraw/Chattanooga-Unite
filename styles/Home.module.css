@@ -186,6 +186,35 @@
   align-items: center;
 }
 
+.sub_title_text_centered {
+  color: white;
+  font-size: 1.75vw;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.text_centered {
+  color: white;
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+.sub_text_centered {
+  font-size: 1.5vw;
+}
+
+.col1 {
+  column-count: 2;
+  column-gap: 25px;
+}
+
+.col2 {
+  float: left;
+  width: 200px;
+  margin-left: 30px;
+}
+
+
 .right {
   align-items: flex-end;
   text-align: right;
