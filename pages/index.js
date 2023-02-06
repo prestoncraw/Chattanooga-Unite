@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -42,7 +43,7 @@ export default function Home() {
         <a href='/dashboard'><div className={styles.card}>Service Provders Login Here</div></a>
 
       </main>
-      <Footer></Footer>
+      <Footer />
     </div>
   )
 }

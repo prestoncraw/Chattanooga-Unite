@@ -12,5 +12,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "serverless-mysql": "^1.5.4"
+  },
+  "devDependencies": {
+    "csv": "^6.2.6"
   }
 }

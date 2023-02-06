@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import executeQuery from '../lib/db';
-import NavBar from '../components/navbar'
+import NavBar from '../components/navbar';
 import Footer from '../components/footer';
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
