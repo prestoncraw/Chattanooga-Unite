@@ -9,11 +9,11 @@
 }
 
 .select_box {
-    flex: 0 0 200px;
+    flex: 0 0 150px;
     margin: 10px 25px;
     text-align: center;
     border: red 3px solid;
-    height: 200px;
+    height: 150px;
     border-radius: 20px;
 }
 .select_box:hover {
