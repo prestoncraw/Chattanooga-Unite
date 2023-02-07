@@ -1,4 +1,4 @@
-# Chattanooga Unite / Senior Capstone Project!
+# Chattanooga Unite / Senior Capstone Project
 
 This project is focused on rebranding the Chattanooga area Veterans Resource Center's [existing website](https://setnvets.org) as well adding additional functionality to the website.
 
