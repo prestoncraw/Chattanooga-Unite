@@ -266,3 +266,12 @@
   margin: 0 0 -31vw -1vw;
   translate: 0 min(-30vw, 300px);
 }
+
+.call_text{
+  font-size: 1rem;
+  line-height: 2rem;
+  padding: 1vw;
+  max-width: 75%;
+  min-width: 300px;
+  color: #002147CC;
+}
