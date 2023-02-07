@@ -120,7 +120,7 @@ export default function FindHelp({ serviceProviders }) {
       <p>Phone Number: {serviceProvider.contact_phone_number}</p>
       <p>Contact Email: {serviceProvider.contact_email}</p>
       <p>Phone: {serviceProvider.login_email}</p>
-      <p>Website: <a className={styles.websiteurl}href={serviceProvider.website_url}>{serviceProvider.website_url}</a></p>
+      <p>Website: <a className={styles.websiteurl} href={"https://" +serviceProvider.website_url} target="_blank">{serviceProvider.website_url}</a></p>
     </div>
   ))
   

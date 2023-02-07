@@ -1,0 +1,38 @@
+.select_box_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: auto;
+    background-color: orange;
+    justify-content: center;
+}
+
+.select_box {
+    flex: 0 0 200px;
+    margin: 10px 25px;
+    text-align: center;
+    border: red 3px solid;
+    height: 200px;
+    border-radius: 20px;
+}
+.select_box:hover {
+    cursor: pointer;
+    background-color: gray;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+      background-color: lightblue;
+    }
+    .select_box_container {
+        background-color: lightblue;
+    }
+    .select_box {
+        margin: 10px 10px;
+        flex: 0 0 150px;
+        height: 150px;
+    }
+    
+  }
+  
