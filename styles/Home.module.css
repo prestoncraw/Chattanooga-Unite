@@ -231,7 +231,6 @@
 
 .square_box:hover {
   background-color: white;
-  cursor: pointer;
 }
 
 .square_content{
@@ -259,11 +258,11 @@
 .right > img {
   width: min(max(25vw, 100px), 300px);
   margin: 0 -1vw -31vw 0;
-  translate: 0 -30vw;
+  translate: 0 min(-30vw, 300px);
 }
 
 .left > img {
   width: min(max(25vw, 100px), 300px);
   margin: 0 0 -31vw -1vw;
-  translate: 0 -30vw;
+  translate: 0 min(-30vw, 300px);
 }

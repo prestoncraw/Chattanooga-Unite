@@ -11,10 +11,12 @@ export default function Home() {
       <Head>
         <title>Home &raquo; Chattanooga Unite - Veterans Resource Center</title>
         <link rel="icon" href="/favicon.ico" />
+        <script src="https://kit.fontawesome.com/8e69a0977a.js" crossorigin="anonymous"></script>
       </Head>
 
+
       <main>
-        <NavBar />
+      <NavBar/>
         <div className={styles["grayBackground"] + " " + styles["centered"]}>
             <h1 className={styles.title}>Veterans Resource Center<br></br>Chattanooga Unite <span className={styles.red}><i class="fa-solid fa-star"></i></span></h1>
             <p className={styles["corners"] + " " + styles["description_dark"]}>
