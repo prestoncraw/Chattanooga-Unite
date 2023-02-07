@@ -7,44 +7,13 @@
   text-align: center;
 }
 
-.title a {
-  color: #002147;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
 .title {
   margin: 0 0 1rem;
   line-height: 1.15;
-  font-size: 5vw;
+  font-size: min(max(5vw, 35px), 50px);
   color: #002147;
   text-align: center;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-
-.description {
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  max-width: 800px;
-  margin-top: 3rem;
+  font-family: Arial, sans-serif;
 }
 
 .card {
@@ -89,27 +58,25 @@
   }
 }
 
-.blueBackground {
-  background-color: #002147CC;
+.blueBackground, .grayBackground {
   height: fit-content;
   width: 100%;
   display: flex;
   margin-bottom: 25px;
   flex-direction: column;
   padding: 1vw;
+  font-family: Arial, sans-serif;
+}
+
+.blueBackground {
+  background-color: #002147CC;
 }
 
 .grayBackground {
-  background-color: #CBD1D7AA;
-  height: fit-content;
-  width: 100%;
-  display: flex;
-  margin-bottom: 25px;
-  flex-direction: column;
-  padding: 1vw;
+  background-color: #CBD1D7CC;
 }
 
-.white_decoration, .blue_decoration, .red_decoration {
+.white_decoration, .blue_decoration {
   height: 1vw;
   width: 6vw;
   border-radius: 25px;
@@ -126,14 +93,9 @@
   background-color: #002147;
 }
 
-.red_decoration {
-  background-color: #BB133E;
-}
-
 .title_light, .title_dark {
-  font-size: 4vw;
+  font-size: min(max(4vw, 25px), 40px);
   margin: 1vw;
-  font-family: "arial";
   font-weight: lighter;
 }
 
@@ -175,6 +137,7 @@
 
 .centered {
   align-items: center;
+  text-align: center;
 }
 
 .sub_title_text_centered {
@@ -207,12 +170,15 @@
 
 
 .right {
-  align-items: flex-end;
+  float: right;
   text-align: right;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
 }
 
 .left {
-  align-items: flex-start;
+  float: left;
   text-align: left;
 }
 
@@ -221,23 +187,13 @@
   font-size: 3vw;
 }
 
-.btn_outline_dark, .btn_outline_light {
+.btn_outline_dark {
   border-radius: 15px;
   font-size: 1rem;
   padding: 1rem 2rem;
   margin: 1rem;
   width: 250px;
   cursor: pointer;
-}
-
-.btn_outline_light {
-  background-color: #FFFFFFCC;
-  color: #BB133E;
-  border: 5px solid #BB133E;
-}
-
-.btn_outline_light:hover {
-  background-color: #FFFFFF;
 }
 
 .btn_outline_dark {
@@ -292,4 +248,21 @@
 .bold {
   font-weight: bold;
   font-size: large;
+}
+
+#resources, #counties {
+  display: flex;
+  flex-direction: column;
+}
+
+.right > img {
+  width: min(max(25vw, 100px), 300px);
+  margin: 0 -1vw -31vw 0;
+  translate: 0 -30vw;
+}
+
+.left > img {
+  width: min(max(25vw, 100px), 300px);
+  margin: 0 0 -31vw -1vw;
+  translate: 0 -30vw;
 }

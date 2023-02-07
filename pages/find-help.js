@@ -56,7 +56,7 @@ export default function FindHelp({ serviceProviders }) {
               <div className={styles.grayBackground}>
                 <form onSubmit={handleFormSubmit}>
                   <div id="resources">
-                    <label className={styles.title} htmlFor="service">What Can We Help You With?</label>
+                    <label className={styles["title_dark"] + " " + styles["centered"]} htmlFor="service">What Can We Help You With?</label>
                     <div name="service" id="service" onClick={handleServiceChange} value={selectedOption.service}>
                       <div className={styles.cards_container}>
                         <div value="Advocacy" className={styles.square_box}><span className={styles.square_icon}><i class="fa-solid fa-handshake-angle"></i></span><span className={styles.square_content}>Benefits</span></div>
