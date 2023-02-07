@@ -11,7 +11,7 @@ function Contact() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-            <NavBar/>
+                <NavBar />
                 <div className={styles.grayBackground}>
                     <div className={styles.blue_decoration}></div>
                     <div className={styles.title_dark}>Contact Us</div><br></br>
@@ -32,4 +32,3 @@ function Contact() {
 }
 
 export default Contact
-

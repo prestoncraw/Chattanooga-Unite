@@ -5,15 +5,12 @@ import Link from 'next/link';
 export default function NavBar() {
     return (
         <>
-            <Head>
-                <script src="https://kit.fontawesome.com/8e69a0977a.js" crossorigin="anonymous"></script>
-            </Head>
             <main>
                 <div className={styles.container}>
                     <div>
                         <ul>
                             <li id='home-li'>
-                                <Link href='/'><i class="fa-solid fa-house"></i>Home</Link>
+                                <Link href='/'><i className="fa-solid fa-house"></i>Home</Link>
                             </li>
                             <li id='find-help-li'>
                                 <Link href='/find-help'>Find Help</Link>

@@ -10,9 +10,9 @@ function YourDD214() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <NavBar/>
+                <NavBar />
                 <div>Welcome to the Your DD214 page</div>
-                <Footer/>
+                <Footer />
             </main>
 
         </>
