@@ -275,6 +275,7 @@
 
 .square_box:hover {
   background-color: white;
+  cursor: pointer;
 }
 
 .square_content{
