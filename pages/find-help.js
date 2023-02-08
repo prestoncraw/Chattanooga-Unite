@@ -45,8 +45,8 @@ export default function FindHelp() {
 
                 {/* <h2>Select a {step}</h2> */}
                 <div className={styles.content_container}>
-                    {step === 'service' && services.map(service => <div className={styles.select_box} key={service.id} onClick={() => handleServiceChange(service.id)}>{service.title}</div>)}
-                    {step === 'county' && counties.map(county => <div className={styles.select_box} key={county.id} onClick={() => handleCountyChange(county.id)}>{county.name}</div>)}
+                    {step === 'service' && services.map(service => <div className={styles.select_box} key={service.id} onClick={() => handleServiceChange(service.id)}><div className={styles.select_box_text}>{service.title}</div></div>)}
+                    {step === 'county' && counties.map(county => <div className={styles.select_box} key={county.id} onClick={() => handleCountyChange(county.id)}><div className={styles.select_box_text}>{county.name}</div></div>)}
 
                     {step === 'result' && Object.values(JSON.parse(serviceProviders)).map(sp => <div key={sp.id} className={styles.result_box}>{sp.name}</div>)}
                 </div>
