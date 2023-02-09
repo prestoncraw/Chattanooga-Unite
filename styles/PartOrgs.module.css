@@ -1,0 +1,14 @@
+.part_bullet  {
+  color: white;
+  font-size: 1.5vw;
+  text-align: left;
+  list-style-type: disc;
+  padding-left: 2vw;
+  min-width: 300px;
+}
+
+.links {
+  text-decoration: underline;
+  cursor: pointer;
+  padding-top: 1vw;
+}

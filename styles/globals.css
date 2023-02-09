@@ -102,6 +102,18 @@ body {
   line-height: 2rem;
 }
 
+.cornersPages {
+  background: linear-gradient(#BB133E, #BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 100% 100%, linear-gradient(#BB133E,#BB133E) 100% 100%, #ccc;
+  background-size: 50px 2px,2px 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  padding: 1vw;
+  width: 15%;
+  min-width: 300px;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
 .centered {
   align-items: center;
   text-align: center;
