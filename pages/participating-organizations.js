@@ -1,332 +1,54 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import NavBar from '../components/navbar'
+import NavBar from '../components/navbar';
 import Footer from '../components/footer';
-import Link from 'next/link';
-import Image from 'next/image';
-import styles2 from '../styles/PartOrgs.module.css';
-
+import styles from '../styles/PartOrgs.module.css';
+import { useState, useEffect } from 'react';
 
 function ParticipatingOrganizations() {
-    const list = [
-        'Access One',
-        'Aid and Assist at Home',
-        'AIM Center',
-        'Alexian Brothers PACE',
-        'Alexian Brothers Senior Neighbors',
-        'Alexian Brothers Valley',
-        'All Care Health Services',
-        'Allison Senior Living',
-        'Alzheimer\'s Association',
-        'American Legion Post 159 - Hixson',
-        'American Red Cross of Southeast Tennessee',
-        'Avalon Hospice',
-        'Battlefield of Life Ministries',
-        'Brand New Day Outreach Ministries',
-        'Buffalo Valley',
-        'CARIS Healthcare',
-        'CARTA Care-A-Van',
-        'Catholic Charities',
-        'Celebrate Recovery',
-        'Center for Non-Profits Chattanooga',
-        'Chambliss, Bahner & Stophel',
-        'Chattanooga Area Brain Injury Association',
-        'Chattanooga Area Chamber of Commerce',
-        'Chattanooga Area Veterans Council',
-        'Chattanooga City Council',
-        'Chattanooga Community Kitchen',
-        'Chattanooga Food Bank',
-        'Chattanooga Furniture Bank',
-        'Chattanooga Housing Authority (CHA)',
-        'Chattanooga National Cemetery',
-        'Chattanooga Outpatient VA Clinic',
-        'Chattanooga Police Department',
-        'Chattanooga Regional Homeless Coalition',
-        'Chattanooga State Community College Veterans Affairs Office',
-        'Chattanooga Times Free Press',
-        'Chattanooga Veterans Benefits Office',
-        'Chattanooga Zoo',
-        'City of Chattanooga',
-        'City of Chattanooga Therapeutic Recreation',
-        'Collin A. Douglas, VA Appeals Agent',
-        'Congressman Fleishmann\'s Office',
-        'Demaria\'s Home Improvements',
-        'Department of Veterans Affairs',
-        'Disability Solutions Inc.',
-        'Disabled American Veterans',
-        'Eighth Calvary',
-        'Epilepsy Foundation Southeast Tennessee',
-        'Erlanger Medical Center',
-        'Family Home Care Services, LLC',
-        'Family Promise',
-        'Fort Patriot Place (Buffalo Valley) Transitional Housing Program',
-        'Fortwood Center',
-        'Friends of the Festival',
-        'Get Veterans Involved',
-        "Girls Preparatory School (GPS)",
-        "Goodwill Assistance Dog Academy",
-        "Goodwill Industries",
-        "Habitat For Humanity of Greater Chattanooga",
-        "Hamilton County Health Department",
-        "Hamilton Funeral Home",
-        "Hamilton Relay",
-        "Heartland Ranch",
-        "Helen Ross McNabb",
-        "Home Depot",
-        "Home Health Care of East Tennessee Inc. and Hospice",
-        "Homeless Health Care Center",
-        "Homeless Veterans Task Force",
-        "Honoring the Sacrifice",
-        "Hospice of Chattanooga",
-        "IUPAT",
-        "John Calvin Apartments",
-        "Johnson Mental Health",
-        "Kreative1s, Inc",
-        "Labor Exchange Tennessee",
-        "Ladies of Charity",
-        "Legal Aid of East Tennessee",
-        "Life Choice",
-        "Living Heritage Museum",
-        "Medal of Honor Museum",
-        "Merrill Lynch",
-        "Military Personnel Service Corporation - Family Assistance",
-        "Military Officers Association of America (MOAA)",
-        "Mobility Works (Formerly HDS Vans & Mobility)",
-        "National Guard Armory Family Programs Service Center",
-        "News Channel 9",
-        "Papercut Interactive",
-        "Parkridge Medical Center",
-        "Partnership for Families, Children & Adults",
-        "Platinum Financial Funding",
-        "Project Healing Waters Fly Fishing",
-        "Purple Heart",
-        "Regional Health (Department Offices)",
-        "Regional Outreach Veterans Engagement Resources (R.O.V.E.R.)",
-        "Sea Cadets",
-        "Senator Corker's Office",
-        "Service Corps of Retired Executives (SCORE)",
-        "Sharon's Senior Services",
-        "Signal Centers",
-        "Siskin Hospital for Physical Rehabilitation",
-        "Social Security Administration",
-        "Southeast Regional Health Offices",
-        "Southeast Regional Mobility Management 'Be Mobile' Transportation Program",
-        "Southeast Tennessee Area Agency on Aging and Disability",
-        "Southeast Tennessee Human Resource Agency (SETHRA)",
-        "Southern Adventist University",
-        "Special Transit Services (STS)",
-        "Spirit Horse at Eagles Rest Ranch",
-        "Steps 2 Hope",
-        "Supportive Services for Veterans Families",
-        "Tennessee Department of Health",
-        "Tennessee Department of Labor & Workforce Development",
-        "Tennessee Department of Veterans Affairs",
-        "Tennessee Department of Veterans Affairs Benefits",
-        "Tennessee Heartwood",
-        "Tennessee National Guard",
-        "Tennessee Small Business Development Centers",
-        "Tennessee State Veterans Home",
-        "Tennessee Valley Healthcare System, VA",
-        "The Council for Alcohol and Drug Abuse Services (CADAS)",
-        "The Salvation Army",
-        "U.S. Marines League",
-        "United Way of Greater Chattanooga",
-        "United Way's 211 Call Resource",
-        "University of Tennessee - Corporate Connections",
-        "University of Tennessee at Chattanooga",
-        "University of Tennessee at Chattanooga Educational Opportunity Center",
-        "University of Tennessee at Chattanooga Student Veterans Organization",
-        "University of Tennessee at Chattanooga Veteran Student Services",
-        "University of Tennessee at Chattanooga Student Services",
-        "U.S. Department of Veterans Affairs - VA Supportive Housing (VASH)",
-        "USS Carbonero Base",
-        "VA Life Insurance Center",
-        "VA National Call Center",
-        "VA Supportive Housing (VASH)",
-        "VA Veteran Caregiver Support Line",
-        "VA Epilepsy Center of Excellence",
-        "Veritas Incare, LLC",
-        "Vet Force 1",
-        "Veterans Administration - Compensated Work Therapy Program",
-        "Veterans Administration - Healthcare for Homeless Veterans",
-        "Veterans Administration - OEF/OIF Case Manager",
-        "Veterans Affairs - Chattanooga Vet Center",
-        "Veterans Assistance Group",
-        "Veterans Court",
-        "Veterans Funeral Care",
-        "Veterans Health Administration",
-        "Veterans Service Officer, NW Georgia",
-        "Veterans Service Officers, Southeast Tennessee",
-        "Vietnam Veterans of America Chapter 203",
-        "Vietnam Veterans of America Chapter 942",
-        "VFW 4848",
-        "Volunteer Behavioral Health",
-        "Welcome Home of Chattanooga",
-        "Young Men's Christian Association"
-      ];
+  // State to store the list of organizations
+  const [data, setData] = useState({ organizations: [] });
 
-      const links = [
-        "http://www.uwchatt.org/www/docs/1232",
-        "http://setnvets.org/your-dd214",
-        "http://www.accessoneeap.com/",
-        "http://www.addus.com/",
-        "http://www.aimcenterinc.org/",
-        "http://www.alexianbrothers.net/www/docs/109/adult-day-care-chattanooga-hamilton-county",
-        "http://www.alexianbrothers.net/www/docs/1/Tennessee-Senior-Services",
-        "http://www.alexianbrothers.net/www/docs/110/residential-alzheimers-dementia-care-chattanooga.html",
-        "http://www.allcarehealthservices.net/",
-        "http://www.allisonsenioradvising.com/HOME",
-        "http://www.alz.org/",
-        "http://centennial.legion.org/tennessee/post159",
-        "http://www.redcross.org/local/tennessee/local-chapters/southeast",
-        "http://www.avalon-hospice.com/",
-        "https://www.facebook.com/battlefieldoflifeministries/",
-        "https://www.facebook.com/Brand-New-Day-Outreach-Ministries-733093716727310/",
-        "http://www.buffalovalley.org/",
-        "http://carishealthcare.com/",
-        "http://cpfamilynetwork.org/cerebralpalsyresources/tn/chattanooga/carta-care-van",
-        "http://ccetn.org/",
-        "http://www.celebraterecovery.com/",
-        "http://www.cnpchatt.org/www",
-        "http://www.chamblisslaw.com/",
-        "http://cabiatn.dreamhosters.com/",
-        "https://www.chattanoogachamber.com/",
-        "http://chattareaveterans.com/",
-        "http://www.chattanooga.gov/city-council/council-members",
-        "http://community-kitchen.org/",
-        "http://www.chattfoodbank.org/",
-        "http://www.chattanoogafurniturebank.org/",
-        "http://www.chahousing.org/",
-        "http://www.cem.va.gov/cems/nchp/chattanooga.asp",
-        "http://www.tennesseevalley.va.gov/",
-        "http://www.chattanooga.gov/police-department",
-        "http://homelesscoalition.org/",
-        "https://www.chattanoogastate.edu/student-support/outreach-programs/veterans-affairs",
-        "http://www.timesfreepress.com/",
-        "http://www.benefits.va.gov/benefits/",
-        "http://www.chattzoo.org/",
-        "http://www.chattanooga.gov/",
-        "http://www.chattanooga.gov/youthandfamily/recreation-fitness-sports-therapeutic-facilities-pools/therapeutic-recreation",
-        "http://www.veteransaidbenefit.org/appeals_agents.htm",
-        "http://fleischmann.house.gov/",
-        "https://www.facebook.com/DeMarias-Home-Improvements-294231657339052/",
-        "http://www.va.gov/",
-        "http://www.dsil.org/",
-        "https://www.facebook.com/DAV6Chattanooga/",
-        "http://www.epilepsy-setn.org/",
-        "http://www.erlanger.org/",
-        "http://www.fhcsllc.com/",
-        "http://familypromisebradley.org/",
-        "http://www.buffalovalley.org/veterans.html",
-        "http://www.riverbendfestival.com/",
-        "http://getvetsinvolved.org/",
-        "http://www.gps.edu/",
-        "http://www.goodwill.org/blog/news-updates/goodwill-trains-service-dogs-to-support-people-with-disabilities/",
-        "http://www.goodwillchatt.org/",
-        "http://www.habichatt.org/",
-        "http://health.hamiltontn.org/",
-        "http://www.hamiltonfuneraloptions.com/",
-        "http://www.hamiltonrelay.com/index.html",
-        "http://heartlandrancharena.com/",
-        "http://www.mcnabbcenter.org/",
-        "http://www.homedepot.com/",
-        "http://www.hhcoet.com/",
-        "http://health-centers.healthgrove.com/l/2574/Homeless-Health-Care-Center",
-        "http://www.legion.org/careers/homelesstaskforce",
-        "http://honoringthesacrifice.com/",
-        "http://www.hospiceofchattanooga.org/www",
-        "https://iupat.org/",
-        "http://affordablehousingonline.com/housing-search/Tennessee/Hixson/John-Calvin-Apartments/1764/",
-        "https://www.vbhcs.org/",
-        "https://www.facebook.com/kreative1s",
-        "http://laborexchangechatt.com/",
-        "http://www.myolph.com/Ladies%20of%20Charity.htm",
-        "http://www.laet.org/LAET-Locations/LAET-Offices.aspx",
-        "http://compassus.com/lafayette/?utm_source=google&utm_medium=organic&utm_campaign=localmaps",
-        "http://www.livingheritagemuseum.com/",
-        "http://www.mohm.org/",
-        "https://www.ml.com/mlwm/system/viewbranchpage.aspx?pageurl=chattanooga_tn",
-        "http://www.mpscrc.com/",
-        "http://www.moaa.org/",
-        "http://www.mobilityworks.com/",
-        "https://www.jointservicessupport.org/FP/BenefitsGuide.aspx",
-        "http://newschannel9.com/",
-        "http://www.papercutinteractive.com/",
-        "http://parkridgemedicalcenter.com/",
-        "https://www.partnershipfca.com/",
-        "http://www.platinumfinancialfunding.com/",
-        "https://www.projecthealingwaters",
-        "http://www.purpleheart.org/",
-        "https://www.tn.gov/health/topic/localdepartments",
-        "http://www.rover.vet/",
-        "http://www.seacadets.org/",
-        "https://www.tn.gov/health/topic/localdepartments",
-        "https://www.corker.senate.gov/public/index.cfm/home",
-        "https://chattanooga.score.org/",
-        "https://www.facebook.com/Sharons-Senior-Services-132819106736753/",
-        "http://www.signalcenters.org/",
-        "https://www.siskinrehab.org/",
-        "https://www.ssa.gov/",
-        "https://apps.health.tn.gov/ReportableDiseases/RegionalOffices.aspx",
-        "http://gocarta.org/",
-        "http://www.setaaad.org/www",
-        "http://sethra.us/",
-        "http://www1.southern.edu/",
-        "http://sethra.us/county-service-areas/county/8",
-        "https://www.facebook.com/gingerbbrown/",
-        "http://steps2hope.com/",
-        "https://www.facebook.com/gingerbbrown/",
-        "http://tn.gov/health",
-        "http://tn.gov/workforce",
-        "http://www.tn.gov/veteran/",
-        "http://www.tennessee.gov/veteran/section/veteran-state-benefits",
-        "http://www.tennesseeheartwood.org/",
-        "https://www.nationalguard.com/",
-        "https://www.tsbdc.org/",
-        "http://www.tsvh.org/",
-        "http://www.tennesseevalley.va.gov/",
-        "http://www.cadas.org/",
-        "http://www.salvationarmyusa.org/",
-        "http://www.sediv.org/",
-        "http://www.uwchatt.org/www",
-        "http://www.211.org/",
-        "http://clee.utk.edu/employment/career-workforce-development/corporate-connections/",
-        "https://www.utc.edu/",
-        "https://www.utc.edu/educational-opportunity-center/",
-        "http://www.utcsvo.org/",
-        "https://www.utc.edu/dean-students/student-veteran-services/",
-        "https://www.utc.edu/student-support-services/",
-        "http://portal.hud.gov/hudportal/HUD?src=/program_offices/public_indian_housing/programs/hcv/vash",
-        "https://www.facebook.com/USS-Carbonero-Base-134019419988029/",
-      ];
-    return (
-        <>
-            <Head>
-                <title>Participating Organizations &raquo; Chattanooga Unite - Veterans Resource Center</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <main>
-                <NavBar />
-                <div className="grayBackground centered">
-                    <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
-                </div>
-                <div className="blueBackground centered">  
-                                                                     
-                    <ul className={styles2.part_bullet}>
-                        {list.map((item, index) => (
-                        <li className={styles2.padding_part} key={index}>
-                            <a href={links[index]} className={styles2.part_links}>{item}</a>
-                        </li>
-                        ))}
-                    </ul>
-                </div>
-                <Footer />
-                
-            </main>
+  // Use effect hook to fetch data from a JSON file
+  useEffect(() => {
+    fetch('/data/organizations.json')
+      .then(res => res.json())
+      .then(data => {
+        setData(data);
+      })
+      .catch(err => console.error(err));
+  }, []);
 
-        </>
+  return (
+    <>
+      <Head>
+        <title>Participating Organizations &raquo; Chattanooga Unite - Veterans Resource Center</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-    )
-}
+      <main>
+        <NavBar />
+        <div className="grayBackground centered">
+          <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
+          <p className="cornersPages description_dark">Providing outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies.</p>
+        </div>
 
-export default ParticipatingOrganizations
+        <div className="blueBackground">  
+          <div className="left">
+            <div className="white_decoration"></div>                                                                     
+            <ul className={styles.part_bullet}>
+              {data.organizations.map((item, index) => (
+                <li className={styles.links} key={index}>
+                  <a href={item.link} className={styles.links}>{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <Footer />
+      </main>
+    </>
+  );
+};
+
+export default ParticipatingOrganizations;
