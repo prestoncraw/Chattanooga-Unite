@@ -1,0 +1,30 @@
+.text_left {
+  color: white;
+  font-size: 1.5vw;
+  text-align: left;
+}
+
+.col3 {
+
+}
+
+.part_bullet  {
+  color: white;
+  font-size: 1.5vw;
+  text-align: left;
+  list-style-type: disc;
+  padding-left: 70px;
+}
+
+.padding_part {
+  padding-top: 25px;
+}
+
+.part_links {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.part_211 image{
+    float: left;
+}
