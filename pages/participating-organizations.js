@@ -28,8 +28,12 @@ function ParticipatingOrganizations() {
       <main>
         <NavBar />
         <div className="grayBackground centered">
-          <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
-          <p className="cornersPages description_dark">Providing outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies.</p>
+        <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
+        <div className="imageContainerHead">
+            <img src="/images/unitedwayblack.png" alt="United Way Left Image" className="leftImageHead" />
+            <p className="cornersPages description_dark">Providing outreach to all military service persons including veterans and their families by creating partnerships between VA providers and local agencies.</p>
+            <img src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="rightImageHead" />
+        </div>
         </div>
 
         <div className="blueBackground">  
