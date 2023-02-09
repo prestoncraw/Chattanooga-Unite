@@ -11,4 +11,26 @@
   text-decoration: underline;
   cursor: pointer;
   padding-top: 1vw;
+  font-size: min(max(3.5vw, 22.5px), 25px);
+}
+
+
+@media (max-width: 767px) {
+  .part_bullet {
+    color: white;
+    font-size: 1.5vw;
+    text-align: left;
+    list-style-type: disc;
+    padding-left: 5vw;
+    min-width: 300px;
+  }
+  
+  .links {
+    text-decoration: underline;
+    cursor: pointer;
+    padding-top: 1vw;
+    font-size: min(max(3.5vw, 22.5px), 25px);
+  }
+  
+
 }
