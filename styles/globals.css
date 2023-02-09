@@ -195,18 +195,25 @@ body {
 .imageContainerHead {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  max-width: 50%;
+  text-align: center;
+  position: relative;
 }
 
 .leftImageHead {
-  height: 5vw;
-  width: 10vw;
+  position: absolute;
+  right: 0;
+  margin-right: -15vw;
 }
 
 .rightImageHead {
-  height: 5vw;
-  width: 10vw;
+  position: absolute;
+  left: 0;
+  margin-left: -15vw;
 }
+
+
 
 a {
   color: inherit;
@@ -244,4 +251,12 @@ ul {
 button {
   padding: 0.5rem 1rem;
   font-weight: bold;
+}
+
+@media (max-width: 767px) {
+  .imageContainerHead img {
+    max-width: 80%;
+    height: auto;
+    width: 40px;
+  }
 }

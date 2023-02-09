@@ -3,6 +3,8 @@ import NavBar from '../components/navbar';
 import Footer from '../components/footer';
 import styles from '../styles/PartOrgs.module.css';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
+
 
 function ParticipatingOrganizations() {
   // State to store the list of organizations
@@ -30,10 +32,12 @@ function ParticipatingOrganizations() {
         <div className="grayBackground centered">
         <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
         <div className="imageContainerHead">
-            <img src="/images/unitedwayblack.png" alt="United Way Left Image" className="leftImageHead" />
-            <p className="cornersPages description_dark">Providing outreach to all military service persons including veterans and their families by creating partnerships between VA providers and local agencies.</p>
-            <img src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="rightImageHead" />
+        <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={200} height={200} />
+        <p className="cornersPages description_dark">Providing outreach to all military service persons including veterans and their families by creating partnerships between VA providers and local agencies.</p>
+        <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={285} height={200} />
         </div>
+
+
         </div>
 
         <div className="blueBackground">  
