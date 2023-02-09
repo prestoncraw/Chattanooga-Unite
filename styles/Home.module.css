@@ -153,6 +153,13 @@
   text-align: center;
 }
 
+.text_left {
+  color: white;
+  font-size: 1.5vw;
+  text-align: left;
+}
+
+
 .sub_text_centered {
   font-size: 1.5vw;
 }
@@ -168,6 +175,9 @@
   margin-left: 30px;
 }
 
+.col3 {
+
+}
 
 .right {
   float: right;
@@ -274,4 +284,21 @@
   max-width: 75%;
   min-width: 300px;
   color: #002147CC;
+}
+
+.part_bullet  {
+  color: white;
+  font-size: 1.5vw;
+  text-align: left;
+  list-style-type: disc;
+  padding-left: 70px;
+}
+
+.padding_part {
+  padding-top: 25px;
+}
+
+.part_links {
+  text-decoration: underline;
+  cursor: pointer;
 }
