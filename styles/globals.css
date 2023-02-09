@@ -192,6 +192,22 @@ body {
   translate: 0 min(-30vw, 300px);
 }
 
+.imageContainerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leftImageHead {
+  height: 5vw;
+  width: 10vw;
+}
+
+.rightImageHead {
+  height: 5vw;
+  width: 10vw;
+}
+
 a {
   color: inherit;
   text-decoration: none;
