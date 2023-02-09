@@ -307,29 +307,15 @@ function ParticipatingOrganizations() {
             </Head>
             <main>
                 <NavBar />
-                <div className={styles["grayBackground"] + " " + styles["centered"]}>
-                    <h1 className={styles.title}>Participating Organizations <span className={styles.red}></span><br></br></h1>
+                <div className="grayBackground centered">
+                    <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
                 </div>
-                <div className={styles["blueBackground"]+ " " + styles["centered"]}>  
-                        <Image
-                            className={styles2.part_211}
-                            src="/images/call211.png"
-                            alt="Call United Way 211"
-                            height={256}
-                            width={240}
-                        />
-                         <Image
-                            className={styles2.part_211}
-                            src="/images/dd214.jpg"
-                            alt="Do you have your DD214? Learn more"
-                            height={256}
-                            width={240}
-                        />
-                                                                         
-                    <ul className={styles.part_bullet}>
+                <div className="blueBackground centered">  
+                                                                     
+                    <ul className={styles2.part_bullet}>
                         {list.map((item, index) => (
-                        <li className={styles.padding_part} key={index}>
-                            <a href={links[index]} className={styles.part_links}>{item}</a>
+                        <li className={styles2.padding_part} key={index}>
+                            <a href={links[index]} className={styles2.part_links}>{item}</a>
                         </li>
                         ))}
                     </ul>
