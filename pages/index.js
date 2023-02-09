@@ -11,18 +11,17 @@ export default function Home() {
       <Head>
         <title>Home &raquo; Chattanooga Unite - Veterans Resource Center</title>
         <link rel="icon" href="/favicon.ico" />
-        <script src="https://kit.fontawesome.com/8e69a0977a.js" crossorigin="anonymous"></script>
       </Head>
 
 
       <main>
       <NavBar/>
-        <div className={styles["grayBackground"] + " " + styles["centered"]}>
-            <h1 className={styles.title}>Veterans Resource Center<br></br>Chattanooga Unite <span className={styles.red}><i class="fa-solid fa-star"></i></span></h1>
+        <div className="grayBackground centered">
+            <h1 className="title">Veterans Resource Center<br></br>Chattanooga Unite <span className={styles.red}><i className="fa-solid fa-star"></i></span></h1>
             <p className={styles["corners"] + " " + styles["description_dark"]}>
               Providing outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies.
             </p>
-            <Link href='/find-help'><button className={styles.btn_outline_dark}>Find Help <i class="fa-solid fa-arrow-right"></i></button></Link>
+            <Link href='/find-help'><button className={styles.btn_outline_dark}>Find Help <i className="fa-solid fa-arrow-right"></i></button></Link>
         </div>
 
         <div className={styles.blueBackground}>
