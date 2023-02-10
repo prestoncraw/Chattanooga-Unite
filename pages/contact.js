@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Contact.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
+import Image from 'next/image';
 
 function Contact() {
     return (
@@ -14,6 +15,12 @@ function Contact() {
                 <NavBar />
                 <div className="grayBackground centered">
                 <h1 className="title">Contact Us <span className="red"></span><br></br></h1>
+                <div className="imageContainerHead">
+                <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={200} height={200} />
+                <p className="cornersPages description_dark">Providing outreach to all military service persons including veterans and their families by creating partnerships between VA providers and local agencies.</p>
+                <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={285} height={200} />
+                </div>
+
                 </div>
                 <div className="blueBackground left"> 
                 <div className="white_decoration"> </div>
