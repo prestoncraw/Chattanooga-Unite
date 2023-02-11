@@ -42,7 +42,7 @@
 
 .red {
   color: #BB133E;
-  font-size: 3vw;
+  font-size: min(max(3vw, 15px), 20px);
 }
 
 .bold {
@@ -57,4 +57,14 @@
   max-width: 75%;
   min-width: 300px;
   color: #002147CC;
+}
+
+.titleBackground > img {
+  position: absolute;
+  bottom:0;
+  right:0;
+  z-index: -1;
+  height:100%;
+  width:100%;
+  object-fit:cover;
 }
