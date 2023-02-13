@@ -12,8 +12,8 @@ function Contact() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <div className="container">
                 <NavBar />
+                <div className="container">
                 <div className="grayBackground centered">
                 <h1 className="title">Contact Us <span className="red"></span><br></br></h1>
                 <div className="imageContainerHead">
