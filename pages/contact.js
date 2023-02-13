@@ -12,6 +12,7 @@ function Contact() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
+                <div className="container">
                 <NavBar />
                 <div className="grayBackground centered">
                 <h1 className="title">Contact Us <span className="red"></span><br></br></h1>
@@ -35,7 +36,7 @@ function Contact() {
                 <div className={styles.text_light}>All other inquiries, please dial 211</div><br></br>
                    
                 </div>
-
+            </div>
             </main>
             <Footer></Footer>
 
