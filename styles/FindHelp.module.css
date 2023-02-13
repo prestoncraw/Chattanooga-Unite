@@ -1,12 +1,15 @@
 .container {
-    background-color: #CBD1D7AA;
+    background-color: #002147CC;
     padding-bottom: 2rem;
 }
 .container h1 {
+    margin: 0;
     text-align: center;
     font-size: 3.5rem;
-    padding: 2rem 0;
+    padding: 2rem 0 2rem 0;
     color: #002147;
+    background-color: #CBD1D7;
+
 }
 .content_container {
     display: flex;
@@ -15,6 +18,12 @@
     max-width: 1000px;
     margin: auto;
     justify-content: center;
+    padding: 20px 0;
+}
+.break {
+    width: 100%;
+    background-color: #ffffff;
+    height: 25px;
 }
 
 .result_box {
@@ -31,11 +40,13 @@
     text-align: center;
     border: 5px solid #BB133E;
     color: #BB133E;
+    /* border: 5px solid #002147;
+    color: #002147; */
     font-weight: bold;
     height: 150px;
     border-radius: 20px;
-    /* background-color: #FFFFFF77; */
-    background-color: white;
+    background-color: #ffffff;
+    /* background-color: #CBD1D7CC; */
 }
 
 .select_box_text {
@@ -49,7 +60,7 @@
 
 @media only screen and (max-width: 600px) {
     .container {
-      background-color: #CBD1D7AA;
+      background-color: #002147CC;
     }
     .container h1 {
         font-size: 1.5rem;
@@ -68,6 +79,10 @@
         background-color: white;
         border-radius: 20px;
         margin-bottom: 20px;
+    }
+    .break {
+        height: 0;
+        border-bottom: 2px solid #002147;
     }
     
   }

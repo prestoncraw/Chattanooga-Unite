@@ -45,6 +45,7 @@ export default function FindHelp() {
                 {step === 'result' && <h1>These Service Providers Can Help</h1>}
 
                 {/* <h2>Select a {step}</h2> */}
+                <div className={styles.break}> </div>
                 <div className={styles.content_container}>
                     {step === 'service' && services.map(service => <div className={styles.select_box} key={service.id} onClick={() => handleServiceChange(service.id)}><div className={styles.select_box_text}>{service.title}</div></div>)}
                     {step === 'county' && counties.map(county => <div className={styles.select_box} key={county.id} onClick={() => handleCountyChange(county.id)}><div className={styles.select_box_text}>{county.name}</div></div>)}
@@ -56,6 +57,7 @@ export default function FindHelp() {
                 {step === 'result' && <h3 onClick={handleResultChange}>New search</h3>}
 
             </div>
+            <div className={styles.break}> </div>
             <Footer />
         </>
 
