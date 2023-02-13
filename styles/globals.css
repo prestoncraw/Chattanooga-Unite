@@ -7,6 +7,214 @@ body {
   height: 100%;
 }
 
+.title {
+  margin: 0 0 1rem;
+  line-height: 1.15;
+  font-size: min(max(5vw, 35px), 50px);
+  color: #002147;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.blueBackground {
+  background-color: #002147CC;
+}
+
+.grayBackground {
+  background-color: #CBD1D7CC;
+}
+
+.blueBackground, .grayBackground {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  margin-bottom: 25px;
+  flex-direction: column;
+  padding: 1vw;
+  font-family: Arial, sans-serif;
+}
+
+.white_decoration, .blue_decoration {
+  height: 1vw;
+  width: 6vw;
+  border-radius: 25px;
+  margin: 1vw;
+  min-width: 50px;
+  min-height: 5px;
+}
+
+.white_decoration{
+  background-color: white;
+}
+
+.blue_decoration{
+  background-color: #002147;
+}
+
+.title_light, .title_dark {
+  font-size: min(max(4vw, 25px), 40px);
+  margin: 1vw;
+  font-weight: lighter;
+}
+
+.title_dark {
+  color: #002147;
+}
+
+.title_light {
+  color: white;
+}
+
+.description_dark, .description_light, .description_dark p, .description_light p {
+  font-size: 1rem;
+  line-height: 2rem;
+  padding: 1vw;
+  max-width: 75%;
+  min-width: 300px;
+}
+
+.description_light {
+  color: white;
+}
+
+.description_dark{
+  color: #002147CC;
+}
+
+.corners {
+  background: linear-gradient(#BB133E, #BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 100% 100%, linear-gradient(#BB133E,#BB133E) 100% 100%, #ccc;
+  background-size: 50px 2px,2px 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  padding: 1vw;
+  width: 25%;
+  min-width: 300px;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+.cornersPages {
+  background: linear-gradient(#BB133E, #BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 100% 100%, linear-gradient(#BB133E,#BB133E) 100% 100%, #ccc;
+  background-size: 50px 2px,2px 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  padding: 1vw;
+  width: 15%;
+  min-width: 300px;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+.centered {
+  align-items: center;
+  text-align: center;
+}
+
+.sub_title_text_centered {
+  color: white;
+  font-size: 1.75vw;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.text_centered {
+  color: white;
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+.sub_text_centered {
+  font-size: 1.5vw;
+}
+
+.col1 {
+  column-count: 2;
+  column-gap: 25px;
+}
+
+.col2 {
+  float: left;
+  width: 200px;
+  margin-left: 30px;
+}
+
+
+.right {
+  float: right;
+  text-align: right;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.left {
+  float: left;
+  text-align: left;
+}
+
+.btn_outline_dark {
+  border-radius: 15px;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  margin: 1rem;
+  width: 250px;
+  cursor: pointer;
+}
+
+.btn_outline_dark {
+  background-color: #002147CC;
+  color: white;
+  border: 5px solid white;
+}
+
+.btn_outline_dark:hover {
+  background-color: #002147;
+}
+
+.right > img {
+  width: min(max(25vw, 100px), 300px);
+  margin: 0 -1vw -31vw 0;
+  translate: 0 min(-30vw, 300px);
+}
+
+.left > img {
+  width: min(max(25vw, 100px), 300px);
+  margin: 0 0 -31vw -1vw;
+  translate: 0 min(-30vw, 300px);
+}
+
+.imageContainerHead {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 50%;
+  text-align: center;
+  position: relative;
+}
+
+.leftImageHead {
+  position: absolute;
+  right: 0;
+  margin-right: -15vw;
+}
+
+.rightImageHead {
+  position: absolute;
+  left: 0;
+  margin-left: -15vw;
+}
+
+
+
 a {
   color: inherit;
   text-decoration: none;
@@ -21,7 +229,14 @@ img {
   height: auto;
 }
 
-h1,
+h1 {
+  margin: 0 0 1rem;
+  line-height: 1.15;
+  font-size: min(max(5vw, 35px), 50px);
+  color: #002147;
+  text-align: center;
+  font-family: Arial, sans-serif;
+} 
 h2,
 p,
 ul {
@@ -36,4 +251,12 @@ ul {
 button {
   padding: 0.5rem 1rem;
   font-weight: bold;
+}
+
+@media (max-width: 767px) {
+  .imageContainerHead img {
+    max-width: 80%;
+    height: auto;
+    width: 40px;
+  }
 }
