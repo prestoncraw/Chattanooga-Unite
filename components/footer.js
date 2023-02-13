@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function Footer() {
     return (
-        <>
+        <div className={styles.footer_container}>
             <div className={styles.container}>
             <div className={styles.link_container}>
                         <ul> 
@@ -111,7 +111,7 @@ export default function Footer() {
                     <p>Copyright © 2023 Chattanooga Unite.</p>
                 </div>
             </div>
-        </>
+        </div>
  
  )
 }

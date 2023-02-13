@@ -13,6 +13,10 @@
   align-items: center;
 }
 
+.footer_container {
+  border-top: 2px solid #002147;
+}
+
 .branch_container {
   display: flex;
   flex-direction: row;
