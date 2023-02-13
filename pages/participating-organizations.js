@@ -29,6 +29,7 @@ function ParticipatingOrganizations() {
 
       <main>
         <NavBar />
+        <div className="container">
         <div className="grayBackground centered">
         <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
         <div className="imageContainerHead">
@@ -52,7 +53,7 @@ function ParticipatingOrganizations() {
             </ul>
           </div>
         </div>
-
+        </div>
         <Footer />
       </main>
     </>
