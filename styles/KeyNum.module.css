@@ -1,0 +1,16 @@
+.sub_title_text_centered {
+    text-align: left;
+    color: white;
+    font-size: min(max(4vw, 25px), 30px);
+    margin: 1vw;
+    font-weight: bold;
+  }
+  
+  .text_centered {
+    text-align: left;
+    color: white;
+    font-size: min(max(4vw, 25px), 25px);
+    margin: 1vw;
+    font-weight: lighter;
+  }
+  
