@@ -1,10 +1,12 @@
 .container {
     background-color: #CBD1D7AA;
+    padding-bottom: 2rem;
 }
 .container h1 {
     text-align: center;
     font-size: 3.5rem;
     padding: 2rem 0;
+    color: #002147;
 }
 .content_container {
     display: flex;
@@ -16,7 +18,7 @@
 }
 
 .result_box {
-    flex: 0 0 800px;
+    flex: 0 1 800px;
     height: 150px;
     background-color: white;
     border-radius: 20px;
@@ -27,11 +29,19 @@
     flex: 0 0 150px;
     margin: 10px 25px;
     text-align: center;
-    border: red 3px solid;
+    border: 5px solid #BB133E;
+    color: #BB133E;
+    font-weight: bold;
     height: 150px;
     border-radius: 20px;
-    background-color: #FFFFFF77;
+    /* background-color: #FFFFFF77; */
+    background-color: white;
 }
+
+.select_box_text {
+    font-size: 1.1rem;
+}
+
 .select_box:hover {
     cursor: pointer;
     background-color: white;
@@ -43,6 +53,8 @@
     }
     .container h1 {
         font-size: 1.5rem;
+        padding: 1rem 0;
+        margin: 0;
     }
     
     .select_box {
