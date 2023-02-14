@@ -14,14 +14,12 @@ function Contact() {
             <main>
                 <NavBar />
                 <div className="container">
-                <div className="grayBackground centered">
+                <div className="grayBackgroundHead centered">
                 <h1 className="title">Contact Us <span className="red"></span><br></br></h1>
                 <div className="imageContainerHead">
-                <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={200} height={200} />
-                <p className="cornersPages description_dark">Providing outreach to all military service persons including veterans and their families by creating partnerships between VA providers and local agencies.</p>
-                <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={285} height={200} />
-                </div>
-
+                <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={100} height={200} />
+                <p className="cornersPages description_dark">Replace thsd fsdfs dfsdfsdf  sfdfdsfsdfds s....</p>
+                <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />                </div>
                 </div>
                 <div className="blueBackground left"> 
                 <div className="white_decoration"> </div>
