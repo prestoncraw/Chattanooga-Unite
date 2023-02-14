@@ -23,6 +23,8 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 .blueBackground {
@@ -30,7 +32,7 @@ body {
 }
 
 .grayBackground {
-  background-color: #CBD1D7CC;
+  background-color: #CBD1D7DD;
 }
 
 .blueBackground, .grayBackground {
@@ -41,11 +43,16 @@ body {
   flex-direction: column;
   padding: 1vw;
   font-family: Arial, sans-serif;
+  position: relative;
+}
+
+.unitedWay {
+  padding:1vw;
 }
 
 .white_decoration, .blue_decoration {
-  height: 1vw;
-  width: 6vw;
+  height: min(max(1vw, 8px), 10px);
+  width: min(max(10vw, 50px), 75px);
   border-radius: 25px;
   margin: 1vw;
   min-width: 50px;
@@ -75,8 +82,8 @@ body {
 }
 
 .description_dark, .description_light, .description_dark p, .description_light p {
-  font-size: 1rem;
-  line-height: 2rem;
+  font-size: min(max(3vw, 12px), 20px);
+  line-height: min(max(2vw, 20px), 40px);
   padding: 1vw;
   max-width: 75%;
   min-width: 300px;
@@ -185,16 +192,21 @@ body {
   background-color: #002147;
 }
 
-.right > img {
-  width: min(max(25vw, 100px), 300px);
-  margin: 0 -1vw -31vw 0;
-  translate: 0 min(-30vw, 300px);
+.right > img, .left > img {
+  position: absolute;
+  bottom:0;
+  max-height:100%;
+  max-width:25%;
+  object-fit:cover;
+  width: min(max(25vw, 115px), 250px);
 }
 
 .left > img {
-  width: min(max(25vw, 100px), 300px);
-  margin: 0 0 -31vw -1vw;
-  translate: 0 min(-30vw, 300px);
+  left:0;
+}
+
+.right > img {
+  right:0;
 }
 
 .imageContainerHead {
