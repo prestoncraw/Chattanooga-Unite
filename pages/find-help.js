@@ -50,7 +50,7 @@ export default function FindHelp() {
 
                 <div className={styles.break}> </div>
                 <div className={styles.content_container}>
-                    {step === 'service' && services.map(s => <div className={styles.select_box} key={s.id} onClick={() => handleServiceChange(s.id, s.title)}><div className={styles.select_box_text}>{s.title}</div></div>)}
+                    {step === 'service' && services.map(s => <div className={styles.select_box} key={s.id} onClick={() => handleServiceChange(s.id, s.title)}><div className={styles.select_box_img}><div class={s.icon}></div></div><div className={styles.select_box_text}>{s.title}</div></div>)}
                     {step === 'county' && counties.map(county => <div className={styles.select_box} key={county.id} onClick={() => handleCountyChange(county.id, county.name)}><div className={styles.select_box_img}><svg viewBox={"0 0 " + county.svg_w + " " + county.svg_h}><path d={county.svg_path}></path><title>{county.alt}</title></svg></div><div className={styles.select_box_text}>{county.name}</div></div>)}
 
                     {(step === 'result' && Object.values(JSON.parse(serviceProviders)).length == 0) && <div className={styles.noServiceWarn}>Selected service not available in selected county.</div>}

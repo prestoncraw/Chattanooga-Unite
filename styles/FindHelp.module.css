@@ -83,17 +83,28 @@
 
 .select_box_text {
     font-size: 1.1rem;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    height: 30px;
 }
 
 .select_box_img {
-    height: 100px;
+    height: 90px;
     margin: auto;
+    font-size: 54pt;
+    padding-top: 10px;
+}
+
+.select_box_img div div {
+    width: 90px;
+    height: 90px;
+    padding-top: 20px;
 }
 
 .select_box_img svg{
-    padding-top: 10px;
     height: 90px;
     width: 90px;
+    padding-bottom: 15px;
     stroke:#BB133E;
     fill: #BB133E;
 }
