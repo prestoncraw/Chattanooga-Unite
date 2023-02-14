@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="container">
+    <div>
       <Head>
         <title>Home &raquo; Chattanooga Unite - Veterans Resource Center</title>
         <link rel="icon" href="/favicon.ico" />
@@ -16,6 +16,7 @@ export default function Home() {
 
       <main>
       <NavBar/>
+      <div className="container">
         <div className="grayBackground centered">
           <div className={styles.titleBackground}>
             <Image
@@ -72,7 +73,7 @@ export default function Home() {
           </div>
         </div>
         <a href='/dashboard'><div className={styles.card}>Service Provders Login Here</div></a>
-
+        </div>
       </main>
       <Footer />
     </div>
