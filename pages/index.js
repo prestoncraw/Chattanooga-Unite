@@ -58,6 +58,7 @@ export default function Home() {
               We are proud to have partnerships with over 150 organizations in South East Tennessee and its surrounding areas. 
               We connect veterans with the resources they need in over 15 counties accross Tennessee, Georgia, and Alabama.
               We are able to help provide veterans with access to 13 different types of assistance. <br></br><br></br>
+              Need help? <Link className="link_dark" href='/find-help'>Find help here!</Link><br></br><br></br>
               Questions? Call 2-1-1 United Way of Greater Chattanooga. 
             </p>
           </div>

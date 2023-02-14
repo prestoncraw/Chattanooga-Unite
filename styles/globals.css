@@ -225,7 +225,15 @@ body {
   margin-left: -15vw;
 }
 
+.link_dark {
+  border-bottom: 2px solid #002147CC;
+  padding-bottom: 2px;
+}
 
+.link_dark:hover {
+  border-bottom: 2px solid #002147;
+  color: #002147;
+}
 
 a {
   color: inherit;
