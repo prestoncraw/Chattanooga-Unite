@@ -17,7 +17,7 @@ export default function Home() {
       <main>
       <NavBar/>
       <div className="container">
-        <div className="grayBackground centered">
+        <div className="grayBackgroundHead centered">
           <div className={styles.titleBackground}>
             <Image
               src="/images/handshake.png"
