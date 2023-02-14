@@ -34,6 +34,7 @@ body {
 
 .grayBackground {
   background-color: #CBD1D7DD;
+  border-bottom: 2px solid #002147;
 }
 
 .blueBackground, .grayBackground {
