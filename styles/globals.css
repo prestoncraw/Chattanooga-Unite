@@ -224,8 +224,7 @@ body {
   top: -1vw;
 }
 
-
- .leftImageHead {
+.leftImageHead {
   max-width: 80%; 
   position: relative; 
   display: inline-block; 
@@ -244,6 +243,21 @@ body {
   padding: 1vw;
   font-family: Arial, sans-serif;
   border-bottom: 2px solid #002147;
+}
+
+.link_dark {
+  border-bottom: 2px solid #002147CC;
+  padding-bottom: 2px;
+}
+
+.link_dark {
+  border-bottom: 2px solid #002147CC;
+  padding-bottom: 2px;
+}
+
+.link_dark:hover {
+  border-bottom: 2px solid #002147;
+  color: #002147;
 }
 
 a {

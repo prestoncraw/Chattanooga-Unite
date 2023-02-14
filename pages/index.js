@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="container">
+    <div>
       <Head>
         <title>Home &raquo; Chattanooga Unite - Veterans Resource Center</title>
         <link rel="icon" href="/favicon.ico" />
@@ -16,6 +16,7 @@ export default function Home() {
 
       <main>
       <NavBar/>
+      <div className="container">
         <div className="grayBackground centered">
           <div className={styles.titleBackground}>
             <Image
@@ -58,6 +59,7 @@ export default function Home() {
               We are proud to have partnerships with over 150 organizations in South East Tennessee and its surrounding areas. 
               We connect veterans with the resources they need in over 15 counties accross Tennessee, Georgia, and Alabama.
               We are able to help provide veterans with access to 13 different types of assistance. <br></br><br></br>
+              Need help? <Link className="link_dark" href='/find-help'>Find help here!</Link><br></br><br></br>
               Questions? Call 2-1-1 United Way of Greater Chattanooga. 
             </p>
           </div>
@@ -71,7 +73,7 @@ export default function Home() {
           </div>
         </div>
         <a href='/dashboard'><div className={styles.card}>Service Provders Login Here</div></a>
-
+        </div>
       </main>
       <Footer />
     </div>
