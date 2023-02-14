@@ -85,6 +85,19 @@
     font-size: 1.1rem;
 }
 
+.select_box_img {
+    height: 100px;
+    margin: auto;
+}
+
+.select_box_img svg{
+    padding-top: 10px;
+    height: 90px;
+    width: 90px;
+    stroke:#BB133E;
+    fill: #BB133E;
+}
+
 .select_box:hover {
     cursor: pointer;
     background-color: white;
