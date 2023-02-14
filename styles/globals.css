@@ -5,13 +5,12 @@ body {
   font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
-  background-color: #CBD1D7;
 }
 
 .title {
   margin: 0 0 1rem;
   line-height: 1.15;
-  font-size: min(max(5vw, 35px), 50px);
+  font-size: min(max(2vw, 25px), 50px);
   color: #002147;
   text-align: center;
   font-family: Arial, sans-serif;
@@ -24,7 +23,6 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #ffffff;
 }
 
 .blueBackground {
@@ -110,16 +108,50 @@ body {
   background-color: transparent;
   background-repeat: no-repeat;
   padding: 1vw;
-  width: 15%;
-  min-width: 300px;
+  width: 30%;
+  min-width: 200px;
+  max-width: 15vw;
   font-size: 1rem;
   line-height: 2rem;
+  display: flex;
+  align-items: center;
+  margin-right: -3%;
+  text-align: center;
 }
 
 .centered {
   align-items: center;
   text-align: center;
 }
+
+.sub_title_text_centered {
+  color: white;
+  font-size: 1.75vw;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.text_centered {
+  color: white;
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+.sub_text_centered {
+  font-size: 1.5vw;
+}
+
+.col1 {
+  column-count: 2;
+  column-gap: 25px;
+}
+
+.col2 {
+  float: left;
+  width: 200px;
+  margin-left: 30px;
+}
+
 
 .right {
   float: right;
@@ -169,24 +201,38 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 50%;
-  text-align: center;
   position: relative;
 }
 
-.leftImageHead {
-  position: absolute;
-  right: 0;
-  margin-right: -15vw;
-}
-
 .rightImageHead {
-  position: absolute;
-  left: 0;
-  margin-left: -15vw;
+  position: relative; 
+  display: inline-block; 
+  vertical-align: middle; 
+  right: 20vw;
+  top: -1vw;
 }
 
 
+ .leftImageHead {
+  max-width: 80%; 
+  position: relative; 
+  display: inline-block; 
+  vertical-align: middle; 
+  left: 20vw;
+  top: -0.6vw;
+}
+
+.grayBackgroundHead {
+  background-color: #CBD1D7CC;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  margin-bottom: 25px;
+  flex-direction: column;
+  padding: 1vw;
+  font-family: Arial, sans-serif;
+  border-bottom: 2px solid #002147;
+}
 
 a {
   color: inherit;
@@ -226,10 +272,32 @@ button {
   font-weight: bold;
 }
 
-@media (max-width: 767px) {
+
+@media (min-width: 767px) {
   .imageContainerHead img {
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
-    width: 40px;
+  }
+  
+  .rightImageHead {
+    max-width: 100%;
+    right: 20vw;
+  }
+
+  .leftImageHead {
+    max-width: 20%;
+    left: 20vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .rightImageHead {
+    max-width: 18%;
+    right: 5.4vw;
+  }
+
+  .leftImageHead {
+    max-width: 17.8%;
+    left: 5.4vw;
   }
 }

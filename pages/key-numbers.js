@@ -14,11 +14,12 @@ function KeyNumbers() {
             
             <main>
                 <NavBar />
-                <div className="grayBackground centered">
+                <div className='container'>
+                <div className="grayBackgroundHead centered">
                     <h1 className="title">Key Number For Veterans <span className="red"></span><br></br></h1>
                     <div className="imageContainerHead">
                         <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={200} height={200} />
-                        <p className="cornersPages description_dark">Provides Veterans with vital information that helps point them in the right direction to start receiving help they need.</p>
+                        <p className="cornersPages description_dark">Providing Veterans with vital information that helps point them in the right direction to start receiving help they deserve.</p>
                         <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={285} height={200} />
                     </div>
                 </div>
@@ -53,6 +54,7 @@ function KeyNumbers() {
                     <p className={styles.text_centered}>Rhea County (423) 775-7849</p>
                     <p className={styles.text_centered}>Sequatchie County (423) 949-4094</p><br></br><br></br>
                   </div>
+                </div>
                 </div>
                 <Footer />
             </main>

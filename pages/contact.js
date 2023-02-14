@@ -14,7 +14,7 @@ function Contact() {
             <main>
                 <NavBar />
                 <div className="container">
-                <div className="grayBackground centered">
+                <div className="grayBackgroundHead centered">
                 <h1 className="title">Contact Us <span className="red"></span><br></br></h1>
                 <div className="imageContainerHead">
                 <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={200} height={200} />
