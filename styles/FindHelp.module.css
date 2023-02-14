@@ -1,10 +1,15 @@
 .container {
-    background-color: #CBD1D7AA;
+    background-color: #002147CC;
+    padding-bottom: 2rem;
 }
 .container h1 {
+    margin: 0;
     text-align: center;
     font-size: 3.5rem;
-    padding: 2rem 0;
+    padding: 2rem 0 2rem 0;
+    color: #002147;
+    background-color: #CBD1D7;
+
 }
 .content_container {
     display: flex;
@@ -13,10 +18,48 @@
     max-width: 1000px;
     margin: auto;
     justify-content: center;
+    padding: 20px 0;
+}
+
+.options_container {
+    max-width: 1000px;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    justify-content: space-between;
+    align-items:flex-end;
+}
+
+.results_text {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.button {
+    padding: 10px 25px;
+    text-align: center;
+    border: 5px solid #BB133E;
+    color: #BB133E;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.break {
+    width: 100%;
+    background-color: #ffffff;
+    height: 25px;
 }
 
 .result_box {
-    flex: 0 0 800px;
+    flex: 0 1 800px;
     height: 150px;
     background-color: white;
     border-radius: 20px;
@@ -27,22 +70,42 @@
     flex: 0 0 150px;
     margin: 10px 25px;
     text-align: center;
-    border: red 3px solid;
+    border: 5px solid #BB133E;
+    color: #BB133E;
+    /* border: 5px solid #002147;
+    color: #002147; */
+    font-weight: bold;
     height: 150px;
     border-radius: 20px;
-    background-color: #FFFFFF77;
+    background-color: #ffffff;
+    /* background-color: #CBD1D7CC; */
 }
+
+.select_box_text {
+    font-size: 1.1rem;
+}
+
 .select_box:hover {
     cursor: pointer;
     background-color: white;
 }
 
+.noServiceWarn {
+    font-size: 1.4rem;
+    color: white;
+    font-weight: 600;
+}
+
 @media only screen and (max-width: 600px) {
     .container {
-      background-color: #CBD1D7AA;
+      background-color: #002147CC;
+      width: 100%;
     }
     .container h1 {
         font-size: 1.5rem;
+        padding: 1rem 0;
+        margin: 0 auto;
+        padding: 2.5%;
     }
     
     .select_box {
@@ -56,6 +119,24 @@
         background-color: white;
         border-radius: 20px;
         margin-bottom: 20px;
+    }
+    .break {
+        height: 0;
+        border-bottom: 2px solid #002147;
+    }
+
+    .options_container {
+        max-width: 95%;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin: auto;
+        justify-content: space-between;
+        align-items:center;
+        text-align: center;
+    }
+    .results_text {
+        padding-bottom: 15px;
+        width: 80%;
     }
     
   }
