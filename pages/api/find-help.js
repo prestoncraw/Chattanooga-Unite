@@ -11,6 +11,7 @@ export default async function handler(req, res) {
 
     const values = [service_id, county_id];
     const serviceProviders = await executeQuery({query, values});
+    // console.log(serviceProviders);
 
     res.status(200).json({ data: serviceProviders }) 
 }
