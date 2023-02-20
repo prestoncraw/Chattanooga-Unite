@@ -343,9 +343,15 @@ button {
   .title {
     padding-top: 1rem;
     font-size: 1.75rem;
+    max-width: 95%;
+    margin: auto;
   }
   .title_light, .title_dark {
     font-size: 1.75rem;
+    max-width: 95%;
+    padding: 10px;
+    margin: auto;
+    text-align: center;
   }
   p {
     font-size: 1.25rem;
@@ -353,13 +359,28 @@ button {
   .description_dark, .description_light, .description_dark p, .description_light p {
     /* font-size: min(max(3vw, 12px), 20px); */
     font-size: 1.25rem;
+    max-width: 95%;
+    margin: 10px auto;
     /* line-height: min(max(2vw, 20px), 40px); */
     line-height: 1.5rem;
     padding: 10px;
+    text-align: left;
   }
   .grayBackgroundHead {
     padding: 0;
   }
+  .white_decoration, .blue_decoration {
+    display: none;
+  }
+
+  .corners.description_dark {
+    text-align: center;
+  }
+
+  .cornersPages.description_dark {
+    text-align: center;
+  }
+  
   
   
 

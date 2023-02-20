@@ -30,7 +30,7 @@ function ParticipatingOrganizations() {
         <NavBar />
         <div className="container">
         <div className="grayBackgroundHead centered">
-        <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
+        <h1 className="title">Participating Organizations<span className="red"></span><br></br></h1>
         <div className="imageContainerHead">
         <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={300} />
         <p className="cornersPages description_dark">Partnering with top organizations to provide extensive resources.</p>

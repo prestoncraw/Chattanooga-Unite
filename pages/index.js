@@ -42,7 +42,7 @@ export default function Home() {
             <p className="description_light">Epilepsy Foundation of Southeast Tennessee (EFSETN) along with over 100+ other agencies and businesses are a part of this community grassroots effort. This grassroots coalition of agencies is called the Southeast Tennessee Veterans Coalition. Presently, EFSETN chairs the Coalition.</p>
           </div>
           <div className="right">
-            <Image
+            <Image className={styles.vetImg}
                 src="/images/landing page photo1.png"
                 alt="Picture of Veteran with tiny house in the palm of his hand"
                 width={300}
@@ -64,7 +64,7 @@ export default function Home() {
             </p>
           </div>
           <div className="left">
-            <Image
+            <Image className={styles.vetImg}
                 src="/images/landing page photo2.png"
                 alt="Picture of smiling Veteran in wheelchair"
                 width={300}
