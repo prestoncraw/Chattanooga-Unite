@@ -25,31 +25,40 @@ function ParticipatingOrganizations() {
       <Head>
         <title>Participating Organizations &raquo; Chattanooga Unite - Veterans Resource Center</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Participating Organizations / Chattanooga Unite - Veterans Resource Center" />
+        <meta
+          property="og:description"
+          content="Chattanooga Unite provides outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies for those in the Chattanooga area."
+        />
+        <meta
+          property="og:image"
+          content="https://pub-62dc534c19094cf6b30ce047dde383e3.r2.dev/unite.jpg"
+        />
       </Head>
       <main>
         <NavBar />
         <div className="container">
-        <div className="grayBackgroundHead centered">
-        <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
-        <div className="imageContainerHead">
-        <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={200} />
-        <p className="cornersPages description_dark">Partnering with top organizations to provide extensive resources.</p>
-        <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />
-        </div>
-        </div>
-
-        <div className="blueBackground">  
-          <div className="left">
-            <div className="white_decoration"></div>                                                                     
-            <ul className={styles.part_bullet}>
-              {data.organizations.map((item, index) => (
-                <li className={styles.links} key={index}>
-                  <a href={item.link} className={styles.links}>{item.name}</a>
-                </li>
-              ))}
-            </ul>
+          <div className="grayBackgroundHead centered">
+            <h1 className="title">Participating Organizations<span className="red"></span><br></br></h1>
+            <div className="imageContainerHead">
+              <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={300} />
+              <p className="cornersPages description_dark">Partnering with top organizations to provide extensive resources.</p>
+              <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />
+            </div>
           </div>
-        </div>
+
+          <div className="blueBackground">
+            <div className="left">
+              <div className="white_decoration"></div>
+              <ul className={styles.part_bullet}>
+                {data.organizations.map((item, index) => (
+                  <li className={styles.links} key={index}>
+                    <a href={item.link} className={styles.links}>{item.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
 
         <Footer />

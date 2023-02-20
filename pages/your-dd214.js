@@ -10,16 +10,24 @@ function YourDD214() {
       <Head>
         <title>Your DD214 &raquo; Chattanooga Unite - Veterans Resource Center</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Your DD214 / Chattanooga Unite - Veterans Resource Center" />
+        <meta
+          property="og:description"
+          content="Chattanooga Unite provides outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies for those in the Chattanooga area."
+        />
+        <meta
+          property="og:image"
+          content="https://pub-62dc534c19094cf6b30ce047dde383e3.r2.dev/unite.jpg"
+        />
       </Head>
       <main>
         <NavBar />
         <div className="container">
           <div className="grayBackgroundHead">
             <h1 className="title">Your DD214</h1>
-            <br />
             <div className="imageContainerHead">
-              <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={100} height={200} />
-              <p className="cornersPages description_dark centered">Providing veterans information about your dd214.</p>
+              <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={300} />
+              <p className="cornersPages description_dark centered">Your DD214 number is important! Learn more about it on this here.</p>
               <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />
             </div>
           </div>

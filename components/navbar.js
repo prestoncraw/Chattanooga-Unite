@@ -1,35 +1,92 @@
-import Head from 'next/head';
+import { useState } from "react";
 import styles from '../styles/NavBar.module.css';
 import Link from 'next/link';
 
 export default function NavBar() {
+    // whether mobile hamburger menu is opened or closed
+    const [showMenu, setShowMenu] = useState(false);
+
+    function handleClickMenu() {
+        setShowMenu(!showMenu);
+    }
+
+
     return (
         <>
             <main>
                 <div className={styles.container}>
                     <div>
                         <ul>
-                            <li id='home-li'>
-                                <Link href='/'><i className="fa-solid fa-house"></i>Home</Link>
-                            </li>
-                            <li id='find-help-li'>
-                                <Link href='/find-help'>Find Help</Link>
-                            </li>
-                            <li id='your-dd214-li'>
-                                <Link href='/your-dd214'>Your DD214</Link>
-                            </li>
-                            <li id='key-numbers-li'>
-                                <Link href='/key-numbers'>Key Numbers</Link>
-                            </li>
-                            <li id='participating-organizations-li'>
-                                <Link href='/participating-organizations'>Participating Organizations</Link>
-                            </li>
-                            <li id='contact-li'>
-                                <Link href='/contact'>Contact</Link>
-                            </li>
+                            <Link href='/'>
+                                <li id='home-li'>
+                                    <i className="fa-solid fa-house"></i>Chattanooga Unite
+                                </li>
+                            </Link>
+                            <Link href='/find-help'>
+                                <li id='find-help-li'>
+                                    Find Help
+                                </li>
+                            </Link>
+                            <Link href='/your-dd214'>
+                                <li id='your-dd214-li'>
+                                    Your DD214
+                                </li>
+                            </Link>
+                            <Link href='/key-numbers'>
+                                <li id='key-numbers-li'>
+                                    Key Numbers
+                                </li>
+                            </Link>
+                            <Link href='/participating-organizations'>
+                                <li id='participating-organizations-li'>
+                                    Participating Organizations
+                                </li>
+                            </Link>
+                            <Link href='/contact'>
+                                <li id='contact-li'>
+                                    Contact
+                                </li>
+                            </Link>
                         </ul>
                     </div>
                 </div>
+                <div className={styles.mobile_container}>
+                    <Link href='/'>
+                        <div id='home-li'>
+                            <i className="fa-solid fa-house"></i>Chattanooga Unite
+                        </div>
+                    </Link>
+                    <div className={styles.mobile_hamburger} onClick={handleClickMenu}>
+                        <i className="fa-solid fa-bars"></i>
+                    </div>
+                </div>
+                {showMenu && <div className={styles.mobile_menu}>
+                    <ul>
+                        <Link href='/find-help'>
+                            <li id='find-help-li'>
+                                Find Help
+                            </li>
+                        </Link>
+                        <Link href='/your-dd214'>
+                            <li id='your-dd214-li'>
+                                Your DD214
+                            </li>
+                        </Link>
+                        <Link href='/key-numbers'>
+                            <li id='key-numbers-li'>
+                                Key Numbers
+                            </li>
+                        </Link>
+                        <Link href='/participating-organizations'>
+                            <li id='participating-organizations-li'>
+                                Participating Organizations
+                            </li>
+                        </Link>
+                        <Link href='/contact'>
+                            <li id='contact-li'>
+                                Contact
+                            </li>
+                        </Link></ul></div>}
             </main>
         </>
 

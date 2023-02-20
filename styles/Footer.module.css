@@ -11,9 +11,13 @@
   justify-content: space-between;
   padding: .15vw;
   align-items: center;
+  max-width: 1400px;
+  margin:auto;
 }
 
 .footer_container {
+  max-width: 1400px;
+  margin: auto;
   border-top: 2px solid #002147;
 }
 
@@ -63,7 +67,7 @@
   align-items: center;
   color:#002147;
   margin: 0 auto;
-  font-size: 8pt;
+  font-size: .8rem;
 }
 
 .army{
@@ -95,14 +99,27 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: left;
     min-height: 70px;
-    text-align: left;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  .link_container li{
+    padding: .25rem 0;
+    font-size: 1rem;
+  }
+  .footer_container {
+    margin: auto;
+    width: 100%;
   }
   .container {
     align-items: left;
-    justify-content: left;
+    justify-content: space-between;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
   }
 
   .army{
@@ -128,5 +145,8 @@
   .spaceforce{
     margin-left: 5px;
     margin-right: 5px;
+  }
+  .copyright_container {
+    font-size: .8rem;
   }
 }
