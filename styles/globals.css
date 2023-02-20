@@ -138,6 +138,7 @@ p {
   align-items: center;
   /* margin-right: -3%; */
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .centered {
@@ -241,7 +242,7 @@ p {
   display: flex;
   margin-bottom: 25px;
   flex-direction: column;
-  padding: 1vw;
+  padding: 2rem 0 2rem 0;
   font-family: Arial, sans-serif;
   border-bottom: 2px solid #002147;
 }
@@ -355,6 +356,9 @@ button {
     /* line-height: min(max(2vw, 20px), 40px); */
     line-height: 1.5rem;
     padding: 10px;
+  }
+  .grayBackgroundHead {
+    padding: 0;
   }
   
   
