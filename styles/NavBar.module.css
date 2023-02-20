@@ -1,30 +1,100 @@
 .container {
     background-color: #002147;
     color:white;
-    font-size: 1.5vmax;
+    font-size: 1.5rem;
     width: 100%;
 }
 
+.mobile_container {
+    color: white;
+    font-size: 1.5rem;
+    width: 100%;
+    display: none;
+    list-style: none;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 70px;
+    background-color: #002147;
+}
+
+.mobile_container div {
+    padding: 10px;
+    border: 1px #002147 solid;
+    border-radius: 5px;
+}
+
+.mobile_container div:hover {
+    /* color:rgb(199, 199, 199); */
+    /* border: 1px #002147 solid;
+    background-color: #334D6C;
+    transition: 200ms; */
+    
+}
+
+.mobile_menu {
+    display:none;
+    width: 100%;
+    background-color: #334D6C;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    padding: 5px 0 10px 0 ;
+    border-bottom: #002147 2px solid;
+}
+
+.mobile_menu li {
+    padding-right: 10px;
+    text-align: right;
+    font-size: 1.4rem;
+    color:white;
+}
+
+
 .container ul {
+    max-width: 1400px;
+    margin: auto;
     list-style: none;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     min-height: 70px;
-    padding: 0 1vw 0 1vw;
 }
 
 .container li {
-    margin-right: 1rem;
+    padding: 10px;
+    border: 1px #002147 solid;
+    border-radius: 5px;
 }
 
 .container li:hover {
-    color:rgb(199, 199, 199);
+    /* color:rgb(199, 199, 199); */
+    border: 1px #002147 solid;
+    background-color: #334D6C;
+    transition: 200ms;
+    
 }
 
 .container i {
     font-weight: 900;
-    font-size: larger;
-    padding-right: 0.5vw;
+    font-size: 18pt;
+    padding-right: 8px;
+}
+.mobile_container i {
+    font-weight: 900;
+    font-size: 18pt;
+    padding-right: 8px;
+}
+
+@media only screen and (max-width: 1100px) { 
+    .container ul {
+        display: none;
+    }
+    .mobile_container {
+        display: flex;
+    }
+    .mobile_menu {
+        display:flex;
+    }
 }

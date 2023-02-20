@@ -11,6 +11,8 @@
   justify-content: space-between;
   padding: .15vw;
   align-items: center;
+  max-width: 1400px;
+  margin:auto;
 }
 
 .footer_container {
@@ -99,6 +101,7 @@
     align-items: left;
     min-height: 70px;
     text-align: left;
+    padding-bottom: 10px;
   }
   .container {
     align-items: left;
