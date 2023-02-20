@@ -46,7 +46,7 @@ export default function FindHelp() {
 
                 {step === 'service' && <h1>What Do You Need Help With?</h1>}
                 {step === 'county' && <h1>Which County Are You In?</h1>}
-                {step === 'result' && <h1>These Service Providers Can Help</h1>}
+                {step === 'result' && <h1>These Organizations Can Provide Help</h1>}
 
                 <div className={styles.break}> </div>
                 <div className={styles.content_container}>

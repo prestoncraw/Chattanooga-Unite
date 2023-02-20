@@ -32,10 +32,15 @@ body {
 
 .blueBackground {
   background-color: #002147CC;
+  border-top: 2px solid #002147;
+  border-bottom: 2px solid #002147;
 }
 
 .grayBackground {
   background-color: #CBD1D7DD;
+  border-top: 2px solid #002147;
+  border-bottom: 2px solid #002147;
+
 }
 
 .blueBackground, .grayBackground {
@@ -333,5 +338,25 @@ button {
   .leftImageHead {
     display: none; 
   }
+
+  .title {
+    padding-top: 1rem;
+    font-size: 1.75rem;
+  }
+  .title_light, .title_dark {
+    font-size: 1.75rem;
+  }
+  p {
+    font-size: 1.25rem;
+  }
+  .description_dark, .description_light, .description_dark p, .description_light p {
+    /* font-size: min(max(3vw, 12px), 20px); */
+    font-size: 1.25rem;
+    /* line-height: min(max(2vw, 20px), 40px); */
+    line-height: 1.5rem;
+    padding: 10px;
+  }
+  
+  
 
 }

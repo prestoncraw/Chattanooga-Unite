@@ -110,7 +110,7 @@ export default function Footer() {
             </div>
             <div className={styles.container}>
                 <div className={styles.copyright_container}>
-                    <p>Copyright © 2023 Chattanooga Unite.</p>
+                    Copyright © 2023 Chattanooga Unite.
                 </div>
             </div>
         </div>

@@ -19,12 +19,12 @@ export default function Home() {
       <div className="container">
         <div className="grayBackgroundHead centered">
           <div className={styles.titleBackground}>
-            <Image
+            {/* <Image
               src="/images/handshake.png"
               alt="Picture of Veteran with tiny house in the palm of his hand"
               width={300}
               height={300}
-            />
+            /> */}
           </div>
             <h1 className="title">Veterans Resource Center<br></br>Chattanooga Unite <span className={styles.red}><i className="fa-solid fa-star"></i></span></h1>
             <p className="corners description_dark">
@@ -72,7 +72,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <a href='/dashboard'><div className={styles.card}>Service Provders Login Here</div></a>
+        
         </div>
       </main>
       <Footer />

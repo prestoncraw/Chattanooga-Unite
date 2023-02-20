@@ -16,6 +16,8 @@
 }
 
 .footer_container {
+  max-width: 1400px;
+  margin: auto;
   border-top: 2px solid #002147;
 }
 
@@ -65,7 +67,7 @@
   align-items: center;
   color:#002147;
   margin: 0 auto;
-  font-size: 8pt;
+  font-size: .8rem;
 }
 
 .army{
@@ -136,5 +138,8 @@
   .spaceforce{
     margin-left: 5px;
     margin-right: 5px;
+  }
+  .copyright_container {
+    font-size: .8rem;
   }
 }
