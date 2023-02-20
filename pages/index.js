@@ -16,10 +16,14 @@ export default function Home() {
           content="Chattanooga Unite provides outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies for those in the Chattanooga area."
           key="desc"
         />
-        <meta property="og:title" content="Chattanooga Unite - Veterans Resource Center" />
+        <meta property="og:title" content="Home / Chattanooga Unite - Veterans Resource Center" />
         <meta
           property="og:description"
           content="Chattanooga Unite provides outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies for those in the Chattanooga area."
+        />
+        <meta
+          property="og:image"
+          content="https://pub-62dc534c19094cf6b30ce047dde383e3.r2.dev/unite.jpg"
         />
       </Head>
 
