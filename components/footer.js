@@ -27,6 +27,8 @@ export default function Footer() {
                             </li>
                             <li id='contact-li'>
                                 <Link href='/contact'>Contact Us</Link>
+                            </li><li id='sp-login'>
+                                <Link href='/dashboard'>Service Provider Login</Link>
                             </li>
                         </ul>
                 </div>
