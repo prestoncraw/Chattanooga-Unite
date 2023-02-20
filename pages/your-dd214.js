@@ -18,7 +18,7 @@ function YourDD214() {
             <h1 className="title">Your DD214</h1>
             <br />
             <div className="imageContainerHead">
-              <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={100} height={200} />
+              <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={300} />
               <p className="cornersPages description_dark centered">Providing veterans information about your dd214.</p>
               <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />
             </div>

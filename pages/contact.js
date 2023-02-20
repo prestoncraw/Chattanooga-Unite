@@ -17,7 +17,7 @@ function Contact() {
                 <div className="grayBackgroundHead centered">
                 <h1 className="title">Contact Us <span className="red"></span><br></br></h1>
                 <div className="imageContainerHead">
-                <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={100} height={200} />
+                <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={300} />
                 <p className="cornersPages description_dark">Get in touch with us for any questions or support related to our services for veterans. We're here to help and appreciate your service.</p>
                 <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />                </div>
                 </div>

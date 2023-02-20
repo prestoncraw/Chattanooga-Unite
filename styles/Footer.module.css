@@ -103,9 +103,14 @@
     text-align: left;
     padding-bottom: 10px;
   }
+  .footer_container {
+    margin: auto;
+    width: 100%;
+  }
   .container {
     align-items: left;
     justify-content: left;
+    width: 100%;
   }
 
   .army{

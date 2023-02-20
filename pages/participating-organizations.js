@@ -32,7 +32,7 @@ function ParticipatingOrganizations() {
         <div className="grayBackgroundHead centered">
         <h1 className="title">Participating Organizations <span className="red"></span><br></br></h1>
         <div className="imageContainerHead">
-        <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={200} />
+        <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={300} />
         <p className="cornersPages description_dark">Partnering with top organizations to provide extensive resources.</p>
         <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />
         </div>

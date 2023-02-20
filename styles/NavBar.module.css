@@ -24,14 +24,6 @@
     border-radius: 5px;
 }
 
-.mobile_container div:hover {
-    /* color:rgb(199, 199, 199); */
-    /* border: 1px #002147 solid;
-    background-color: #334D6C;
-    transition: 200ms; */
-    
-}
-
 .mobile_menu {
     display:none;
     width: 100%;
