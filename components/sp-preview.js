@@ -1,9 +1,17 @@
 import styles from '../styles/SPPreview.module.css';
 import Image from 'next/image';
+import { useState } from "react";
 
 export default function SPPreview({ provider }) {
     // later check if logo is given in props and use placeholder as backup if not given
     let logo_url = "/images/placeholder-logo.png";
+    const [showDescription, setShowDescription] = useState(false);
+
+    console.log(provider);
+
+    function handleDescriptionToggle() {
+        setShowDescription(!showDescription);
+    }
 
     return (
         <div className={styles.container_box}>
@@ -12,9 +20,14 @@ export default function SPPreview({ provider }) {
                 <div className={styles.providerName}>{provider.name}</div>
                 <div className={styles.providerContacts}>
                     <div className={styles.contactsRow}>
-                        <div>
+                        {provider.description !== "" && <div onClick={handleDescriptionToggle}>
                             View Description <span className={styles.bold}>∨</span>
-                        </div>
+                        </div>}
+                        {
+                           provider.description === "" && <div>
+                           <span className={styles.bold}></span>
+                       </div> 
+                        }
                         <div className={styles.contactsWebsite}>
                             <a href='https://google.com' target='_blank'>Visit Website ↗</a>
                         </div>

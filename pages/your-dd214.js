@@ -27,7 +27,7 @@ function YourDD214() {
             <h1 className="title">Your DD214</h1>
             <div className="imageContainerHead">
               <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={300} />
-              <p className="cornersPages description_dark centered">Your DD214 number is important! Learn more about it on this here.</p>
+              <p className="cornersPages description_dark centered">Your DD214 number is important! Learn more about how to access it here.</p>
               <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />
             </div>
           </div>

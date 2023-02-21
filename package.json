@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "gen-sql": "npm i -D csv && rm -rf utils/out && mkdir utils/out && node utils/gen-sql.js"
   },
   "dependencies": {
     "mysql2": "^3.1.0",
