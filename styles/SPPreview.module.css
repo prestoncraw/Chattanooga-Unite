@@ -27,7 +27,7 @@
 }
 
 .providerName {
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     font-weight: bold;
     color: #002147;
     width: 100%;
@@ -39,6 +39,10 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.contactsWebsite {
+    font-size: 1.4rem;
 }
 
 .contactsRow div {
