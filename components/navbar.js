@@ -29,7 +29,7 @@ export default function NavBar() {
                             </Link>
                             <Link href='/your-dd214'>
                                 <li id='your-dd214-li'>
-                                    Your DD214
+                                    DD214 Information
                                 </li>
                             </Link>
                             <Link href='/key-numbers'>
@@ -37,9 +37,9 @@ export default function NavBar() {
                                     Key Numbers
                                 </li>
                             </Link>
-                            <Link href='/participating-organizations'>
+                            <Link href='/get-involved'>
                                 <li id='participating-organizations-li'>
-                                    Participating Organizations
+                                    Get Involved
                                 </li>
                             </Link>
                             <Link href='/contact'>
@@ -69,7 +69,7 @@ export default function NavBar() {
                         </Link>
                         <Link href='/your-dd214'>
                             <li id='your-dd214-li'>
-                                Your DD214
+                                DD214 Information
                             </li>
                         </Link>
                         <Link href='/key-numbers'>
@@ -77,9 +77,9 @@ export default function NavBar() {
                                 Key Numbers
                             </li>
                         </Link>
-                        <Link href='/participating-organizations'>
+                        <Link href='/get-involved'>
                             <li id='participating-organizations-li'>
-                                Participating Organizations
+                                Get Involved
                             </li>
                         </Link>
                         <Link href='/contact'>
