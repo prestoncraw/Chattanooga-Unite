@@ -24,24 +24,38 @@ function Contact() {
                 <NavBar />
                 <div className="container">
                     <div className="grayBackgroundHead centered">
-                        <h1 className="title">Contact Us<span className="red"></span><br></br></h1>
-                        <div className="imageContainerHead">
-                            <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={300} />
-                            <p className="cornersPages description_dark">Get in touch with us for any questions or support related to our services for veterans. We're here to help and appreciate your service.</p>
-                            <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />                </div>
+                    <div className="titleBackground">
+                        { <Image
+                        src="/images/handshake.png"
+                        alt="Picture of Veteran and civilian shaking hands."
+                        width={300}
+                        height={300}
+                        /> }
                     </div>
-                    <div className="blueBackground left">
-                        <div className="white_decoration"> </div>
-                        <div className={styles.text_title}>Visit us at:</div><br></br>
-                        <div className={styles.text_light}><a href="maps:q=1 Sisken Plaza, Chattanooga, TN 30403">1 Sisken Plaza, Chattanooga, TN 30403</a></div><br></br>
-                        <div className={styles.padding_between}></div><br></br>
-                        <div className={styles.text_title}>Give us a call:</div><br></br>
-                        <div className={styles.text_light}><a href="tel:4236341771">(423) 634-1771</a></div><br></br>
-                        <div className={styles.padding_between}></div><br></br>
-                        <div className={styles.text_title}>For more information:</div><br></br>
-                        <div className={styles.text_light}>Please call or e-mail for information about the Coalition and Coalition Partnership, or to request electronic copies of the Southeast Tennessee Veterans Coalition brochure.</div><br></br>
-                        <div className={styles.text_light}>All other inquiries, please dial 211</div><br></br>
-
+                        <h1 className="title">Contact Us</h1>
+                        <p className="corners description_dark">Get in touch with us for any questions or support related to our resources for veterans. We're here to help and appreciate your service.</p>
+                    </div>
+                    <div className="blueBackground">
+                        <div className="left">
+                            <div className="white_decoration"> </div>
+                            <div className="title_light"><h2>Visit us at:</h2></div>
+                            <p className="description_light contact"><a href="maps:q=1 Sisken Plaza, Chattanooga, TN 30403">426 Market Street, Chattanooga, TN 37402</a></p>
+                            <div className="title_light"><h2>Give us a call:</h2></div>
+                            <p className="description_light contact"><a href="tel:4236341771">(423)756-2211</a></p>
+                            <div className="title_light"><h2>For more information:</h2></div>
+                            <p className="description_light">
+                                Please call or e-mail for information about Chattanooga Unite or to request electronic copies of the Chattanooga Unite Veterans Resource Center brochure.<br></br><br></br>
+                                All other inquiries, please dial 211
+                            </p>
+                        </div>
+                        <div className="right">
+                            <Image className="vetImg"
+                                src="/images/contact page photo.png"
+                                alt="Picture of a smiling veteran with hands behind his back."
+                                width={300}
+                                height={300}
+                            />
+                        </div>
                     </div>
                 </div>
             </main>

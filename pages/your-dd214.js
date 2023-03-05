@@ -23,25 +23,41 @@ function YourDD214() {
       <main>
         <NavBar />
         <div className="container">
-          <div className="grayBackgroundHead">
-            <h1 className="title">Your DD214</h1>
-            <div className="imageContainerHead">
-              <Image src="/images/unitedwayblack.png" alt="United Way Left Image" className="rightImageHead" width={150} height={300} />
-              <p className="cornersPages description_dark centered">Your DD214 number is important! Learn more about how to access it here.</p>
-              <Image src="/images/chattanoogaway.png" alt="Chattanooga Unite Veteran's Resource Center Right Image" className="leftImageHead" width={150} height={300} />
+          <div className="grayBackgroundHead centered">
+            <div className="titleBackground">
+              { <Image
+              src="/images/handshake.png"
+              alt="Picture of Veteran and civilian shaking hands."
+              width={300}
+              height={300}
+            /> }
             </div>
+            <h1 className="title">DD214 Information</h1>
+              <p className="corners description_dark">Your DD214 number is important. Learn more about how to access it here.</p>
           </div>
           <div className="blueBackground">
-            <div className="white_decoration left"></div>
-            <div className={styles.left}>
-              <p>For information and services, your DD214 is vital.</p>
-              <br />
-              <p>For help in getting a copy of your DD214, call the Veteran Service Officer for your county, or you may contact the Department of Veteran Affairs:</p>
-              <br />
-              <p>VA Regional Office: (423) 634-7125</p>
-              <a href="url"><u>www.archives.gov/veterans/military-service-records/</u></a>
+            <div className="left">
+              <div className="white_decoration"></div>
+              <h1 className="title_light">Requesting Your DD214</h1>
+              <div className="description_light">
+                <p>
+                  For information and services, your DD214 is vital. For help in getting a copy of your DD214, call the Veteran Service Officer for your county, or you may contact the Department of Veteran Affairs:
+                  <br></br><br></br>
+                  <span className="indent">
+                    (423) 634-7125<br></br>
+                    <a className="link_light" href='www.archives.gov/veterans/military-service-records/'>Military Service Records</a>
+                  </span>
+                </p>
+              </div>
             </div>
-            <div className="right"></div>
+            <div className="right">
+              <Image className="vetImg"
+                src="/images/DD214 page img.png"
+                alt="Picture of a veteran sitting and reading a book."
+                width={300}
+                height={300}
+              />
+            </div>
           </div>
         </div>
         <Footer />

@@ -1,104 +1,82 @@
-
-.container {
-  background-color: #CBD1D7;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: .15vw;
-  align-items: center;
-  max-width: 1400px;
-  margin:auto;
-}
-
 .footer_container {
   max-width: 1400px;
   margin: auto;
   border-top: 2px solid #002147;
+  background-color: #CBD1D7CC;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 
-.branch_container {
+.link_container > ul {
+  list-style: none;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  justify-content: space-around;
 }
 
-.branch_row {
+.link_container > ul > li {
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  color:#002147CC;
+}
+
+.link_container > ul > li:hover {
+  background-color: #CBD1D7;
+  color: #002147;
+  border-radius: 10px;
+}
+
+.logo_container {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.United_logo_container {
-  display: flex;
-  flex-direction: row;
-  width: min(max(1vw,175px),100px);
-  padding: 0 1vw 0 1vw;
+.logo_container > img {
+  margin: 5px;
 }
 
-.chattunite_logo_container {
-  display: flex;
-  flex-direction: row;
-  width: min(max(1vw,175px),100px);
-  padding: 0 1vw 0 1vw;
+.logo_container > .vaLogo, .logo_container > .chattUniteLogo {
+  width: 100px;
+  height: auto;
 }
 
-.link_container {
-  color:#002147;
-  font-size: 12pt;
-  width: 100%;
+.branches > img {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
 }
 
-.link_container ul{
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    align-items: center;
-    min-height: 70px;
-    padding: 0 1vw 0 1vw;
+.description {
+  font-size: 1rem;
+  color: #002147CC;
+  padding: 10px;
 }
 
 .copyright_container {
   display: flex;
   justify-content: center;
   align-items: center;
-  color:#002147;
-  margin: 0 auto;
-  font-size: .8rem;
+  color:#002147CC;
+  margin: 10px;
+  font-size: 1rem;
 }
 
-.army{
-  margin-left: 25px;
-}
-
-.navy{
-  margin-left: auto;
-}
-
-.marine{
-  margin-left: 25px;
-}
-
-.coastgaurd{
-  margin-left: 25px;
-}
-
-.airforce{
-  margin-left: 25px;
-}
-
-.spaceforce{
-  margin-left: 25px;
+.footer_description_dark {
+  font-size: .9rem;
+  color: #002147CC;
+  max-width: 25%;
 }
 
 @media only screen and (max-width: 600px) {
-  .link_container ul {
-    list-style: none;
+  /*.link_container ul {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: left;
@@ -109,8 +87,8 @@
   .link_container li{
     padding: .25rem 0;
     font-size: 1rem;
-  }
-  .footer_container {
+  }*/
+  /*.footer_container {
     margin: auto;
     width: 100%;
   }
@@ -120,33 +98,16 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-  }
-
-  .army{
-    margin-left: 5px;
+  }*/
+  
+  .logo_container > .vaLogo, .logo_container > .chattUniteLogo {
+    width: 75px;
+    height: auto;
   }
   
-  .navy{
-    margin-left: auto;
-  }
-  
-  .marine{
-    margin-left: 5px;
-  }
-  
-  .coastgaurd{
-    margin-left: 5px;
-  }
-  
-  .airforce{
-    margin-left: 5px;
-  }
-  
-  .spaceforce{
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  .copyright_container {
-    font-size: .8rem;
+  .branches > img {
+    width: 25px;
+    height: 25px;
+    margin: 3px;
   }
 }
