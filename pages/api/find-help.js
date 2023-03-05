@@ -1,10 +1,11 @@
 import executeQuery from '../../lib/db';
-import moment from 'moment';
 
 export default async function handler(req, res) {
     const { service_id, county_id } = req.query;
-    const search_timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-
+    
+    const originalTime = new Date();
+    originalTime.setHours(originalTime.getHours() - 5);
+    const search_timestamp = originalTime.toISOString().replace('T', ' ').slice(0, 19);
     const selectQuery = `
       SELECT sp.* 
       FROM service_providers sp 
@@ -17,13 +18,14 @@ export default async function handler(req, res) {
     const selectValues = [service_id, county_id];
     const serviceProviders = await executeQuery({query: selectQuery, values: selectValues});
 
-    const foundMatch = serviceProviders.length > 0 ? 1 : 0;
+    const foundMatch = serviceProviders.length - 2 > 0 ? 1 : 0;
+    console.log(foundMatch);
     const insertQuery = `
       INSERT INTO sp_search_metrics (search_timestamp, county_id, service_id, found_match) 
       VALUES (?, ?, ?, ?)
     `;
     const insertValues = [search_timestamp, county_id, service_id, foundMatch];
-    const insertData = await executeQuery({query: insertQuery, values: insertValues});
+    executeQuery({query: insertQuery, values: insertValues});
 
     res.status(200).json({ data: serviceProviders });
 }
