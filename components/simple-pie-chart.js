@@ -10,6 +10,8 @@ const data = [
   { name: "Dental & Jackson", value: 34 },
 ];
 
+// Define an array of colors to use for the chart
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF", "#FFC0CB"];
 
 const SimplePieChart = () => {
   return (
@@ -26,7 +28,7 @@ const SimplePieChart = () => {
           outerRadius={125}
         >
           {data.map((entry, index) => (
-            <Cell key={`cell-${entry.name}`} fill={`#${Math.random().toString(16).substr(-6)}`} />
+            <Cell key={`cell-${entry.name}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
         <Tooltip />
