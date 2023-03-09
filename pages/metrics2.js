@@ -2,7 +2,7 @@ import { useState } from "react";
 import NavBar from '../components/navbar';
 import Head from 'next/head';
 import dynamic from "next/dynamic";
-const SimplePieChart = dynamic(import('../components/pie-nomatch-service-county'),{ ssr: false });
+const SimplePieChart = dynamic(import('../components/pie-match-service-county'),{ ssr: false });
 
 export default function Metrics() {
   const [days, setDays] = useState(7);
