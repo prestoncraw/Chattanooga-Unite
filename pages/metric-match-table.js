@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Navbar from '../components/navbarDash';
+import Navbar from '../components/navbar-dash';
 import MatchTable from "../components/match-table";
 
 

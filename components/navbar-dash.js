@@ -76,11 +76,6 @@ export default function MenuAppBar() {
                   Service and County - No Match Table
                 </MenuItem>
               </Link>
-              <Link href="/metric-nomatch-graph" passHref>
-                <MenuItem component="a" onClick={handleMenu}>
-                  Service and County - No Match Graph
-                </MenuItem>
-              </Link>
             </Menu>
           </div>
         </Toolbar>
