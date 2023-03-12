@@ -2,7 +2,7 @@ import { useState } from "react";
 import NavBar from '../components/navbar';
 import Head from 'next/head';
 import dynamic from "next/dynamic";
-const SimplePieChart = dynamic(import('../components/pie-nomatch-service-county'),{ ssr: false });
+const MatchTable = dynamic(import('../components/nomatch-table'),{ ssr: false });
 
 export default function Metrics() {
   const [days, setDays] = useState(7);
@@ -23,7 +23,7 @@ export default function Metrics() {
         <title>Metrics &raquo; Chattanooga Unite - Veterans Resource Center</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SimplePieChart/>
+      <MatchTable/>
     </>
   )
 }
