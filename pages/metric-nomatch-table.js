@@ -1,7 +1,6 @@
-import NavBar from '../components/navbar-dash';
+import NavBar from '../components/dashboard/navbar-dash';
 import Head from 'next/head';
-import dynamic from "next/dynamic";
-const MatchTable = dynamic(import('../components/nomatch-table'),{ ssr: false });
+import NoMatchTable from '../components/dashboard/metrics/nomatch-table';
 
 export default function Metrics() {
 
@@ -12,7 +11,7 @@ export default function Metrics() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavBar/>
-      <MatchTable/>
+      <NoMatchTable/>
     </>
   )
 }

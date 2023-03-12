@@ -43,7 +43,7 @@ export default function MenuAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Dashboard
+            a
           </Typography>
           <div>
             <IconButton

@@ -10,9 +10,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { counties, services } from "../lib/services-provided";
+import { counties, services } from "../../../lib/services-provided";
 import { orderBy } from "lodash";
-import styles from "../styles/MatchTable.module.css";
+import styles from "../../../styles/MatchTable.module.css";
 
 const foundMatchTable = () => {
   const [days, setDays] = useState(7);
