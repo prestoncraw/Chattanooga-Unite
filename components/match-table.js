@@ -152,6 +152,6 @@ const foundMatchTable = () => {
     </Box>
     </main>
   );
-  
 }; 
+
 export default foundMatchTable;
