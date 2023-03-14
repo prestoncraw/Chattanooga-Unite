@@ -23,21 +23,21 @@ function Menu() {
           link={"/dashboard/metric-menu"}
           title={"Search Metrics"}
           description={"Metrics regarding searches and service provider engagement"}
-          buttonHref={"/metric-match-table"}
+          buttonHref={"/dashboard/metric-match-table"}
           />
           <MetricCard
           image={"/images/line-graph.png"}
           link={"/dashboard/metric-nomatch-table"}
           title={"Non-Matching Metrics"}
           description={"Metrics regarding non-matching services and county searches"}
-          buttonHref={"/metric-nomatch-table"}
+          buttonHref={"/dashboard/metric-nomatch-table"}
           />
           <MetricCard
           image={"/images/line-graph.png"}
           link={"/dashboard/metric-match-table"}
           title={"Matching Metrics"}
           description={"Metrics regardin matching services and county searches"}
-          buttonHref={"/metric-match-table"}
+          buttonHref={"/dashboard/metric-match-table"}
           />
         </Box>
       </Box>
