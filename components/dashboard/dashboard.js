@@ -19,14 +19,14 @@ function ResponsiveDrawer(props) {
           title={"Metric Menu"}
           description={"Metrics regarding searches and service provider engagement"}
           image={"/images/graph.png"}
-          buttonHref={"/metric-match-table"}
+          buttonHref={"/dashboard/metrics-menu"}
           />
           <Reuse
           link={"/dashboard/service-provider-menu"}
           title={"Service Provider Menu"}
           image={"/images/edit-icon.png"}
           description={"Edit information regarding service providers"}
-          buttonHref={"/metric-match-table"}
+          buttonHref={"/dashboard/service-provider-menu"}
           />      
         </Box>
       </Box>
