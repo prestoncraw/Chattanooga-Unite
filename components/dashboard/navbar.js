@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import MetricIcon from '@mui/icons-material/SignalCellularAlt';
 import ManageAccountsSharpIcon from '@mui/icons-material/ManageAccountsSharp';
 import GridIcon from '@mui/icons-material/GridView';
+import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { signOut } from 'next-auth/react';
@@ -30,61 +31,65 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-    const drawer = (
-      <div>
-        <List>
-        <ListItem disablePadding>
-            <Link href="/dashboard/">
-              <ListItemButton component="a">
-                <ListItemIcon>
-                  <GridIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-              </ListItemButton>
-            </Link>
-        </ListItem>
-        <Divider />
-        
-          <ListItem disablePadding>
-            <Link href="/dashboard/metrics-menu">
-              <ListItemButton component="a">
-                <ListItemIcon>
-                  <MetricIcon />
-                </ListItemIcon>
-                <ListItemText primary="Metrics" />
-              </ListItemButton>
-            </Link>
+  const drawer = (
+    <div>
+      <List>
+        <Link href="/dashboard/">
+          <ListItem disablePadding divider >
+            <ListItemButton component="a">
+              <ListItemIcon>
+                <GridIcon />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItemButton>
           </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem disablePadding>
-            <Link href="/dashboard/service-provider-menu">
-              <ListItemButton component="a">
-                <ListItemIcon>
-                  <ManageAccountsSharpIcon />
-                </ListItemIcon>
-                <ListItemText primary="Service Providers" />
-              </ListItemButton>
-            </Link>
+        </Link>
+        <Link href="/dashboard/metrics-menu">
+          <ListItem disablePadding divider>
+            <ListItemButton component="a">
+              <ListItemIcon>
+                <MetricIcon />
+              </ListItemIcon>
+              <ListItemText primary="Metrics" />
+            </ListItemButton>
           </ListItem>
-          <Divider />
-<ListItem disablePadding>
-  <Link href="/">
-    <ListItemButton component="a" onClick={() => signOut({ redirect: false })}>
-      <ListItemIcon>
-        <LogoutIcon />
-      </ListItemIcon>
-      <ListItemText primary="Log out" />
-    </ListItemButton>
-  </Link>
-</ListItem>
-        </List>
-      </div>
-    );
+        </Link>
+        <Link href="/dashboard/service-provider-menu">
+          <ListItem disablePadding divider>
+            <ListItemButton component="a">
+              <ListItemIcon>
+                <ManageAccountsSharpIcon />
+              </ListItemIcon>
+              <ListItemText primary="Service Providers" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link href="/">
+          <ListItem disablePadding divider>
+            <ListItemButton component="a">
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Exit Dashboard" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link href="/">
+          <ListItem disablePadding divider>
+            <ListItemButton component="a" onClick={() => signOut({ redirect: false })}>
+              <ListItemIcon>
+                <LogoutIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sign Out" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      </List>
+    </div>
+  );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-  
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -100,9 +105,9 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Link href="/dashboard/">
-          <Typography variant="h6" noWrap component="div">
-            Admin Dashboard 
-          </Typography>
+            <Typography variant="h6" noWrap component="div">
+              Chattanooga Unite Admin Dashboard
+            </Typography>
           </Link>
         </Toolbar>
       </AppBar>
