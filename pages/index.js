@@ -23,7 +23,7 @@ export default function Home() {
         />
         <meta
           property="og:image"
-          content="https://pub-62dc534c19094cf6b30ce047dde383e3.r2.dev/unite.jpg"
+          content="/images/chattanooga-unite-logo.jpg"
         />
       </Head>
 

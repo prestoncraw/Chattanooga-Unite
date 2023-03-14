@@ -1,14 +1,16 @@
 import { services, counties } from "../lib/services-provided";
 import styles from '../styles/FindHelp.module.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
 import SPPreview from "../components/sp-preview";
 import Head from 'next/head';
+import { useRouter } from "next/router";
 
 export default function FindHelp() {
     // three states the page can be in:
     // service selection, county selection, and result
+    const router = useRouter();
     const [step, setStep] = useState('service');
     const [service, setService] = useState(null);
     const [service_name, setServiceName] = useState(null)
@@ -16,14 +18,58 @@ export default function FindHelp() {
     const [county_name, setCountyName] = useState(null);
     const [serviceProviders, setServiceProviders] = useState([]);
 
+    useEffect(() => {
+
+        console.log(`CURRENT APP STATE:\nSERVICE_ID: ${service}\nCOUNTY_ID: ${county}`);
+
+        // change to make it match with only valid options
+        console.log(`router:${router.query.service},expected: !null, ${router.query.service != null} || ${router.query.service} expected: "" ${router.query.service != ""} && state_service:${service}, expected: null ${service == null}`);
+        if ((router.query.service != null && router.query.service != "") && service == null) {
+            // need to be able to get service id from service name
+            // also need to ensure a valid value is passed ?? maybe, maybe not if it just doesnt return results.. idk
+            // const service_id = getServiceIdFromName(router.query.service)
+
+            // router:undefined,expected: null undefinedexpected: "" &&  state_service:null, expected: null
+
+            handleServiceChange(1, router.query.service);
+
+            console.log(`router:${router.query.county},expected: !null, ${router.query.county != null} || ${router.query.county} expected: !"" ${router.query.county != ""} && state_county:${county}, expected: null ${county == null}`);
+            
+            if ((router.query.county != null && router.query.county != "") && county == null) {
+                handleCountyChange(1, router.query.county);
+            }
+        }
+        else {
+            // setService(null);
+        }
+
+
+        // setServiceName(null);
+        // setCounty(null);
+        // setCountyName(null);
+        // setStep('service');
+    });
+
     const handleServiceChange = (service, service_name) => {
         setService(service);
         setServiceName(service_name);
+        if (router.query.service == null || router.query.service == "") {
+            router.query.service = service_name;
+            router.push(router);
+        } 
+        
         setStep('county');
     }
     const handleCountyChange = (county, county_name) => {
         setCounty(county);
         setCountyName(county_name);
+
+        if (router.query.county == null || router.query.county == "") {
+            router.query.county = county_name;
+            router.push(router);
+        } 
+
+        console.log(`HANDLECOUNTYCHANGE: service: ${service}`);
 
         // fetch the matching SPs
         fetch(`/api/find-help?service_id=${service}&county_id=${county}`)
@@ -32,6 +78,9 @@ export default function FindHelp() {
             .then(() => setStep('result'));
     }
     const handleResultChange = () => {
+        router.query.county = null;
+        router.query.service = null;
+        router.push(router);
         setStep('service');
     }
 
@@ -47,7 +96,7 @@ export default function FindHelp() {
                 />
                 <meta
                     property="og:image"
-                    content="https://pub-62dc534c19094cf6b30ce047dde383e3.r2.dev/unite.jpg"
+                    content="/images/chattanooga-unite-logo.jpg"
                 />
             </Head>
             <NavBar />
@@ -79,3 +128,10 @@ export default function FindHelp() {
 
     )
 }
+
+// check query parameters for counties or services already provided 
+export async function getServerSideProps(context) {
+    return {
+      props: {}, // will be passed to the page component as props
+    }
+  }
