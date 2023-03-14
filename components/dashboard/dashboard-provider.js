@@ -26,7 +26,7 @@ function Menu() {
           buttonHref={"/metric-nomatch-table"}
           />
           <ProviderCard
-          link={"/dashboard/metric-nomatch-table"}
+          link={"/dashboard/service-provider-panel"}
           title={"Edit Service Provider"}
           description={"Edit information regarding service providers"}
           buttonHref={"/metric-nomatch-table"}
