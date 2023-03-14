@@ -13,11 +13,12 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Card1 from "./cards/card-dashboard";
 import MetricIcon from '@mui/icons-material/SignalCellularAlt';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import Card2 from "./cards/card2-dashboard";
-import Card3 from "./cards/card3-dashboard";
+import ManageAccountsSharpIcon from '@mui/icons-material/ManageAccountsSharp';
+import GridIcon from '@mui/icons-material/GridView';
+import Link from 'next/link';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { signOut } from 'next-auth/react';
 
 const drawerWidth = 240;
 
@@ -29,40 +30,61 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
-    <div>
-      <Toolbar />
-      <Divider />
-      <List>
-        {['Services and Counties - Matching', 'Services and Counties - Not Matching', 'Service Provider Metrics'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <MetricIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+    const drawer = (
+      <div>
+        <List>
+        <ListItem disablePadding>
+            <Link href="/dashboard/">
+              <ListItemButton component="a">
+                <ListItemIcon>
+                  <GridIcon />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
+            </Link>
+        </ListItem>
+        <Divider />
+        
+          <ListItem disablePadding>
+            <Link href="/dashboard/metrics-menu">
+              <ListItemButton component="a">
+                <ListItemIcon>
+                  <MetricIcon />
+                </ListItemIcon>
+                <ListItemText primary="Metrics" />
+              </ListItemButton>
+            </Link>
           </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['Service Providers', 'Database', 'Something'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-              <AdminPanelSettingsIcon/>
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+        </List>
+        <Divider />
+        <List>
+          <ListItem disablePadding>
+            <Link href="/dashboard/service-provider-menu">
+              <ListItemButton component="a">
+                <ListItemIcon>
+                  <ManageAccountsSharpIcon />
+                </ListItemIcon>
+                <ListItemText primary="Service Providers" />
+              </ListItemButton>
+            </Link>
           </ListItem>
-        ))}
-      </List>
-    </div>
-  );
+          <Divider />
+<ListItem disablePadding>
+  <Link href="/">
+    <ListItemButton component="a" onClick={() => signOut({ redirect: false })}>
+      <ListItemIcon>
+        <LogoutIcon />
+      </ListItemIcon>
+      <ListItemText primary="Log out" />
+    </ListItemButton>
+  </Link>
+</ListItem>
+        </List>
+      </div>
+    );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-
+  
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -77,9 +99,11 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
+          <Link href="/dashboard/">
           <Typography variant="h6" noWrap component="div">
-            Admin Dashboard
+            Admin Dashboard 
           </Typography>
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -96,21 +120,8 @@ function ResponsiveDrawer(props) {
       >
         {drawer}
       </Drawer>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-      >
-        <Toolbar />
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-          <Card1 />
-          <Card2 />
-          <Card3 />
-        </Box>
-      </Box>
     </Box>
   );
-  
 }
-
 
 export default ResponsiveDrawer;

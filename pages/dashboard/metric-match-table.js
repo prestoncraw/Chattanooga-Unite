@@ -2,8 +2,7 @@ import { useSession, getSession, signOut } from "next-auth/react"
 import Head from 'next/head';
 import * as React from 'react';
 import Navbar from '../../components/dashboard/navbar';
-import DashboardComp from '../../components/dashboard/dashboard';
-import { Typography } from "@mui/material";
+import MatchTable from "../../components/dashboard/metrics/match-table";
 
 export default function Dashboard() {
     const { data: session, status } = useSession()
@@ -22,11 +21,7 @@ export default function Dashboard() {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Navbar/>
-          <Typography variant="h3" component="div" style={{ mt: 8 }}>
-            Metric Menu
-          </Typography>
-          <DashboardComp/>
-          <div>You are logged in as {session.user.email}</div>
+          <MatchTable/>
         </>
-      );
+      )
 }

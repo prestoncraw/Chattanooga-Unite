@@ -5,26 +5,35 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
+import Link from 'next/link';
 
-export default function MediaCard() {
+export default function MediaCard({link, title, image, description, buttonHref}) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 500, width: '100%' }}>
+      <Link href={link}>
       <CardMedia
-        sx={{ height: 140 }}
-        image="/images/graph.png"
-        title="metrics "
+        sx={{
+          height: 500,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+        }}
+        image={image}
+        title={title}
       />
+      </Link>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Metrics
+          {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Metrics for matching services and county searches
+          {description}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">View</Button>
+        <Link href={buttonHref}>
+          <Button size="small">View</Button>
+        </Link>
       </CardActions>
     </Card>
   );

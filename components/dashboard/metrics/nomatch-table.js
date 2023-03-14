@@ -1,50 +1,60 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   TableHead,
   TableRow,
   TableSortLabel,
   TextField,
-  Tooltip,
   Typography,
+  ButtonGroup,
+  Button,
+  Alert, 
 } from "@mui/material";
 import { counties, services } from "../../../lib/services-provided";
 import { orderBy } from "lodash";
 import styles from "../../../styles/MatchTable.module.css";
 
-const NoMatchTable = () => {
+const noMatchTable = () => {
   const [days, setDays] = useState(7);
-  const [months, setMonths] = useState(1);
   const [data, setData] = useState(null);
   const [sortBy, setSortBy] = useState("numSearches");
   const [order, setOrder] = useState("desc");
   const [filterBy, setFilterBy] = useState("days");
-
   const [countiesList, setCountiesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
-
+  const [months, setMonths] = useState(1);
+  const [daysError, setDaysError] = useState(false);
+  const [monthsError, setMonthsError] = useState(false);
+  
   useEffect(() => {
     setCountiesList(counties);
     setServicesList(services);
   }, []);
 
   useEffect(() => {
-    const params = filterBy === "days" ? `days=${days}` : `months=${months}`;
+    let params = "";
+    if (filterBy === "days") {
+      params = `days=${days}`;
+    } else if (filterBy === "months") {
+      const daysForMonths = months * 30;
+      params = `days=${daysForMonths}`;
+    }
     fetch(`/api/metric-search?${params}`)
       .then((response) => response.json())
       .then(({ data }) => setData(data))
       .catch((error) => console.error(error));
   }, [days, months, filterBy]);
+  
+  const resetSearchEntries = () => {
+    setDays(1);
+    setMonths(1);
+    setFilterBy("days");
+    setDaysError(false);
+    setMonthsError(false);
+  };
 
   const noMatch = useMemo(() => {
     return data?.filter((item) => item.found_match === 0) || [];
@@ -72,9 +82,15 @@ const NoMatchTable = () => {
 
   const handleDaysChange = useCallback(
     (e) => {
-      setDays(e.target.value);
-      if (filterBy !== "days") {
-        setFilterBy("days");
+      const value = parseInt(e.target.value);
+      if (value >= 1) {
+        setDays(value);
+        setDaysError(false);
+        if (filterBy !== "days") {
+          setFilterBy("days");
+        }
+      } else {
+        setDaysError(true);
       }
     },
     [setDays, setFilterBy, filterBy]
@@ -82,85 +98,140 @@ const NoMatchTable = () => {
 
   const handleMonthsChange = useCallback(
     (e) => {
-      setMonths(e.target.value);
-      if (filterBy !== "months") {
-        setFilterBy("months");
+      const value = parseInt(e.target.value);
+      if (value >= 1) {
+        setMonths(value);
+        setMonthsError(false);
+        if (filterBy !== "months") {
+          setFilterBy("months");
+        }
+      } else {
+        setMonthsError(true);
       }
     },
     [setMonths, setFilterBy, filterBy]
   );
 
-  const handleSortRequest = (columnId) => {
-    const isDesc = sortBy === columnId && order === "desc";
+  
+  const handleSortRequest = (columnType) => {
+    const isDesc = sortBy === columnType && order === "desc";
     setOrder(isDesc ? "asc" : "desc");
-    setSortBy(columnId);
+    setSortBy(columnType);
   };
+  
 
   return (
-    <Box className={styles.container}>
-      <Typography variant="h6" className={styles.title} mb={2}>
-        Metrics: No Matches for Service and Counties
-      </Typography>
-      <Box className={styles.subtitle_container} mb={2}>
-        <Typography variant="body1" className={styles.subtitle_text} mr={1}>
-          Show data from the last:
+    <main>
+      <Box className={styles.container}>
+        <Typography variant="h6" className={styles.title} mt={8}mb={2}>
+          Metrics: Non Matching Searches for Service and Counties
         </Typography>
-        <TextField
-          type="number"
-          value={filterBy === "days" ? days : months}
-          onChange={filterBy === "days" ? handleDaysChange : handleMonthsChange}
-          variant="outlined"
-          size="small"
-          className={styles.subtitle_input}
-          sx={{ mr: 1 }}
-        />
-        <Typography variant="body1">days</Typography>
-      </Box>
-      <Box className={styles.table_container} mb={2}>
-        <Typography variant="body1" className={styles.subtitle_text} mr={1}>
-          Sort by:
-        </Typography>
-        <Table className={styles.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell className={styles.table_header_cell}>
-                <TableSortLabel
-                  active={sortBy === "fullString"}
-                  direction={order}
-                  className={styles.sort_label}
-                  onClick={() => handleSortRequest("fullString")}
-                >
-                  Service & County
-                </TableSortLabel>
-              </TableCell>
-              <TableCell align="right" className={styles.table_header_cell_right}>
-                <TableSortLabel
-                  active={sortBy === "numSearches"}
-                  direction={order}
-                  className={styles.sort_label}
-                  onClick={() => handleSortRequest("numSearches")}
-                >
-                  Number of Searches
-                </TableSortLabel>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {sortedData.map(({ fullString, numSearches }) => (
-              <TableRow key={fullString} className={styles.table_row}>
-                <TableCell component="th" scope="row" >
-                  {fullString}
+        <Box className={styles.subtitle_container} mb={2}>
+          <Typography variant="body1" className={styles.subtitle_text} mr={1}>
+            Show data from the last:
+          </Typography>
+          <ButtonGroup>
+            <Button
+              variant={filterBy === "days" ? "contained" : "outlined"}
+              onClick={() => setFilterBy("days")}
+            >
+              Days
+            </Button>
+            
+            <Button
+              variant={filterBy === "months" ? "contained" : "outlined"}
+              onClick={() => setFilterBy("months")}
+            >
+              Months
+            </Button>
+            
+          </ButtonGroup>
+          {filterBy === "days" ? (
+            <TextField
+              type="number"
+              value={days}
+              onChange={handleDaysChange}
+              variant="outlined"
+              size="small"
+              className={styles.subtitle_input}
+              error={daysError}
+              helperText={daysError ? "Value cannot be less than 1" : null}
+              sx={{ mr: 1, ml:1 }}
+            />
+          ) : (
+            <TextField
+              type="number"
+              value={months}
+              onChange={handleMonthsChange}
+              variant="outlined"
+              size="small"
+              className={styles.subtitle_input}
+              error={monthsError}
+              helperText={monthsError ? "Value cannot be less than 1" : null}
+              sx={{ mr: 1, }}
+            />
+            
+          )}
+          <Typography variant="body1">
+            {filterBy === "days" ? "days" : "months"}
+          </Typography>
+          <Button
+            variant="outlined"
+            onClick={resetSearchEntries}
+            sx={{ ml: 1 }}
+          >
+            Reset Search Entries
+          </Button>
+        </Box>
+        {daysError || monthsError ? (
+          <Box mb={2}>
+            <Alert severity="error">Value cannot be less than 1</Alert>
+          </Box>
+        ) : null}
+        <Box className={styles.table_container} mb={2}>
+          <Table className={styles.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell className={styles.table_header_cell}>
+                  <TableSortLabel
+                    active={sortBy === "fullString"}
+                    direction={order}
+                    className={styles.sort_label}
+                    onClick={() => handleSortRequest("fullString")}
+                    sx={{ fontSize: 20 }}
+                  >
+                    Service & County
+                  </TableSortLabel>
                 </TableCell>
-                <TableCell align="right">
-                  {numSearches}
+                <TableCell align="right" className={styles.table_header_cell_right}>
+                  <TableSortLabel
+                    active={sortBy === "numSearches"}
+                    direction={order}
+                    className={styles.sort_label}
+                    onClick={() => handleSortRequest("numSearches")}
+                  >
+                    Number of Searches
+                  </TableSortLabel>
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {sortedData.map(({ fullString, numSearches }) => (
+                <TableRow key={fullString} className={styles.table_row}>
+                  <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
+                    {fullString}
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontSize: 16 }}>
+                    {numSearches}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
       </Box>
-    </Box>
+    </main>
   );
-  
 }; 
-export default NoMatchTable;
+
+export default noMatchTable;
