@@ -1,5 +1,8 @@
-import Head from "next/head"
-import NavBar from "../components/navbar"
+import Head from "next/head";
+import Footer from "../components/footer";
+import NavBar from "../components/navbar";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Custom404() {
     return (
@@ -19,14 +22,30 @@ export default function Custom404() {
                 />
                 <meta
                     property="og:image"
-                    content="https://pub-62dc534c19094cf6b30ce047dde383e3.r2.dev/unite.jpg"
+                    content="/images/chattanooga-unite-logo.jpg"
                 />
             </Head>
-            <div>
-                <NavBar/>
-                <h1>Page Not Found!</h1>
-            </div>
-            
+            <main>
+                <NavBar />
+                <div className="container">
+                    <div className="grayBackgroundHead centered">
+                        <div className="titleBackground">
+                            {<Image
+                                src="/images/handshake.png"
+                                alt="Picture of Veteran and civilian shaking hands."
+                                width={300}
+                                height={300}
+                            />}
+                        </div>
+                        <h1 className="title red-text">Page Not Found!</h1>
+                        <p className="corners description_dark">The requested URL did not match a page on our site. Please check your URL and try again or navigate using the above links.</p>
+                        <Link href='/find-help'><button className="btn_outline_dark">Find Help <i className="fa-solid fa-arrow-right"></i></button></Link>
+                    </div>
+
+                </div>
+            </main>
+            <Footer />
+
         </>
     )
 }

@@ -29,24 +29,9 @@ export default function SPPreview({ provider }) {
                        </div> 
                         }
                         <div className={styles.contactsWebsite}>
-                            <a href='https://google.com' target='_blank'>Visit Website ↗</a>
+                            <a href={"/orgs/"+ provider.id}>View Organization Information ↗</a>
                         </div>
                     </div>
-                    <div className={styles.contactPhone}>
-                        (423) 555-5555
-                    </div>
-                    <div className={styles.contactsRow}>
-                        <div className={styles.contactAddress}>
-                            123 Market Street, Chattanooga TN, 37421
-                        </div>
-                        <div className={styles.contactEmail}>
-                            <a href="mailto:example@example.com">example@example.com ↗</a>
-                        </div>
-                    </div>
-
-
-                    <div><span className={styles.blue}>Services:</span> Advocacy, Benefits, Clothing, Housing</div>
-                    <div><span className={styles.blue}>Counties:</span> Bledsoe, Bradley, Dekalb, Hamilton, Sequatchie, Catoosa, Dade, Walker, Grundy, Marion, McMinn</div>
                 </div>
             </div>
         </div>

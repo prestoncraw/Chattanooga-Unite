@@ -10,7 +10,7 @@ import Link from 'next/link';
 export default function MediaCard({link, image, title, description, buttonHref}) {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <Link href={link}>
+      <Link href={link} replace>
       <CardMedia
         sx={{
           height: 140,
@@ -31,7 +31,7 @@ export default function MediaCard({link, image, title, description, buttonHref})
         </Typography>
       </CardContent>
       <CardActions>
-         <Link href={buttonHref}>
+         <Link href={buttonHref} replace>
         <Button size="small">View</Button>
         </Link>
       </CardActions>

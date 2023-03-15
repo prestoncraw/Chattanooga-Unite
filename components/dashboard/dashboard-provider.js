@@ -19,17 +19,17 @@ function Menu() {
         </Typography>  
         <Box sx={{ display: 'flex', gap: 2 }}>
           <ProviderCard
-          link={"/dashboard/metric-nomatch-table"}
+          link={"/dashboard/"}
           title={"Add Service Provider"}
           description={"Add a new service provider to the database"}
           image={"/images/gear-icon.png"}
-          buttonHref={"/metric-nomatch-table"}
+          buttonHref={"/dashboard/"}
           />
           <ProviderCard
           link={"/dashboard/service-provider-panel"}
           title={"Edit Service Provider"}
           description={"Edit information regarding service providers"}
-          buttonHref={"/metric-nomatch-table"}
+          buttonHref={"/dashboard/service-provider-panel"}
           image={"/images/gear-icon.png"}
           />
         </Box>
