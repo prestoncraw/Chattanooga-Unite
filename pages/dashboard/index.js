@@ -25,7 +25,7 @@ export default function Dashboard({data}) {
     return (
         <>
           <Head>
-            <title>Metrics &raquo; Chattanooga Unite - Veterans Resource Center</title>
+            <title>Dashboard &raquo; Chattanooga Unite - Veterans Resource Center</title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Navbar/>
@@ -56,7 +56,6 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
-            session,
             data
         },
     }
