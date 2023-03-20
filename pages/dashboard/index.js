@@ -29,7 +29,7 @@ export default function Dashboard({ user, session }) {
     return (
         <>
             <Head>
-                <title>Dashboard Home&raquo; Admin Dashboard Chattanooga Unite</title>
+                <title>Dashboard Home &raquo; Admin Dashboard Chattanooga Unite</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
