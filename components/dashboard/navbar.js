@@ -40,7 +40,7 @@ function ResponsiveDrawer(props) {
               <ListItemIcon>
                 <GridIcon />
               </ListItemIcon>
-              <ListItemText primary="Dashboard" />
+              <ListItemText primary="Dashboard Home" />
             </ListItemButton>
           </ListItem>
         </Link>

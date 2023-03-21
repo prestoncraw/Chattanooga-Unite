@@ -1,19 +1,14 @@
-import { useSession, getSession, signOut } from "next-auth/react"
-import { useState, useEffect } from "react";
-// import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { useSession } from "next-auth/react"
+import { useState  } from "react";
 import { getServerSession } from "next-auth/next"
-import SPPreview from "../../components/sp-preview";
 import Head from 'next/head';
 import * as React from 'react';
-import Navbar from '../../components/dashboard/navbar';
-import DashboardComp from '../../components/dashboard/dashboard';
+import Navbar from '../../../components/dashboard/navbar';
 import { Typography } from "@mui/material";
 
-import getAuthUser from "../../lib/get-auth-user";
-import AdminOptionsPanel from "../../components/dashboard/admin-options-panel";
-import OrgPanel from "../../components/dashboard/org-panel";
+import getAuthUser from "../../../lib/get-auth-user";
 
-export default function Dashboard({ user, session }) {
+export default function Activity({ user, session }) {
     const { status } = useSession();
 
 
@@ -26,10 +21,14 @@ export default function Dashboard({ user, session }) {
     if (status === "unauthenticated") {
         return <p>Access Denied</p>
     }
+
+    if (userData.is_admin != true) {
+        return <p>Access denied.</p>
+    }
     return (
         <>
             <Head>
-                <title>Dashboard Home &raquo; Admin Dashboard Chattanooga Unite</title>
+                <title>Activity Log &raquo; Admin Dashboard Chattanooga Unite</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
@@ -39,12 +38,7 @@ export default function Dashboard({ user, session }) {
                 Dashboard Menu
             </Typography>
 
-
-            {/* <DashboardComp/> */}
-            {/* <div>You are logged in as {userData.user_email}</div> */}
-
-            {userData.is_admin==true && <AdminOptionsPanel />}
-            <OrgPanel organizations={userData.Organizations}></OrgPanel>
+            <div>A table of all user activity will be displayed on this page.</div>
         </>
     );
 }
