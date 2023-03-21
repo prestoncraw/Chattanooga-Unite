@@ -7,13 +7,15 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 
-export default function MediaCard({link, title, image, description, buttonHref}) {
+export default function MediaCard({link, title, image, description, buttonHref, size}) {
   return (
-    <Card sx={{ maxWidth: 500, width: '100%' }}>
+    <Card sx={{ maxWidth: 350, width: '100%' }}>
       <Link href={link}>
       <CardMedia
         sx={{
-          height: 500,
+          mt: 1,
+          alignitems: 'center',
+          height: 300,
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',

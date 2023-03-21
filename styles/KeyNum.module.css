@@ -1,16 +1,111 @@
-.sub_title_text_centered {
-    text-align: left;
-    color: white;
-    font-size: min(max(4vw, 25px), 30px);
-    margin: 1vw;
-    font-weight: bold;
+.dropdown_container {
+  color: white;
+}
+
+.dropdown_content {
+  background-color: #4a5e77;
+  padding: 10px;
+  max-width: 75%;
+  border-radius: 15px;
+  height: fit-content;
+}
+
+.dropdown_content > p {
+  max-width: 100%;
+}
+
+.line {
+  background-color: white;
+  height: 1px;
+  width: 75%;
+  margin: 10px 0;
+}
+
+.white_decoration {
+  height: min(max(1vw, 8px), 10px);
+  width: min(max(10vw, 50px), 75px);
+  border-radius: 25px;
+  margin: 1vw;
+  min-width: 50px;
+  min-height: 5px;
+  background-color: white;
+}
+
+.title_light {
+  font-size: 3rem;
+  margin: 1vw;
+  font-weight: lighter;
+  max-width: 75%;
+  color: white;
+}
+
+.title_light > h2 {
+  font-size: 2rem;
+  font-weight: lighter;
+}
+
+.description_light {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  padding: 1vw;
+  max-width: 75%;
+  min-width: 300px;
+  color: #e6e6e6;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.column {
+  display: flex; 
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 875px) {
+  .dropdown_container {
+    margin: auto;
   }
-  
-  .text_centered {
+
+  .dropdown_content {
+    max-width: 95%;
+    margin: 10px auto;
+    line-height: 1.5rem;
     text-align: left;
-    color: white;
-    font-size: min(max(4vw, 25px), 25px);
-    margin: 1vw;
-    font-weight: lighter;
   }
-  
+
+  .line {
+    width: 95%;
+    margin: 10px auto;
+  }
+
+  .title_light, .title_dark {
+    max-width: 95%;
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+  }
+
+  .title_light > h2, .title_dark > h2 {
+    font-size: 1.4rem;
+  }
+
+  .description_dark, .description_light, .description_dark p, .description_light p {
+    font-size: 1.25rem;
+    max-width: 95%;
+    margin: 10px auto;
+    line-height: 1.5rem;
+    padding: 10px 10px 10px 10px;
+    text-align: left;
+  }
+
+  .vetImg {
+    display: none;
+  }
+
+  .white_decoration, .blue_decoration {
+    display: none;
+  }
+}

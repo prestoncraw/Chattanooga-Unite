@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import MetricCard from "./metrics/cards/menu-metric";
+import MetricCard from "./metrics/cards/menu";
 import Typography from '@mui/material/Typography';
 
 const drawerWidth = 240;
@@ -20,24 +20,29 @@ function Menu() {
         <Box sx={{ display: 'flex', gap: 2 }}>
           <MetricCard
           image={"/images/line-graph.png"}
-          link={"/dashboard/metric-menu"}
+          link={"/dashboard/admin/metric-menu"}
           title={"Search Metrics"}
           description={"Metrics regarding searches and service provider engagement"}
-          buttonHref={"/dashboard/metric-match-table"}
+          buttonHref={"/dashboard/admin/metric-match-table"}
+          size={140}
           />
           <MetricCard
           image={"/images/line-graph.png"}
-          link={"/dashboard/metric-nomatch-table"}
+          link={"/dashboard/admin/metric-nomatch-table"}
           title={"Non-Matching Metrics"}
           description={"Metrics regarding non-matching services and county searches"}
-          buttonHref={"/dashboard/metric-nomatch-table"}
+          buttonHref={"/dashboard/admin/metric-nomatch-table"}
+          size={140}
+
           />
           <MetricCard
           image={"/images/line-graph.png"}
-          link={"/dashboard/metric-match-table"}
+          link={"/dashboard/admin/metric-match-table"}
           title={"Matching Metrics"}
           description={"Metrics regardin matching services and county searches"}
-          buttonHref={"/dashboard/metric-match-table"}
+          buttonHref={"/dashboard/admin/metric-match-table"}
+          size={140}
+
           />
         </Box>
       </Box>

@@ -92,11 +92,12 @@ body {
   font-size: 3rem;
   margin: 1vw;
   font-weight: lighter;
+  max-width: 75%;
 }
 
 .title_light > h2, .title_dark > h2 {
   font-size: 2rem;
-  font-weight: lighter;;
+  font-weight: lighter;
 }
 
 .title_dark {

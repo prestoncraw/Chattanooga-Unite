@@ -13,7 +13,7 @@ import getAuthUser from "../../lib/get-auth-user";
 import AdminOptionsPanel from "../../components/dashboard/admin-options-panel";
 import OrgPanel from "../../components/dashboard/org-panel";
 
-export default function Dashboard({ user, session }) {
+export default function Dashboard({ user, session, data }) {
     const { status } = useSession();
 
 
@@ -26,31 +26,31 @@ export default function Dashboard({ user, session }) {
     if (status === "unauthenticated") {
         return <p>Access Denied</p>
     }
+    const org_data = JSON.parse(data.data);
+   
     return (
         <>
             <Head>
                 <title>Dashboard Home &raquo; Admin Dashboard Chattanooga Unite</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
             <Navbar />
-
-            <Typography variant="h2" component="div" style={{ mt: 8 }}>
-                Dashboard Menu
-            </Typography>
-
-
-            {/* <DashboardComp/> */}
+             <DashboardComp
+             name= {org_data[0].name}
+             orgId ={org_data[0].id}
+            /> 
             {/* <div>You are logged in as {userData.user_email}</div> */}
 
-            {userData.is_admin==true && <AdminOptionsPanel />}
-            <OrgPanel organizations={userData.Organizations}></OrgPanel>
+            {/*userData.is_admin==true && <AdminOptionsPanel />*/}
+            {/*<OrgPanel organizations={userData.Organizations}></OrgPanel>*/}
         </>
     );
 }
 
 export async function getServerSideProps(context) {
     const session = await getServerSession(context.req, context.res);
+    const res = await fetch(`http://localhost:3000/api/get-org?sp_id=${1}`);
+    const data = await res.json();
 
     if (!session) {
         return {
@@ -65,7 +65,8 @@ export async function getServerSideProps(context) {
     return {
         props: {
             user,
-            session
+            session,
+            data
         },
     }
 }

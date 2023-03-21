@@ -44,7 +44,7 @@ function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link href="/dashboard/metrics-menu">
+        <Link href="/dashboard/admin/metrics-menu">
           <ListItem disablePadding divider>
             <ListItemButton component="a">
               <ListItemIcon>
