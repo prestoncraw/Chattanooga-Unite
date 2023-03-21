@@ -1,8 +1,8 @@
 import { useSession, getSession, signOut } from "next-auth/react"
 import Head from 'next/head';
 import * as React from 'react';
-import Navbar from '../../components/dashboard/navbar';
-import NoMatchTable from "../../components/dashboard/metrics/nomatch-table";
+import Navbar from '../../../components/dashboard/navbar';
+import MatchTable from "../../../components/dashboard/metrics/match-table";
 
 export default function Dashboard() {
     const { data: session, status } = useSession()
@@ -21,7 +21,7 @@ export default function Dashboard() {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Navbar/>
-          <NoMatchTable/>
+          <MatchTable/>
         </>
       )
 }
