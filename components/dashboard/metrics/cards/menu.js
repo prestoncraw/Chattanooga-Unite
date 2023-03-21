@@ -15,7 +15,7 @@ export default function MediaCard({link, title, image, description, buttonHref, 
         sx={{
           mt: 1,
           alignitems: 'center',
-          height: 500,
+          height: 300,
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
