@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import ServiceProvider from "../metrics/cards/menu-provider";
+import ServiceProvider from "./menu-card";
 import Typography from '@mui/material/Typography';
 
 const drawerWidth = 240;

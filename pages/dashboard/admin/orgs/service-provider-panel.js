@@ -2,7 +2,7 @@ import { useSession, getSession, signOut } from "next-auth/react"
 import Head from 'next/head';
 import * as React from 'react';
 import Navbar from '../../../../components/dashboard/navbar';
-import Menu from '../../../../components/dashboard/service-provider/service-provider-panel';
+import Menu from '../../../../components/dashboard/service-provider-panel';
 
 export default function Dashboard() {
     const { data: session, status } = useSession()
