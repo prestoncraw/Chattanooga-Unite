@@ -13,11 +13,11 @@ import {
   Button,
   Alert, 
 } from "@mui/material";
-import { counties, services } from "../../../lib/services-provided";
+import { counties, services } from "../../lib/services-provided";
 import { orderBy } from "lodash";
-import styles from "../../../styles/MatchTable.module.css";
+import styles from "../../styles/MatchTable.module.css";
 
-const noMatchTable = () => {
+const foundMatchTable = () => {
   const [days, setDays] = useState(7);
   const [data, setData] = useState(null);
   const [sortBy, setSortBy] = useState("numSearches");
@@ -28,7 +28,9 @@ const noMatchTable = () => {
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  
+  const [searchName, setSearchName] = useState('');
+const [countyName, setCountyName] = useState('');
+
   useEffect(() => {
     setCountiesList(counties);
     setServicesList(services);
@@ -56,18 +58,27 @@ const noMatchTable = () => {
     setMonthsError(false);
   };
 
-  const noMatch = useMemo(() => {
-    return data?.filter((item) => item.found_match === 0) || [];
-  }, [data]);
+  const foundMatch = useMemo(() => {
+    return data?.filter((item) => item.found_match === 1)
+      .map((item) => {
+        const service = servicesList.find((s) => s.id === item.service_id);
+        const county = countiesList.find((c) => c.id === item.county_id);
+        return {
+          serviceTitle: service?.title,
+          countyName: county?.name,
+          ...item
+        };
+      }) || [];
+  }, [data, servicesList, countiesList]);
 
   const fullStringMap = useMemo(() => {
-    return noMatch.reduce((map, item) => {
+    return foundMatch.reduce((map, item) => {
       const service = servicesList.find((s) => s.id === item.service_id);
       const county = countiesList.find((c) => c.id === item.county_id);
       const fullString = `${service?.title} & ${county?.name}`;
       return map.set(fullString, (map.get(fullString) || 0) + 1);
     }, new Map());
-  }, [noMatch, servicesList, countiesList]);
+  }, [foundMatch, servicesList, countiesList]);
 
   const fullStringCount = useMemo(() => {
     return Array.from(fullStringMap).map(([fullString, numSearches]) => ({
@@ -118,13 +129,15 @@ const noMatchTable = () => {
     setOrder(isDesc ? "asc" : "desc");
     setSortBy(columnType);
   };
+
   
+  console.log(fullStringMap)
 
   return (
     <main>
       <Box className={styles.container}>
-        <Typography variant="h6" className={styles.title} mt={8}mb={2}>
-          Metrics: Non Matching Searches for Service and Counties
+        <Typography variant="h6" className={styles.title} textAlign="center" mt={2}mb={2}>
+          Metrics: Matching Seaches for Service and Counties
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
           <Typography variant="body1" className={styles.subtitle_text} mr={1}>
@@ -179,6 +192,7 @@ const noMatchTable = () => {
             variant="outlined"
             onClick={resetSearchEntries}
             sx={{ ml: 1 }}
+            color="error"
           >
             Reset Search Entries
           </Button>
@@ -234,4 +248,4 @@ const noMatchTable = () => {
   );
 }; 
 
-export default noMatchTable;
+export default foundMatchTable;

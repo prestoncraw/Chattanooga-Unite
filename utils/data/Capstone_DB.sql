@@ -42,6 +42,18 @@ CREATE TABLE `sp_search_metrics` (
   `found_match` bool
 );
 
+CREATE TABLE search_metrics (
+   `search_timestamp` datetime,
+   `service_id` int,
+   `county_id` int,   
+   `service_provider_id` int );
+
+CREATE TABLE activity_log ( 
+    `search_timestamp` datetime, 
+    `email` varchar(255),
+    `action` varchar(255) );
+
+
 ALTER TABLE `service_providers` ADD FOREIGN KEY (`login_email`) REFERENCES `users` (`email`);
 
 ALTER TABLE `sp_services` ADD FOREIGN KEY (`service_provider_id`) REFERENCES `service_providers` (`id`);

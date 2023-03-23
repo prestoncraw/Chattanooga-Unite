@@ -20,10 +20,10 @@ export default function FindHelp() {
 
     useEffect(() => {
 
-        console.log(`CURRENT APP STATE:\nSERVICE_ID: ${service}\nCOUNTY_ID: ${county}`);
+        //console.log(`CURRENT APP STATE:\nSERVICE_ID: ${service}\nCOUNTY_ID: ${county}`);
 
         // change to make it match with only valid options
-        console.log(`router:${router.query.service},expected: !null, ${router.query.service != null} || ${router.query.service} expected: "" ${router.query.service != ""} && state_service:${service}, expected: null ${service == null}`);
+       // console.log(`router:${router.query.service},expected: !null, ${router.query.service != null} || ${router.query.service} expected: "" ${router.query.service != ""} && state_service:${service}, expected: null ${service == null}`);
         if ((router.query.service != null && router.query.service != "") && service == null) {
             // need to be able to get service id from service name
             // also need to ensure a valid value is passed ?? maybe, maybe not if it just doesnt return results.. idk
@@ -33,7 +33,7 @@ export default function FindHelp() {
 
             handleServiceChange(1, router.query.service);
 
-            console.log(`router:${router.query.county},expected: !null, ${router.query.county != null} || ${router.query.county} expected: !"" ${router.query.county != ""} && state_county:${county}, expected: null ${county == null}`);
+         //   console.log(`router:${router.query.county},expected: !null, ${router.query.county != null} || ${router.query.county} expected: !"" ${router.query.county != ""} && state_county:${county}, expected: null ${county == null}`);
             
             if ((router.query.county != null && router.query.county != "") && county == null) {
                 handleCountyChange(1, router.query.county);
@@ -69,7 +69,7 @@ export default function FindHelp() {
             router.push(router);
         } 
 
-        console.log(`HANDLECOUNTYCHANGE: service: ${service}`);
+     //   console.log(`HANDLECOUNTYCHANGE: service: ${service}`);
 
         // fetch the matching SPs
         fetch(`/api/find-help?service_id=${service}&county_id=${county}`)
@@ -113,7 +113,7 @@ export default function FindHelp() {
 
                     {(step === 'result' && Object.values(JSON.parse(serviceProviders)).length == 0) && <div className={styles.noServiceWarn}>Selected service not available in selected county.</div>}
 
-                    {step === 'result' && Object.values(JSON.parse(serviceProviders)).map(sp => <SPPreview key={sp.id} provider={sp} />)}
+                    {step === 'result' && Object.values(JSON.parse(serviceProviders)).map(sp => <SPPreview key={sp.id} provider={sp} service_id={service} county_id={county} />)}
                 </div>
 
                 <div className={styles.options_container}>

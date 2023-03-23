@@ -19,21 +19,41 @@ import GridIcon from '@mui/icons-material/GridView';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { signOut } from 'next-auth/react';
+import Image from 'next/image';
+import { AlignVerticalCenter } from '@mui/icons-material';
 
 const drawerWidth = 240;
 
-function ResponsiveDrawer(props) {
-  const { window } = props;
+function Navbar(props) {
+  const { window, email, name } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const drawer = (
     <div>
       <List>
+      <ListItem disablePadding divider>
+  <ListItemText
+    primary={name}
+    primaryTypographyProps={{ textAlign: 'center' }}
+  />
+</ListItem>
         <Link href="/dashboard/">
           <ListItem disablePadding divider >
             <ListItemButton component="a">
@@ -44,26 +64,6 @@ function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link href="/dashboard/metrics-menu">
-          <ListItem disablePadding divider>
-            <ListItemButton component="a">
-              <ListItemIcon>
-                <MetricIcon />
-              </ListItemIcon>
-              <ListItemText primary="Metrics" />
-            </ListItemButton>
-          </ListItem>
-        </Link>
-        <Link href="/dashboard/service-provider-menu">
-          <ListItem disablePadding divider>
-            <ListItemButton component="a">
-              <ListItemIcon>
-                <ManageAccountsSharpIcon />
-              </ListItemIcon>
-              <ListItemText primary="Service Providers" />
-            </ListItemButton>
-          </ListItem>
-        </Link>
         <Link href="/">
           <ListItem disablePadding divider>
             <ListItemButton component="a">
@@ -71,16 +71,6 @@ function ResponsiveDrawer(props) {
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary="Exit Dashboard" />
-            </ListItemButton>
-          </ListItem>
-        </Link>
-        <Link href="/">
-          <ListItem disablePadding divider>
-            <ListItemButton component="a" onClick={() => signOut({ redirect: false })}>
-              <ListItemIcon>
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText primary="Sign Out" />
             </ListItemButton>
           </ListItem>
         </Link>
@@ -95,7 +85,7 @@ function ResponsiveDrawer(props) {
       <CssBaseline />
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
+        <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
@@ -106,9 +96,41 @@ function ResponsiveDrawer(props) {
           </IconButton>
           <Link href="/dashboard/">
             <Typography variant="h6" noWrap component="div">
-              Chattanooga Unite Admin Dashboard
+              Chattanooga Unite Admin Dashboard 
+              
             </Typography>
           </Link>
+          <Box sx={{ flexGrow: 1 }} />
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            <AccountCircleIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+<Link href="/dashboard">
+  <MenuItem component="a">{email}</MenuItem>
+</Link>
+            <MenuItem onClick={() => signOut({ redirect: false })}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -129,4 +151,5 @@ function ResponsiveDrawer(props) {
   );
 }
 
-export default ResponsiveDrawer;
+export default Navbar;
+

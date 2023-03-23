@@ -1,14 +1,14 @@
 import styles from '../styles/SPPreview.module.css';
 import Image from 'next/image';
 import { useState } from "react";
+import { useRouter } from "next/router";
+import Link from 'next/link';
 
-export default function SPPreview({ provider }) {
+export default function SPPreview({ provider, service_id, county_id }) {
     // later check if logo is given in props and use placeholder as backup if not given
     let logo_url = "/images/placeholder-logo.png";
     const [showDescription, setShowDescription] = useState(false);
-
-    console.log(provider);
-
+    const router = useRouter();
     function handleDescriptionToggle() {
         setShowDescription(!showDescription);
     }
@@ -29,7 +29,8 @@ export default function SPPreview({ provider }) {
                        </div> 
                         }
                         <div className={styles.contactsWebsite}>
-                            <a href={"/orgs/"+ provider.id}>View Organization Information ↗</a>
+                        <Link href={{pathname: "/orgs/"+ provider.id, query: {service_id: service_id, county_id: county_id}}}>View Organization Information ↗</Link>
+                            {/*<a href={"/orgs/"+ provider.id}>View Organization Information ↗</a>*/}
                         </div>
                     </div>
                 </div>
@@ -37,3 +38,5 @@ export default function SPPreview({ provider }) {
         </div>
     )
 }
+
+

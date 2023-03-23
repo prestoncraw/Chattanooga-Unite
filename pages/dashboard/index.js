@@ -1,71 +1,78 @@
-import { useSession, getSession, signOut } from "next-auth/react"
-import { useState, useEffect } from "react";
-// import { authOptions } from 'pages/api/auth/[...nextauth]'
-import { getServerSession } from "next-auth/next"
-import SPPreview from "../../components/sp-preview";
-import Head from 'next/head';
-import * as React from 'react';
-import Navbar from '../../components/dashboard/navbar';
-import DashboardComp from '../../components/dashboard/dashboard';
-import { Typography } from "@mui/material";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { getServerSession } from "next-auth/next";
+import Head from "next/head";
+import { Typography, Container, Box } from "@mui/material";
 
+import Navbar from "../../components/dashboard/navbar";
+import DashboardComp from "../../components/dashboard/dashboard";
 import getAuthUser from "../../lib/get-auth-user";
-import AdminOptionsPanel from "../../components/dashboard/admin-options-panel";
-import OrgPanel from "../../components/dashboard/org-panel";
 
 export default function Dashboard({ user, session }) {
-    const { status } = useSession();
+  const { data, status } = useSession();
+  const [userData] = useState(user);
 
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
 
-    const [userData] = useState(user);
-
-    if (status === "loading") {
-        return <p>Loading...</p>
-    }
-
-    if (status === "unauthenticated") {
-        return <p>Access Denied</p>
-    }
-    return (
-        <>
-            <Head>
-                <title>Dashboard Home &raquo; Admin Dashboard Chattanooga Unite</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
-            <Navbar />
-
-            <Typography variant="h2" component="div" style={{ mt: 8 }}>
-                Dashboard Menu
-            </Typography>
-
-
-            {/* <DashboardComp/> */}
-            {/* <div>You are logged in as {userData.user_email}</div> */}
-
-            {userData.is_admin==true && <AdminOptionsPanel />}
-            <OrgPanel organizations={userData.Organizations}></OrgPanel>
-        </>
-    );
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>;
+  }
+console
+  return (
+    <>
+      <Head>
+        <title>Dashboard &raquo; Admin Dashboard Chattanooga Unite</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Navbar email={userData.user_email} name={userData.Organizations[0].name} />
+        <Container maxWidth="lg">
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              pt: 8,
+            }}
+          >
+            <DashboardComp
+              name={userData.Organizations[0].name}
+              orgId={userData.Organizations[0].id}
+            />
+          </Box>
+        </Container>
+      </Box>
+    </>
+  );
 }
 
 export async function getServerSideProps(context) {
-    const session = await getServerSession(context.req, context.res);
+  const session = await getServerSession(context.req, context.res);
 
-    if (!session) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false,
-            },
-        }
-    }
-    const user = await getAuthUser(session.user);
-
+  if (!session) {
     return {
-        props: {
-            user,
-            session
-        },
-    }
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  const user = await getAuthUser(session.user);
+
+  return {
+    props: {
+      user,
+      session,
+    },
+  };
 }
