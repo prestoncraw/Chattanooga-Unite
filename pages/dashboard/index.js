@@ -43,8 +43,8 @@ export default function Dashboard({ user, session, data }) {
             />} 
             {/* <div>You are logged in as {userData.user_email}</div> */}
 
-            {/*userData.is_admin==true && <AdminOptionsPanel />*/}
-            {/*<OrgPanel organizations={userData.Organizations}></OrgPanel>*/}
+            {userData.is_admin==true && <AdminOptionsPanel />}
+            {<OrgPanel organizations={userData.Organizations}></OrgPanel>}
         </>
     );
 }
