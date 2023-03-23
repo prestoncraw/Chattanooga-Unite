@@ -26,9 +26,14 @@ export default async function handler(req, res) {
     
     if(isAuthorized == true){
       const serviceProviders = await executeQuery({ query: update_sp_query, values: spValues });
-      res.send("Successfully updated service provider").status(200);
+      res.status(200).send("Successfully updated service provider");
     }
    
+    const activityLogQuery = "INSERT INTO activity_log (search_timestamp, email, action) VALUES(NOW(), ?, ?)";
+    const activityLogValues = [user.user_email, `Updated service provider: '${name}'`];
 
- 
+    if(isAuthorized == true){
+      const activityLog = await executeQuery({ query: activityLogQuery, values: activityLogValues });
+      res.status(200).send("Successfully inserted activity log.");
+    }
 }
