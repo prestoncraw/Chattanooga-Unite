@@ -17,7 +17,7 @@ export default function Dashboard() {
     return (
         <>
           <Head>
-            <title>Metrics &raquo; Chattanooga Unite - Veterans Resource Center</title>
+            <title>Metric No Match Table &raquo; Chattanooga Unite - Veterans Resource Center</title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Navbar/>

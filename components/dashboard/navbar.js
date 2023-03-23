@@ -19,16 +19,28 @@ import GridIcon from '@mui/icons-material/GridView';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { signOut } from 'next-auth/react';
 
 const drawerWidth = 240;
 
-function ResponsiveDrawer(props) {
+function ResponsiveDrawer(props, {email}) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const drawer = (
@@ -74,16 +86,14 @@ function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link href="/">
-          <ListItem disablePadding divider>
-            <ListItemButton component="a" onClick={() => signOut({ redirect: false })}>
-              <ListItemIcon>
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText primary="Sign Out" />
-            </ListItemButton>
-          </ListItem>
-        </Link>
+        <ListItem disablePadding divider onClick={() => signOut({ redirect: false })}>
+          <ListItemButton component="a">
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary="Sign Out" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </div>
   );
@@ -95,7 +105,7 @@ function ResponsiveDrawer(props) {
       <CssBaseline />
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
+        <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
@@ -106,9 +116,38 @@ function ResponsiveDrawer(props) {
           </IconButton>
           <Link href="/dashboard/">
             <Typography variant="h6" noWrap component="div">
-              Chattanooga Unite Admin Dashboard
+              Chattanooga Unite Admin Dashboard 
             </Typography>
           </Link>
+          <Box sx={{ flexGrow: 1 }} />
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            <AccountCircleIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>{email}placeholder...</MenuItem>
+            <MenuItem onClick={() => signOut({ redirect: false })}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -130,3 +169,4 @@ function ResponsiveDrawer(props) {
 }
 
 export default ResponsiveDrawer;
+

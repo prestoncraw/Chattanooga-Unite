@@ -26,7 +26,7 @@ export default function Dashboard({ user, session, data }) {
     if (status === "unauthenticated") {
         return <p>Access Denied</p>
     }
-    const org_data = JSON.parse(data.data);
+    console.log(userData.Organizations[0].name)
    
     return (
         <>
@@ -34,11 +34,13 @@ export default function Dashboard({ user, session, data }) {
                 <title>Dashboard Home &raquo; Admin Dashboard Chattanooga Unite</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Navbar />
-             <DashboardComp
-             name= {org_data[0].name}
-             orgId ={org_data[0].id}
-            /> 
+            {<Navbar 
+            email={userData.Organizations[0].name}
+            />}
+             {<DashboardComp
+             name= {userData.Organizations[0].name}
+             orgId ={userData.Organizations[0].id}
+            />} 
             {/* <div>You are logged in as {userData.user_email}</div> */}
 
             {/*userData.is_admin==true && <AdminOptionsPanel />*/}
@@ -49,8 +51,6 @@ export default function Dashboard({ user, session, data }) {
 
 export async function getServerSideProps(context) {
     const session = await getServerSession(context.req, context.res);
-    const res = await fetch(`http://localhost:3000/api/get-org?sp_id=${1}`);
-    const data = await res.json();
 
     if (!session) {
         return {
@@ -66,7 +66,6 @@ export async function getServerSideProps(context) {
         props: {
             user,
             session,
-            data
         },
     }
 }

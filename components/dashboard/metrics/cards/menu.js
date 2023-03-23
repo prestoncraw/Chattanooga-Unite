@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 export default function MediaCard({link, title, image, description, buttonHref, size}) {
   return (
-    <Card sx={{ maxWidth: 350, width: '100%' }}>
+    <Card sx={{ maxWidth: 350, width: '100%', backgroundColor: '#f7f7f7'   }}>
       <Link href={link}>
       <CardMedia
         sx={{
