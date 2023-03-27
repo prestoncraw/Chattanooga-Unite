@@ -12,12 +12,14 @@ import {
   ButtonGroup,
   Button,
   Alert,
+  Chip,
 } from "@mui/material";
 import { counties, services } from "../../lib/services-provided";
 import { orderBy } from "lodash";
 import styles from "../../styles/MatchTable.module.css";
 
 const EngagementTable = ({ orgs }) => {
+  const [serviceCountySortActive, setServiceCountySortActive] = useState(false);
   const [days, setDays] = useState(7);
   const [data, setData] = useState(null);
   const [sortBy, setSortBy] = useState("numSearches");
@@ -103,6 +105,7 @@ const EngagementTable = ({ orgs }) => {
         if (filterBy !== "days") {
           setFilterBy("days");
         }
+        e.target.select(); // Select the text within the input box
       } else {
         setDaysError(true);
       }
@@ -119,6 +122,7 @@ const EngagementTable = ({ orgs }) => {
         if (filterBy !== "months") {
           setFilterBy("months");
         }
+        e.target.select(); // Select the text within the input box
       } else {
         setMonthsError(true);
       }
@@ -136,28 +140,36 @@ const EngagementTable = ({ orgs }) => {
   const organizations = JSON.parse(orgs);
   return (
     <main>
-      <Box className={styles.container}>
-        <Typography variant="h6" className={styles.title} textAlign="center" mt={2} mb={2}>
-          Metrics: Engagement for Service Providers
+      <Box className={styles.container} sx={{ margin: 2 }}>
+        <Typography
+          variant="h6"
+          className={styles.title}
+          textAlign="center"
+          mt={2}
+          mb={2}
+        >
+          Engagement for Service Providers
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
           <Typography variant="body1" className={styles.subtitle_text} mr={1}>
             Show data from the last:
           </Typography>
           <ButtonGroup>
-            <Button
-              variant={filterBy === "days" ? "contained" : "outlined"}
+            <Chip
+              label="Days"
+              clickable
+              color={filterBy === "days" ? "primary" : "default"}
               onClick={() => setFilterBy("days")}
-            >
-              Days
-            </Button>
+              sx={{ mr: 1 }}
+            />
 
-            <Button
-              variant={filterBy === "months" ? "contained" : "outlined"}
+            <Chip
+              label="Months"
+              clickable
+              color={filterBy === "months" ? "primary" : "default"}
               onClick={() => setFilterBy("months")}
-            >
-              Months
-            </Button>
+              sx={{ mr: 1 }}
+            />
           </ButtonGroup>
           {filterBy === "days" ? (
             <TextField
@@ -170,6 +182,7 @@ const EngagementTable = ({ orgs }) => {
               error={daysError}
               helperText={daysError ? "Value cannot be less than 1" : null}
               sx={{ mr: 1, ml: 1 }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           ) : (
             <TextField
@@ -182,20 +195,20 @@ const EngagementTable = ({ orgs }) => {
               error={monthsError}
               helperText={monthsError ? "Value cannot be less than 1" : null}
               sx={{ mr: 1 }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           )}
           <Typography variant="body1">
             {filterBy === "days" ? "days" : "months"}
           </Typography>
-          <Button
-            variant="outlined"
-            onClick={resetSearchEntries}
-            sx={{ ml: 1 }}
+          <Chip
+            label="Reset Search Entries"
+            clickable
             color="error"
-
-          >
-            Reset Search Entries
-          </Button>
+            variant="outlined"
+            sx={{ ml: 1 }}
+            onClick={resetSearchEntries}
+          />
         </Box>
         {daysError || monthsError ? (
           <Box mb={2}>
@@ -214,7 +227,7 @@ const EngagementTable = ({ orgs }) => {
                     onClick={() => handleSortRequest("fullString")}
                     sx={{ fontSize: 20 }}
                   >
-                    Service & County
+                    <Chip label="Service & County Search" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell
@@ -227,7 +240,7 @@ const EngagementTable = ({ orgs }) => {
                     className={styles.sort_label}
                     onClick={() => handleSortRequest("numSearches")}
                   >
-                    Service Provider
+                    <Chip label="Service Provider" />
                   </TableSortLabel>
                 </TableCell>
               </TableRow>
@@ -244,11 +257,13 @@ const EngagementTable = ({ orgs }) => {
                       &{" "}
                       {countiesList.find((c) => c.id === item.county_id)?.name}
                     </TableCell>
-                    {/*<TableCell align="right" sx={{ fontSize: 16 }}>
-                      {item.service_provider_id}
-                    </TableCell>*/}
+
                     <TableCell align="right" sx={{ fontSize: 16 }}>
-                    {organizations.find(org => org.id === item.service_provider_id)?.name}
+                      {
+                        organizations.find(
+                          (org) => org.id === item.service_provider_id
+                        )?.name
+                      }
                     </TableCell>
                   </TableRow>
                 ))}
@@ -259,6 +274,5 @@ const EngagementTable = ({ orgs }) => {
     </main>
   );
 };
-
 
 export default EngagementTable;

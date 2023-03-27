@@ -1,8 +1,8 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
 import ServiceProvider from "./menu-card";
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 
 const drawerWidth = 240;
 
@@ -18,18 +18,22 @@ function Menu() {
   const serviceProviders = new Array(20).fill(serviceProviderData);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
       >
         <Toolbar />
         <Typography gutterBottom variant="h3" component="div">
           Service Provider Panel
-        </Typography>  
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+        </Typography>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
           {serviceProviders.map((provider, index) => (
-            <Box key={index} sx={{ width: '20%' }}>
+            <Box key={index} sx={{ width: "20%" }}>
               <ServiceProvider
                 link={provider.link}
                 title={provider.title}

@@ -29,8 +29,13 @@ function Dashboard({ name, orgId }) {
         </Typography>
 
         {/* Top Cards */}
-        <Card sx={{ mb: 2 }}>
-          <Typography variant="h5" component="h2" align="center" sx={{  mt: 1}}>
+        <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)", mb: 2 }}>
+          <Typography
+            variant="h5"
+            component="h2"
+            align="center"
+            sx={{ fontWeight: "bold", mt: 2 }}
+          >
             Admin Actions
           </Typography>
           <CardContent
@@ -82,8 +87,13 @@ function Dashboard({ name, orgId }) {
         </Card>
 
         {/* Bottom Cards */}
-        <Card>
-          <Typography variant="h5" component="h2" align="center" sx={{ mt: 1}}>
+        <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)", mb: 2 }}>
+          <Typography
+            variant="h5"
+            component="h2"
+            align="center"
+            sx={{ fontWeight: "bold", mt: 2 }}
+          >
             Your organizations
           </Typography>
           <CardContent

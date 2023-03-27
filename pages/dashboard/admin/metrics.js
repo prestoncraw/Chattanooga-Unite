@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  useSession,
-  getSession,
-  signOut,
-} from "next-auth/react";
+import { useSession, getSession, signOut } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "../../../components/dashboard/navbar";
 import MatchTable from "../../../components/dashboard/match-table";
@@ -41,27 +37,30 @@ export default function Metrics({ user, orgs }) {
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar email={userData.user_email} name={userData.Organizations[0].name} />
+      <Navbar
+        email={userData.user_email}
+        name={userData.Organizations[0].name}
+      />
       <Stack
         direction="row"
         spacing={1}
         sx={{ justifyContent: "center", mt: 10, mb: 2 }}
       >
         <Chip
-          label="Match Table"
+          label="Matching Results"
           clickable
           color={selectedComponent === "matchTable" ? "primary" : "default"}
           onClick={() => setSelectedComponent("matchTable")}
         />
         <Chip
-          label="No Match Table"
+          label="Non Matching Results"
           clickable
           color={selectedComponent === "noMatchTable" ? "primary" : "default"}
           onClick={() => setSelectedComponent("noMatchTable")}
           sx={{}}
         />
         <Chip
-          label="Search Engagement Table"
+          label="Engagement Results"
           clickable
           color={
             selectedComponent === "searchEngagement" ? "primary" : "default"
@@ -71,9 +70,7 @@ export default function Metrics({ user, orgs }) {
       </Stack>
       {selectedComponent === "matchTable" && <MatchTable />}
       {selectedComponent === "noMatchTable" && <NoMatchTable />}
-      {selectedComponent === "searchEngagement" && (
-        <EngangementTable orgs={orgs} />
-      )}
+      {selectedComponent === "searchEngagement" && (<EngangementTable orgs={orgs} />)}
     </>
   );
 }
@@ -81,7 +78,7 @@ export default function Metrics({ user, orgs }) {
 export async function getServerSideProps(context) {
   const res = await fetch("http://localhost:3000/api/part-orgs");
   const orgs = await res.json();
-  console.log(typeof orgs);
+  //console.log( orgs);
   const session = await getServerSession(context.req, context.res);
   if (!session) {
     return {

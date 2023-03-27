@@ -11,7 +11,8 @@ import {
   Typography,
   ButtonGroup,
   Button,
-  Alert, 
+  Alert,
+  Chip,
 } from "@mui/material";
 import { counties, services } from "../../lib/services-provided";
 import { orderBy } from "lodash";
@@ -28,7 +29,7 @@ const noMatchTable = () => {
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  
+
   useEffect(() => {
     setCountiesList(counties);
     setServicesList(services);
@@ -47,7 +48,7 @@ const noMatchTable = () => {
       .then(({ data }) => setData(data))
       .catch((error) => console.error(error));
   }, [days, months, filterBy]);
-  
+
   const resetSearchEntries = () => {
     setDays(1);
     setMonths(1);
@@ -112,39 +113,44 @@ const noMatchTable = () => {
     [setMonths, setFilterBy, filterBy]
   );
 
-  
   const handleSortRequest = (columnType) => {
     const isDesc = sortBy === columnType && order === "desc";
     setOrder(isDesc ? "asc" : "desc");
     setSortBy(columnType);
   };
-  
 
   return (
     <main>
-      <Box className={styles.container}>
-        <Typography variant="h6" className={styles.title} textAlign="center" mt={2}mb={2}>
-          Metrics: Non Matching Searches for Service and Counties
+      <Box className={styles.container} sx={{ margin: 2 }}>
+        <Typography
+          variant="h6"
+          className={styles.title}
+          textAlign="center"
+          mt={2}
+          mb={2}
+        >
+          Non Matching Results from Find Help Page
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
           <Typography variant="body1" className={styles.subtitle_text} mr={1}>
             Show data from the last:
           </Typography>
           <ButtonGroup>
-            <Button
-              variant={filterBy === "days" ? "contained" : "outlined"}
+            <Chip
+              label="Days"
+              clickable
+              color={filterBy === "days" ? "primary" : "default"}
               onClick={() => setFilterBy("days")}
-            >
-              Days
-            </Button>
-            
-            <Button
-              variant={filterBy === "months" ? "contained" : "outlined"}
+              sx={{ mr: 1 }}
+            />
+
+            <Chip
+              label="Months"
+              clickable
+              color={filterBy === "months" ? "primary" : "default"}
               onClick={() => setFilterBy("months")}
-            >
-              Months
-            </Button>
-            
+              sx={{ mr: 1 }}
+            />
           </ButtonGroup>
           {filterBy === "days" ? (
             <TextField
@@ -156,7 +162,7 @@ const noMatchTable = () => {
               className={styles.subtitle_input}
               error={daysError}
               helperText={daysError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, ml:1 }}
+              sx={{ mr: 1, ml: 1 }}
             />
           ) : (
             <TextField
@@ -168,22 +174,20 @@ const noMatchTable = () => {
               className={styles.subtitle_input}
               error={monthsError}
               helperText={monthsError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, }}
+              sx={{ mr: 1 }}
             />
-            
           )}
           <Typography variant="body1">
             {filterBy === "days" ? "days" : "months"}
           </Typography>
-          <Button
-            variant="outlined"
-            onClick={resetSearchEntries}
-            sx={{ ml: 1 }}
+          <Chip
+            label="Reset Search Entries"
+            clickable
             color="error"
-
-          >
-            Reset Search Entries
-          </Button>
+            variant="outlined"
+            sx={{ ml: 1 }}
+            onClick={resetSearchEntries}
+          />
         </Box>
         {daysError || monthsError ? (
           <Box mb={2}>
@@ -202,17 +206,20 @@ const noMatchTable = () => {
                     onClick={() => handleSortRequest("fullString")}
                     sx={{ fontSize: 20 }}
                   >
-                    Service & County
+                    <Chip label="Service & County" />
                   </TableSortLabel>
                 </TableCell>
-                <TableCell align="right" className={styles.table_header_cell_right}>
+                <TableCell
+                  align="right"
+                  className={styles.table_header_cell_right}
+                >
                   <TableSortLabel
                     active={sortBy === "numSearches"}
                     direction={order}
                     className={styles.sort_label}
                     onClick={() => handleSortRequest("numSearches")}
                   >
-                    Number of Searches
+                    <Chip label="Number of Searches" />
                   </TableSortLabel>
                 </TableCell>
               </TableRow>
@@ -234,6 +241,6 @@ const noMatchTable = () => {
       </Box>
     </main>
   );
-}; 
+};
 
 export default noMatchTable;

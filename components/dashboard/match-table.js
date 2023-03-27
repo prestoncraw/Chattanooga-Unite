@@ -11,7 +11,8 @@ import {
   Typography,
   ButtonGroup,
   Button,
-  Alert, 
+  Alert,
+  Chip,
 } from "@mui/material";
 import { counties, services } from "../../lib/services-provided";
 import { orderBy } from "lodash";
@@ -28,8 +29,8 @@ const foundMatchTable = () => {
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  const [searchName, setSearchName] = useState('');
-const [countyName, setCountyName] = useState('');
+  const [searchName, setSearchName] = useState("");
+  const [countyName, setCountyName] = useState("");
 
   useEffect(() => {
     setCountiesList(counties);
@@ -49,7 +50,7 @@ const [countyName, setCountyName] = useState('');
       .then(({ data }) => setData(data))
       .catch((error) => console.error(error));
   }, [days, months, filterBy]);
-  
+
   const resetSearchEntries = () => {
     setDays(1);
     setMonths(1);
@@ -59,16 +60,19 @@ const [countyName, setCountyName] = useState('');
   };
 
   const foundMatch = useMemo(() => {
-    return data?.filter((item) => item.found_match === 1)
-      .map((item) => {
-        const service = servicesList.find((s) => s.id === item.service_id);
-        const county = countiesList.find((c) => c.id === item.county_id);
-        return {
-          serviceTitle: service?.title,
-          countyName: county?.name,
-          ...item
-        };
-      }) || [];
+    return (
+      data
+        ?.filter((item) => item.found_match === 1)
+        .map((item) => {
+          const service = servicesList.find((s) => s.id === item.service_id);
+          const county = countiesList.find((c) => c.id === item.county_id);
+          return {
+            serviceTitle: service?.title,
+            countyName: county?.name,
+            ...item,
+          };
+        }) || []
+    );
   }, [data, servicesList, countiesList]);
 
   const fullStringMap = useMemo(() => {
@@ -123,80 +127,85 @@ const [countyName, setCountyName] = useState('');
     [setMonths, setFilterBy, filterBy]
   );
 
-  
   const handleSortRequest = (columnType) => {
     const isDesc = sortBy === columnType && order === "desc";
     setOrder(isDesc ? "asc" : "desc");
     setSortBy(columnType);
   };
 
-  
-  console.log(fullStringMap)
+  console.log(fullStringMap);
 
   return (
     <main>
-      <Box className={styles.container}>
-        <Typography variant="h6" className={styles.title} textAlign="center" mt={2}mb={2}>
-          Metrics: Matching Seaches for Service and Counties
+      <Box className={styles.container} sx={{ margin: 2 }}>
+        <Typography
+          variant="h6"
+          className={styles.title}
+          textAlign="center"
+          mt={2}
+          mb={2}
+        >
+          Matching Search Results from Find Help Page
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
-          <Typography variant="body1" className={styles.subtitle_text} mr={1}>
-            Show data from the last:
-          </Typography>
-          <ButtonGroup>
-            <Button
-              variant={filterBy === "days" ? "contained" : "outlined"}
-              onClick={() => setFilterBy("days")}
-            >
-              Days
-            </Button>
-            
-            <Button
-              variant={filterBy === "months" ? "contained" : "outlined"}
-              onClick={() => setFilterBy("months")}
-            >
-              Months
-            </Button>
-            
-          </ButtonGroup>
-          {filterBy === "days" ? (
-            <TextField
-              type="number"
-              value={days}
-              onChange={handleDaysChange}
-              variant="outlined"
-              size="small"
-              className={styles.subtitle_input}
-              error={daysError}
-              helperText={daysError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, ml:1 }}
-            />
-          ) : (
-            <TextField
-              type="number"
-              value={months}
-              onChange={handleMonthsChange}
-              variant="outlined"
-              size="small"
-              className={styles.subtitle_input}
-              error={monthsError}
-              helperText={monthsError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, }}
-            />
-            
-          )}
-          <Typography variant="body1">
-            {filterBy === "days" ? "days" : "months"}
-          </Typography>
-          <Button
-            variant="outlined"
-            onClick={resetSearchEntries}
-            sx={{ ml: 1 }}
-            color="error"
-          >
-            Reset Search Entries
-          </Button>
-        </Box>
+  <Typography variant="body1" className={styles.subtitle_text} mr={1}>
+    Filter by:
+  </Typography>
+  <ButtonGroup>
+    <Chip
+      label="Days"
+      clickable
+      color={filterBy === "days" ? "primary" : "default"}
+      onClick={() => setFilterBy("days")}
+      sx={{ mr: 1 }}
+    />
+
+    <Chip
+      label="Months"
+      clickable
+      color={filterBy === "months" ? "primary" : "default"}
+      onClick={() => setFilterBy("months")}
+      sx={{ mr: 1 }}
+    />
+  </ButtonGroup>
+  {filterBy === "days" ? (
+    <TextField
+      type="number"
+      value={days}
+      onChange={handleDaysChange}
+      variant="outlined"
+      size="small"
+      className={styles.subtitle_input}
+      error={daysError}
+      helperText={daysError ? "Value cannot be less than 1" : null}
+      sx={{ mr: 1, ml: 1 }}
+    />
+  ) : (
+    <TextField
+      type="number"
+      value={months}
+      onChange={handleMonthsChange}
+      variant="outlined"
+      size="small"
+      className={styles.subtitle_input}
+      error={monthsError}
+      helperText={monthsError ? "Value cannot be less than 1" : null}
+      sx={{ mr: 1 }}
+    />
+  )}
+  <Typography variant="body1">
+    {filterBy === "days" ? "days" : "months"}
+  </Typography>
+  <Chip
+    label="Reset Filters"
+    clickable
+    color="error"
+    variant="outlined"
+    sx={{ ml: 1 }}
+    onClick={resetSearchEntries}
+  />
+</Box>
+
         {daysError || monthsError ? (
           <Box mb={2}>
             <Alert severity="error">Value cannot be less than 1</Alert>
@@ -214,17 +223,20 @@ const [countyName, setCountyName] = useState('');
                     onClick={() => handleSortRequest("fullString")}
                     sx={{ fontSize: 20 }}
                   >
-                    Service & County
+                    <Chip label="Service & County" />
                   </TableSortLabel>
                 </TableCell>
-                <TableCell align="right" className={styles.table_header_cell_right}>
+                <TableCell
+                  align="right"
+                  className={styles.table_header_cell_right}
+                >
                   <TableSortLabel
                     active={sortBy === "numSearches"}
                     direction={order}
                     className={styles.sort_label}
                     onClick={() => handleSortRequest("numSearches")}
                   >
-                    Number of Searches
+                    <Chip label="Number of Searches" />
                   </TableSortLabel>
                 </TableCell>
               </TableRow>
@@ -246,6 +258,6 @@ const [countyName, setCountyName] = useState('');
       </Box>
     </main>
   );
-}; 
+};
 
 export default foundMatchTable;

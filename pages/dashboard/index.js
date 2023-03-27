@@ -7,6 +7,8 @@ import { Typography, Container, Box } from "@mui/material";
 import Navbar from "../../components/dashboard/navbar";
 import DashboardComp from "../../components/dashboard/dashboard";
 import getAuthUser from "../../lib/get-auth-user";
+import AdminOptionsPanel from "../../components/dashboard/admin-options-panel";
+import OrgPanel from "../../components/dashboard/org-panel";
 
 export default function Dashboard({ user, session }) {
   const { data, status } = useSession();
@@ -42,7 +44,6 @@ console
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              pt: 8,
             }}
           >
             <DashboardComp
@@ -52,6 +53,8 @@ console
           </Box>
         </Container>
       </Box>
+      {userData.is_admin==true && <AdminOptionsPanel />}
+            <OrgPanel organizations={userData.Organizations}></OrgPanel>
     </>
   );
 }
