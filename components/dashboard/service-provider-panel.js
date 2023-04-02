@@ -1,52 +1,136 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import ServiceProvider from "./menu-card";
-import Typography from "@mui/material/Typography";
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+  Typography,
+  Chip,
+  TextField,
+} from "@mui/material";
+import { orderBy } from "lodash";
+import styles from "../../styles/MatchTable.module.css";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
+import Link from "next/link";
 
-const drawerWidth = 240;
+const OrgTable = () => {
+  const [data, setData] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
-function Menu() {
-  const serviceProviderData = {
-    link: "/dashboard/metric-nomatch-table",
-    title: "Service Provider",
-    description: "Test information blah blah blah",
-    image: "/images/chattanooga-unite-logo.jpg",
-    buttonHref: "/dashbservice-provider-panel",
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/part-orgs`);
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      const parsedData = JSON.parse(data);
+      const foundMatch = orderBy(parsedData, "name");
+      setFilteredData(
+        foundMatch.filter(
+          (item) =>
+          item && item.name && item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+          item && item.contact_email && item.contact_email.toLowerCase().includes(searchValue.toLowerCase())        
+        )
+      );
+    }
+  }, [searchValue, data]);
+  
+
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
   };
 
-  const serviceProviders = new Array(20).fill(serviceProviderData);
-
   return (
-    <Box sx={{ display: "flex" }}>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <Toolbar />
-        <Typography gutterBottom variant="h3" component="div">
-          Service Provider Panel
+    <main>
+      <Box className={styles.container} sx={{ margin: 2 }}>
+        <Typography
+          variant="h6"
+          className={styles.title}
+          textAlign="center"
+          mt={2}
+          mb={2}
+        >
+          Service Providers
         </Typography>
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-          {serviceProviders.map((provider, index) => (
-            <Box key={index} sx={{ width: "20%" }}>
-              <ServiceProvider
-                link={provider.link}
-                title={provider.title}
-                description={provider.description}
-                image={provider.image}
-                buttonHref={provider.buttonHref}
-              />
-            </Box>
-          ))}
+
+        <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+          <Typography variant="subtitle1" sx={{ marginRight: 1 }}>
+            Search:
+          </Typography>
+          <TextField
+            variant="outlined"
+            value={searchValue}
+            onChange={handleSearchChange}
+            sx={{ width: "100%" }}
+          />
+        </Box>
+
+        <Box className={styles.table_container} mb={2}>
+          <Table className={styles.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell className={styles.table_header_cell}>
+                  <TableSortLabel
+                    active={true}
+                    direction="asc"
+                    className={styles.sort_label}
+                  >
+                    <Chip label="Organization Name" />
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell className={styles.table_header_cell}>
+                  <TableSortLabel
+                    active={false}
+                    direction="asc"
+                    className={styles.sort_label}
+                  >
+                    <Chip label="Contact Email" />
+                  </TableSortLabel>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredData &&
+                filteredData.map((item) => (
+                  <TableRow key={item.id} className={styles.table_row}>
+                    <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
+                      <Link href={`/dashboard/org/${item.id}`}>
+                        {item.name}
+                      </Link>
+                    </TableCell>
+                    <TableCell>
+                    <Link href={`/dashboard/org/${item.id}`}>
+                      {item.contact_email}
+                    </Link>
+                      <Box sx={{ textAlign: "right" }}>
+                        <Link href={`/dashboard/org/${item.id}`}>
+                          <EditIcon sx={{ mr: 2 }} />
+                        </Link>
+                        <DeleteForeverIcon />
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
         </Box>
       </Box>
-    </Box>
+    </main>
   );
-}
+};
 
-export default Menu;
+export default OrgTable;

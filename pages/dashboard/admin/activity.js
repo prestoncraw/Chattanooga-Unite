@@ -5,6 +5,7 @@ import Head from 'next/head';
 import * as React from 'react';
 import Navbar from '../../../components/dashboard/navbar';
 import { Typography } from "@mui/material";
+import ActivityLog from '../../../components/dashboard/activity-log';
 
 import getAuthUser from "../../../lib/get-auth-user";
 
@@ -38,7 +39,7 @@ export default function Activity({ user, session }) {
                 Dashboard Menu
             </Typography>
 
-            <div>A table of all user activity will be displayed on this page.</div>
+            <ActivityLog />
         </>
     );
 }

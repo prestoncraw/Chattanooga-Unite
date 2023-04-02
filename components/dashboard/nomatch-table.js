@@ -129,7 +129,7 @@ const noMatchTable = () => {
           mt={2}
           mb={2}
         >
-          Non Matching Results from Find Help Page
+          Non Matching Searches from Find Help Page
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
           <Typography variant="body1" className={styles.subtitle_text} mr={1}>
@@ -181,7 +181,7 @@ const noMatchTable = () => {
             {filterBy === "days" ? "days" : "months"}
           </Typography>
           <Chip
-            label="Reset Search Entries"
+            label="Reset Search Filters"
             clickable
             color="error"
             variant="outlined"
@@ -206,7 +206,7 @@ const noMatchTable = () => {
                     onClick={() => handleSortRequest("fullString")}
                     sx={{ fontSize: 20 }}
                   >
-                    <Chip label="Service & County" />
+                    <Chip label="Service & County - Searches" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell

@@ -202,7 +202,7 @@ const EngagementTable = ({ orgs }) => {
             {filterBy === "days" ? "days" : "months"}
           </Typography>
           <Chip
-            label="Reset Search Entries"
+            label="Reset Search Filters"
             clickable
             color="error"
             variant="outlined"
@@ -227,7 +227,7 @@ const EngagementTable = ({ orgs }) => {
                     onClick={() => handleSortRequest("fullString")}
                     sx={{ fontSize: 20 }}
                   >
-                    <Chip label="Service & County Search" />
+                    <Chip label="Service & County - Searches" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell

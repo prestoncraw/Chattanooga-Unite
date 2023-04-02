@@ -8,7 +8,7 @@ import MenuCard from "./menu-card";
 
 const drawerWidth = 240;
 
-function Dashboard({ name, orgId }) {
+function AdminPanel({ name, orgId }) {
   return (
     <Box sx={{ display: "flex", gap: 2 }}>
       <Box
@@ -25,9 +25,7 @@ function Dashboard({ name, orgId }) {
           component="h1"
           sx={{ fontWeight: "bold", textAlign: "center", mb: 2 }}
         >
-          {name} - Dashboard
         </Typography>
-
         {/* Top Cards */}
         <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)", mb: 2 }}>
           <Typography
@@ -85,38 +83,9 @@ function Dashboard({ name, orgId }) {
             />
           </CardContent>
         </Card>
-
-        {/* Bottom Cards */}
-        <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)", mb: 2 }}>
-          <Typography
-            variant="h5"
-            component="h2"
-            align="center"
-            sx={{ fontWeight: "bold", mt: 2 }}
-          >
-            Your organizations
-          </Typography>
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-around",
-              gap: 2,
-            }}
-          >
-            <MenuCard
-              link={"/dashboard/org/" + orgId}
-              title={name}
-              image={"/images/helping-hands.png"}
-              description={"Edit information regarding your organization"}
-              buttonHref={"/dashboard/org/" + orgId}
-            />
-          </CardContent>
-        </Card>
       </Box>
     </Box>
   );
 }
 
-export default Dashboard;
+export default AdminPanel;

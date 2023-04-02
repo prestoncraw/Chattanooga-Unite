@@ -145,11 +145,11 @@ const foundMatchTable = () => {
           mt={2}
           mb={2}
         >
-          Matching Search Results from Find Help Page
+          Matching Searches from Find Help Page
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
   <Typography variant="body1" className={styles.subtitle_text} mr={1}>
-    Filter by:
+  Show data from the last:
   </Typography>
   <ButtonGroup>
     <Chip
@@ -197,7 +197,7 @@ const foundMatchTable = () => {
     {filterBy === "days" ? "days" : "months"}
   </Typography>
   <Chip
-    label="Reset Filters"
+    label="Reset Search Filters"
     clickable
     color="error"
     variant="outlined"
@@ -223,7 +223,7 @@ const foundMatchTable = () => {
                     onClick={() => handleSortRequest("fullString")}
                     sx={{ fontSize: 20 }}
                   >
-                    <Chip label="Service & County" />
+                    <Chip label="Service & County - Searches" />
                   </TableSortLabel>
                 </TableCell>
                 <TableCell

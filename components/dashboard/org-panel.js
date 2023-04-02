@@ -1,15 +1,62 @@
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import MenuCard from "./menu-card";
+
+const drawerWidth = 240;
+
 export default function OrgPanel({ organizations }) {
   return (
-    <div>
-      <h2>Your Organizations:</h2>
-      {organizations.length == 0 && (
-        <div>No organizations with user as owner found. </div>
-      )}
-      {organizations.map((orgs) => (
-        <div key={orgs.id}>
-          <a href={`/dashboard/org/${orgs.id}`}>{orgs.name}</a>
-        </div>
-      ))}
-    </div>
+    <Box sx={{ display: "flex", gap: 2 }}>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
+        <Toolbar />
+        <Typography
+          variant="h4"
+          component="h1"
+          sx={{ fontWeight: "bold", textAlign: "center" }}
+        >
+          &nbsp;
+        </Typography>
+        <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)" }}>
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              variant="h5"
+              component="h2"
+              align="center"
+              sx={{ fontWeight: "bold" }}
+            >
+              Service Providers
+            </Typography>
+            {organizations.map((org) => (
+              <MenuCard
+                key={org.id}
+                link={`/dashboard/org/${org.id}`}
+                title={org.name}
+                image={"/images/helping-hands.png"}
+                description={"Edit information regarding your organization"}
+                buttonHref={`/dashboard/org/${org.id}`}
+                size={300}
+              />
+            ))}
+          </CardContent>
+        </Card>
+      </Box>
+    </Box>
   );
 }
