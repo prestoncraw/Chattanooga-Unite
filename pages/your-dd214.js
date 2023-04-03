@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styles from '../styles/dd214.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
+import AccessibilityMenu from '../components/accessibiliy-menu';
 
 function YourDD214() {
   return (
@@ -60,6 +61,7 @@ function YourDD214() {
             </div>
           </div>
         </div>
+        <AccessibilityMenu />
         <Footer />
       </main>
     </>

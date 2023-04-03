@@ -2,10 +2,12 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
+import AccessibilityMenu from '../components/accessibiliy-menu';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
+
   return (
     <div>
       <Head>
@@ -26,8 +28,7 @@ export default function Home() {
           content="/images/chattanooga-unite-logo.jpg"
         />
       </Head>
-
-
+      
       <main>
         <NavBar />
         <div className="container">
@@ -86,9 +87,9 @@ export default function Home() {
               />
             </div>
           </div>
-
         </div>
       </main>
+      <AccessibilityMenu />
       <Footer />
     </div>
   )

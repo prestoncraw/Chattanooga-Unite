@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styles from '../styles/dd214.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
+import AccessibilityMenu from '../components/accessibiliy-menu';
 
 function GetInvolved() {
   return (
@@ -61,6 +62,7 @@ function GetInvolved() {
 
           <div className="grayBackground">
             <div className="right">
+              <div className="blue_decoration"></div>
                 <h1 className="title_dark">Our Impact</h1>
                 <div className="title_dark"><h2>Ramp Accessibility</h2></div>
                 <div className="description_dark">
@@ -80,8 +82,8 @@ function GetInvolved() {
                 <div className="title_dark"><h2>Dental Care</h2></div>
                 <div className="description_dark">
                     <p>
-                        In 2022, Chattanooga Unite, in conjunction with our partners, provided eight veterans with the dental care they needed. 
-                        We were able to reduce the cost of this treatment to half the original price. 
+                        Most veterans do not receive dental care. Since Chattanooga Unite is dedicated to providing wholistic support for veterans, we have stepped in and helped more than 30 veterans receive dental care since Fall 2022. 
+                        With the support of our partners, we have been able to provide veterans in our community with nearly $100,000 of discounted care. 
                     </p>
                 </div>
             </div>
@@ -119,6 +121,7 @@ function GetInvolved() {
             </div>
           </div>
         </div>
+        <AccessibilityMenu />
         <Footer />
       </main>
     </>
