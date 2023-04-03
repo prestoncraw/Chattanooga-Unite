@@ -1,4 +1,9 @@
-# Chattanooga Unite / Senior Capstone Project
+<p align="center">
+    <picture>
+      <img src="https://user-images.githubusercontent.com/43215443/229606976-a61ed091-b2d6-4a07-a22b-d5403034b629.jpg" height="128">
+    </picture>
+    <h1 align="center">Chattanooga Unite / Senior Capstone Project</h1>
+</p>
 
 This project is focused on rebranding the Chattanooga area Veterans Resource Center's [existing website](https://setnvets.org) as well as adding additional functionality to the website.
 
@@ -19,7 +24,7 @@ This project is focused on rebranding the Chattanooga area Veterans Resource Cen
 - Each organization signed up with Chattanooga Unite receives a custom (automatically generated) public page (```/org/[id]```) to provide additional information about what they do and how to get in contact with them.
 - Organizations are able to update their own information through the dashboard (```/dashboard```)
 
-### Admin Suite of Functionality to support website operations  
+### Admin Suite of Functionality to support website operations
 - Admin users are able to have full control over Organizations through the website (```/dashboard```)
     - Create new organizations. (```/dashboard/admin/orgs/create```)
     - Edit information about existing organizations. (```/dashboard/org/[id]```)
