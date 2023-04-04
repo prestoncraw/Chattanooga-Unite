@@ -53,7 +53,7 @@ export default function Home() {
               <div className="white_decoration"></div>
               <h1 className="title_light">Helping Veterans and Their Families</h1><br></br>
               <p className="description_light">This effort grew out of the Iraq and Afghanistan wars with a desire to partner with the Veterans Administration in providing services for the increasing challenges of these returning veterans, while satisfying current needs of existing veterans and their families.</p><br></br>
-              <p className="description_light">Epilepsy Foundation of Southeast Tennessee (EFSETN) along with over 100+ other agencies and businesses are a part of this community grassroots effort. This grassroots coalition of agencies is called Chattanooa Unite Veterans Resource Center.</p>
+              <p className="description_light">Epilepsy Foundation of Southeast Tennessee (EFSETN) along with over 100+ other agencies and businesses are a part of this community grassroots effort. This grassroots coalition of agencies is called the Chattanooga Unite Veterans Resource Center.</p>
             </div>
             <div className="right">
               <Image className="vetImg"
