@@ -41,7 +41,7 @@ export default function Dashboard({ user, session }) {
             name={userData.Organizations[0].name}
           />
           <Container maxWidth="lg">
-            <Box sx={{ ...sharedStyles, gap: 0 }}>
+            <Box sx={{ ...sharedStyles }}>
               <AdminPanel
                 name={userData.Organizations[0].name}
                 orgId={userData.Organizations[0].id}
@@ -57,7 +57,7 @@ export default function Dashboard({ user, session }) {
             email={userData.user_email}
             name={userData.Organizations[0].name}
           />
-          <Box sx={{ ...sharedStyles, gap: 0 }}>
+          <Box sx={{ ...sharedStyles}}>
             <OrgPanel
               organizations={userData.Organizations}
               sx={{ ...sharedStyles }}

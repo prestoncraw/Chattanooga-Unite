@@ -6,7 +6,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   Typography,
   ButtonGroup,
@@ -19,7 +18,6 @@ import { orderBy } from "lodash";
 import styles from "../../styles/MatchTable.module.css";
 
 const EngagementTable = ({ orgs }) => {
-  const [serviceCountySortActive, setServiceCountySortActive] = useState(false);
   const [days, setDays] = useState(7);
   const [data, setData] = useState(null);
   const [sortBy, setSortBy] = useState("numSearches");
@@ -30,8 +28,6 @@ const EngagementTable = ({ orgs }) => {
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  const [searchName, setSearchName] = useState("");
-  const [countyName, setCountyName] = useState("");
 
   useEffect(() => {
     setCountiesList(counties);
@@ -85,16 +81,6 @@ const EngagementTable = ({ orgs }) => {
     }, new Map());
   }, [foundMatch, servicesList, countiesList]);
 
-  const fullStringCount = useMemo(() => {
-    return Array.from(fullStringMap).map(([fullString, numSearches]) => ({
-      fullString,
-      numSearches,
-    }));
-  }, [fullStringMap]);
-
-  const sortedData = useMemo(() => {
-    return orderBy(fullStringCount, [sortBy], [order]);
-  }, [fullStringCount, sortBy, order]);
 
   const handleDaysChange = useCallback(
     (e) => {
@@ -129,12 +115,33 @@ const EngagementTable = ({ orgs }) => {
     },
     [setMonths, setFilterBy, filterBy]
   );
-
-  const handleSortRequest = (columnType) => {
-    const isDesc = sortBy === columnType && order === "desc";
-    setOrder(isDesc ? "asc" : "desc");
-    setSortBy(columnType);
-  };
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredData = useMemo(() => {
+    const organizations = JSON.parse(orgs);
+    return (
+      data
+        ?.filter((item) =>
+          `${servicesList.find((s) => s.id === item.service_id)?.title} ${
+            countiesList.find((c) => c.id === item.county_id)?.name
+          } ${organizations.find(
+            (org) => org.id === item.service_provider_id
+          )?.name}`
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+        )
+        .map((item) => {
+          const service = servicesList.find((s) => s.id === item.service_id);
+          const county = countiesList.find((c) => c.id === item.county_id);
+          return {
+            serviceTitle: service?.title,
+            countyName: county?.name,
+            ...item,
+          };
+        }) || []
+    );
+  }, [data, servicesList, countiesList, searchQuery, orgs]);
+  
+  
 
   //console.log(fullStringMap)
   const organizations = JSON.parse(orgs);
@@ -209,6 +216,15 @@ const EngagementTable = ({ orgs }) => {
             sx={{ ml: 1 }}
             onClick={resetSearchEntries}
           />
+          <TextField
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            variant="outlined"
+            size="small"
+            className={styles.search_input}
+            placeholder="Search"
+            sx={{ ml: 1 }}
+          />
         </Box>
         {daysError || monthsError ? (
           <Box mb={2}>
@@ -220,53 +236,32 @@ const EngagementTable = ({ orgs }) => {
             <TableHead>
               <TableRow>
                 <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "fullString"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("fullString")}
-                    sx={{ fontSize: 20 }}
-                  >
-                    <Chip label="Service & County - Searches" />
-                  </TableSortLabel>
+                  <Chip label="Service & County - Searches" />
                 </TableCell>
                 <TableCell
                   align="right"
                   className={styles.table_header_cell_right}
                 >
-                  <TableSortLabel
-                    active={sortBy === "numSearches"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("numSearches")}
-                  >
-                    <Chip label="Service Provider" />
-                  </TableSortLabel>
+                  <Chip label="Service Provider" />
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data &&
-                data.map((item, index) => (
-                  <TableRow key={index} className={styles.table_row}>
-                    <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                      {
-                        servicesList.find((s) => s.id === item.service_id)
-                          ?.title
-                      }{" "}
-                      &{" "}
-                      {countiesList.find((c) => c.id === item.county_id)?.name}
-                    </TableCell>
-
-                    <TableCell align="right" sx={{ fontSize: 16 }}>
-                      {
-                        organizations.find(
-                          (org) => org.id === item.service_provider_id
-                        )?.name
-                      }
-                    </TableCell>
-                  </TableRow>
-                ))}
+              {filteredData.map((item, index) => (
+                <TableRow key={index} className={styles.table_row}>
+                  <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
+                    {servicesList.find((s) => s.id === item.service_id)?.title}{" "}
+                    & {countiesList.find((c) => c.id === item.county_id)?.name}
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontSize: 16 }}>
+                    {
+                      organizations.find(
+                        (org) => org.id === item.service_provider_id
+                      )?.name
+                    }
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </Box>
