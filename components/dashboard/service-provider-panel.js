@@ -75,7 +75,6 @@ const OrgTable = () => {
             variant="outlined"
             value={searchValue}
             onChange={handleSearchChange}
-            sx={{ width: "100%" }}
           />
         </Box>
 

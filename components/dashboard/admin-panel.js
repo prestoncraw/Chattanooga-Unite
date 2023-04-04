@@ -8,7 +8,7 @@ import MenuCard from "./menu-card";
 
 const drawerWidth = 240;
 
-function AdminPanel({ name, orgId }) {
+function AdminPanel() {
   return (
     <Box sx={{ display: "flex", gap: 2 }}>
       <Box

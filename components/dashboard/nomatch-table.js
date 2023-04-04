@@ -6,11 +6,9 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   Typography,
   ButtonGroup,
-  Button,
   Alert,
   Chip,
 } from "@mui/material";
@@ -29,6 +27,7 @@ const noMatchTable = () => {
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     setCountiesList(counties);
@@ -55,6 +54,7 @@ const noMatchTable = () => {
     setFilterBy("days");
     setDaysError(false);
     setMonthsError(false);
+    setSearchName(""); 
   };
 
   const noMatch = useMemo(() => {
@@ -76,10 +76,6 @@ const noMatchTable = () => {
       numSearches,
     }));
   }, [fullStringMap]);
-
-  const sortedData = useMemo(() => {
-    return orderBy(fullStringCount, [sortBy], [order]);
-  }, [fullStringCount, sortBy, order]);
 
   const handleDaysChange = useCallback(
     (e) => {
@@ -113,10 +109,16 @@ const noMatchTable = () => {
     [setMonths, setFilterBy, filterBy]
   );
 
-  const handleSortRequest = (columnType) => {
-    const isDesc = sortBy === columnType && order === "desc";
-    setOrder(isDesc ? "asc" : "desc");
-    setSortBy(columnType);
+
+  const sortedData = useMemo(() => {
+    const filteredData = fullStringCount.filter(({ fullString }) =>
+      fullString.toLowerCase().includes(searchText.toLowerCase())
+    );
+    return orderBy(filteredData, [sortBy], [order]);
+  }, [fullStringCount, sortBy, order, searchText]);
+
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value);
   };
 
   return (
@@ -188,6 +190,14 @@ const noMatchTable = () => {
             sx={{ ml: 1 }}
             onClick={resetSearchEntries}
           />
+          <TextField
+            label="Search"
+            value={searchText}
+            onChange={handleSearchTextChange}
+            variant="outlined"
+            size="small"
+            sx={{ ml: 1 }}
+          />
         </Box>
         {daysError || monthsError ? (
           <Box mb={2}>
@@ -199,28 +209,13 @@ const noMatchTable = () => {
             <TableHead>
               <TableRow>
                 <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "fullString"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("fullString")}
-                    sx={{ fontSize: 20 }}
-                  >
                     <Chip label="Service & County - Searches" />
-                  </TableSortLabel>
                 </TableCell>
                 <TableCell
                   align="right"
                   className={styles.table_header_cell_right}
                 >
-                  <TableSortLabel
-                    active={sortBy === "numSearches"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("numSearches")}
-                  >
                     <Chip label="Number of Searches" />
-                  </TableSortLabel>
                 </TableCell>
               </TableRow>
             </TableHead>

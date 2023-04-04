@@ -6,7 +6,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   Typography,
   ButtonGroup,
@@ -30,7 +29,10 @@ const foundMatchTable = () => {
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
   const [searchName, setSearchName] = useState("");
-  const [countyName, setCountyName] = useState("");
+
+  const handleSearchChange = (e) => {
+    setSearchName(e.target.value.toLowerCase());
+  };
 
   useEffect(() => {
     setCountiesList(counties);
@@ -57,6 +59,7 @@ const foundMatchTable = () => {
     setFilterBy("days");
     setDaysError(false);
     setMonthsError(false);
+    setSearchName(""); 
   };
 
   const foundMatch = useMemo(() => {
@@ -127,11 +130,11 @@ const foundMatchTable = () => {
     [setMonths, setFilterBy, filterBy]
   );
 
-  const handleSortRequest = (columnType) => {
-    const isDesc = sortBy === columnType && order === "desc";
-    setOrder(isDesc ? "asc" : "desc");
-    setSortBy(columnType);
-  };
+  const filteredData = useMemo(() => {
+    return sortedData.filter((item) =>
+      item.fullString.toLowerCase().includes(searchName)
+    );
+  }, [sortedData, searchName]);
 
   console.log(fullStringMap);
 
@@ -148,63 +151,71 @@ const foundMatchTable = () => {
           Matching Searches from Find Help Page
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
-  <Typography variant="body1" className={styles.subtitle_text} mr={1}>
-  Show data from the last:
-  </Typography>
-  <ButtonGroup>
-    <Chip
-      label="Days"
-      clickable
-      color={filterBy === "days" ? "primary" : "default"}
-      onClick={() => setFilterBy("days")}
-      sx={{ mr: 1 }}
-    />
+          <Typography variant="body1" className={styles.subtitle_text} mr={1}>
+            Show data from the last:
+          </Typography>
+          <ButtonGroup>
+            <Chip
+              label="Days"
+              clickable
+              color={filterBy === "days" ? "primary" : "default"}
+              onClick={() => setFilterBy("days")}
+              sx={{ mr: 1 }}
+            />
 
-    <Chip
-      label="Months"
-      clickable
-      color={filterBy === "months" ? "primary" : "default"}
-      onClick={() => setFilterBy("months")}
-      sx={{ mr: 1 }}
-    />
-  </ButtonGroup>
-  {filterBy === "days" ? (
-    <TextField
-      type="number"
-      value={days}
-      onChange={handleDaysChange}
-      variant="outlined"
-      size="small"
-      className={styles.subtitle_input}
-      error={daysError}
-      helperText={daysError ? "Value cannot be less than 1" : null}
-      sx={{ mr: 1, ml: 1 }}
-    />
-  ) : (
-    <TextField
-      type="number"
-      value={months}
-      onChange={handleMonthsChange}
-      variant="outlined"
-      size="small"
-      className={styles.subtitle_input}
-      error={monthsError}
-      helperText={monthsError ? "Value cannot be less than 1" : null}
-      sx={{ mr: 1 }}
-    />
-  )}
-  <Typography variant="body1">
-    {filterBy === "days" ? "days" : "months"}
-  </Typography>
-  <Chip
-    label="Reset Search Filters"
-    clickable
-    color="error"
-    variant="outlined"
-    sx={{ ml: 1 }}
-    onClick={resetSearchEntries}
-  />
-</Box>
+            <Chip
+              label="Months"
+              clickable
+              color={filterBy === "months" ? "primary" : "default"}
+              onClick={() => setFilterBy("months")}
+              sx={{ mr: 1 }}
+            />
+          </ButtonGroup>
+          {filterBy === "days" ? (
+            <TextField
+              type="number"
+              value={days}
+              onChange={handleDaysChange}
+              variant="outlined"
+              size="small"
+              className={styles.subtitle_input}
+              error={daysError}
+              helperText={daysError ? "Value cannot be less than 1" : null}
+              sx={{ mr: 1, ml: 1 }}
+            />
+          ) : (
+            <TextField
+              type="number"
+              value={months}
+              onChange={handleMonthsChange}
+              variant="outlined"
+              size="small"
+              className={styles.subtitle_input}
+              error={monthsError}
+              helperText={monthsError ? "Value cannot be less than 1" : null}
+              sx={{ mr: 1 }}
+            />
+          )}
+          <Typography variant="body1">
+            {filterBy === "days" ? "days" : "months"}
+          </Typography>
+          <Chip
+            label="Reset Search Filters"
+            clickable
+            color="error"
+            variant="outlined"
+            sx={{ ml: 1 }}
+            onClick={resetSearchEntries}
+          />
+          <TextField
+            value={searchName}
+            onChange={handleSearchChange}
+            variant="outlined"
+            size="small"
+            label="Search"
+            sx={{ ml: 1 }}
+          />
+        </Box>
 
         {daysError || monthsError ? (
           <Box mb={2}>
@@ -216,33 +227,18 @@ const foundMatchTable = () => {
             <TableHead>
               <TableRow>
                 <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "fullString"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("fullString")}
-                    sx={{ fontSize: 20 }}
-                  >
                     <Chip label="Service & County - Searches" />
-                  </TableSortLabel>
                 </TableCell>
                 <TableCell
                   align="right"
                   className={styles.table_header_cell_right}
                 >
-                  <TableSortLabel
-                    active={sortBy === "numSearches"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("numSearches")}
-                  >
                     <Chip label="Number of Searches" />
-                  </TableSortLabel>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortedData.map(({ fullString, numSearches }) => (
+              {filteredData.map(({ fullString, numSearches }) => (
                 <TableRow key={fullString} className={styles.table_row}>
                   <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
                     {fullString}

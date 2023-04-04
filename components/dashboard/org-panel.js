@@ -39,8 +39,8 @@ export default function OrgPanel({ organizations }) {
               variant="h5"
               component="h2"
               align="center"
-              sx={{ fontWeight: "bold" }}
-            >
+              sx={{ fontWeight: "bold", mt: 2, mb: 2 }}
+              >
               Service Providers
             </Typography>
             {organizations.map((org) => (

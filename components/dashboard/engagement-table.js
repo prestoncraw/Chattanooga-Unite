@@ -9,19 +9,15 @@ import {
   TextField,
   Typography,
   ButtonGroup,
-  Button,
   Alert,
   Chip,
 } from "@mui/material";
 import { counties, services } from "../../lib/services-provided";
-import { orderBy } from "lodash";
 import styles from "../../styles/MatchTable.module.css";
 
 const EngagementTable = ({ orgs }) => {
   const [days, setDays] = useState(7);
   const [data, setData] = useState(null);
-  const [sortBy, setSortBy] = useState("numSearches");
-  const [order, setOrder] = useState("desc");
   const [filterBy, setFilterBy] = useState("days");
   const [countiesList, setCountiesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
@@ -55,32 +51,6 @@ const EngagementTable = ({ orgs }) => {
     setDaysError(false);
     setMonthsError(false);
   };
-
-  const foundMatch = useMemo(() => {
-    return (
-      data
-        ?.filter((item) => item.found_match === 1)
-        .map((item) => {
-          const service = servicesList.find((s) => s.id === item.service_id);
-          const county = countiesList.find((c) => c.id === item.county_id);
-          return {
-            serviceTitle: service?.title,
-            countyName: county?.name,
-            ...item,
-          };
-        }) || []
-    );
-  }, [data, servicesList, countiesList]);
-
-  const fullStringMap = useMemo(() => {
-    return foundMatch.reduce((map, item) => {
-      const service = servicesList.find((s) => s.id === item.service_id);
-      const county = countiesList.find((c) => c.id === item.county_id);
-      const fullString = `${service?.title} & ${county?.name}`;
-      return map.set(fullString, (map.get(fullString) || 0) + 1);
-    }, new Map());
-  }, [foundMatch, servicesList, countiesList]);
-
 
   const handleDaysChange = useCallback(
     (e) => {
@@ -116,6 +86,7 @@ const EngagementTable = ({ orgs }) => {
     [setMonths, setFilterBy, filterBy]
   );
   const [searchQuery, setSearchQuery] = useState("");
+
   const filteredData = useMemo(() => {
     const organizations = JSON.parse(orgs);
     return (
@@ -123,9 +94,10 @@ const EngagementTable = ({ orgs }) => {
         ?.filter((item) =>
           `${servicesList.find((s) => s.id === item.service_id)?.title} ${
             countiesList.find((c) => c.id === item.county_id)?.name
-          } ${organizations.find(
-            (org) => org.id === item.service_provider_id
-          )?.name}`
+          } ${
+            organizations.find((org) => org.id === item.service_provider_id)
+              ?.name
+          }`
             .toLowerCase()
             .includes(searchQuery.toLowerCase())
         )
@@ -140,10 +112,7 @@ const EngagementTable = ({ orgs }) => {
         }) || []
     );
   }, [data, servicesList, countiesList, searchQuery, orgs]);
-  
-  
 
-  //console.log(fullStringMap)
   const organizations = JSON.parse(orgs);
   return (
     <main>
@@ -246,18 +215,18 @@ const EngagementTable = ({ orgs }) => {
                 </TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {filteredData.map((item, index) => (
-                <TableRow key={index} className={styles.table_row}>
-                  <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                    {servicesList.find((s) => s.id === item.service_id)?.title}{" "}
-                    & {countiesList.find((c) => c.id === item.county_id)?.name}
+                <TableRow key={index}>
+                  <TableCell>
+                    {`${item.serviceTitle} & ${item.countyName} - Searches`}
                   </TableCell>
-                  <TableCell align="right" sx={{ fontSize: 16 }}>
+                  <TableCell align="right">
                     {
                       organizations.find(
                         (org) => org.id === item.service_provider_id
-                      )?.name
+                      ).name
                     }
                   </TableCell>
                 </TableRow>

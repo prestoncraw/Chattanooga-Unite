@@ -68,7 +68,7 @@ export default function Metrics({ user, orgs }) {
           onClick={() => setSelectedComponent("searchEngagement")}
         />
       </Stack>
-      {selectedComponent === "matchTable" && <MatchTable orgs={orgs} />}
+      {selectedComponent === "matchTable" && (<MatchTable orgs={orgs} />)}
       {selectedComponent === "noMatchTable" && <NoMatchTable />}
       {selectedComponent === "searchEngagement" && (<EngangementTable orgs={orgs} />)}
     </>
