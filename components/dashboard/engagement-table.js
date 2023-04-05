@@ -244,7 +244,7 @@ const EngagementTable = ({ orgs }) => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell sx={{ padding: "16px" }} bgcolor="#ffffff">
-                    {`${item.serviceTitle} & ${item.countyName} - Searches`}
+                    {`${item.serviceTitle} & ${item.countyName}`}
                   </TableCell>
                   <TableCell
                     align="right"
