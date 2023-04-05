@@ -6,12 +6,12 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   Typography,
   ButtonGroup,
-  Button,
-  Alert, 
+  Input,
+  Alert,
+  Chip,
 } from "@mui/material";
 import { counties, services } from "../../lib/services-provided";
 import { orderBy } from "lodash";
@@ -28,8 +28,11 @@ const foundMatchTable = () => {
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  const [searchName, setSearchName] = useState('');
-const [countyName, setCountyName] = useState('');
+  const [searchName, setSearchName] = useState("");
+
+  const handleSearchChange = (e) => {
+    setSearchName(e.target.value.toLowerCase());
+  };
 
   useEffect(() => {
     setCountiesList(counties);
@@ -49,26 +52,30 @@ const [countyName, setCountyName] = useState('');
       .then(({ data }) => setData(data))
       .catch((error) => console.error(error));
   }, [days, months, filterBy]);
-  
+
   const resetSearchEntries = () => {
     setDays(1);
     setMonths(1);
     setFilterBy("days");
     setDaysError(false);
     setMonthsError(false);
+    setSearchName("");
   };
 
   const foundMatch = useMemo(() => {
-    return data?.filter((item) => item.found_match === 1)
-      .map((item) => {
-        const service = servicesList.find((s) => s.id === item.service_id);
-        const county = countiesList.find((c) => c.id === item.county_id);
-        return {
-          serviceTitle: service?.title,
-          countyName: county?.name,
-          ...item
-        };
-      }) || [];
+    return (
+      data
+        ?.filter((item) => item.found_match === 1)
+        .map((item) => {
+          const service = servicesList.find((s) => s.id === item.service_id);
+          const county = countiesList.find((c) => c.id === item.county_id);
+          return {
+            serviceTitle: service?.title,
+            countyName: county?.name,
+            ...item,
+          };
+        }) || []
+    );
   }, [data, servicesList, countiesList]);
 
   const fullStringMap = useMemo(() => {
@@ -123,41 +130,46 @@ const [countyName, setCountyName] = useState('');
     [setMonths, setFilterBy, filterBy]
   );
 
-  
-  const handleSortRequest = (columnType) => {
-    const isDesc = sortBy === columnType && order === "desc";
-    setOrder(isDesc ? "asc" : "desc");
-    setSortBy(columnType);
-  };
+  const filteredData = useMemo(() => {
+    return sortedData.filter((item) =>
+      item.fullString.toLowerCase().includes(searchName)
+    );
+  }, [sortedData, searchName]);
 
-  
-  console.log(fullStringMap)
+  console.log(fullStringMap);
 
   return (
     <main>
-      <Box className={styles.container}>
-        <Typography variant="h6" className={styles.title} textAlign="center" mt={2}mb={2}>
-          Metrics: Matching Seaches for Service and Counties
+      <Box className={styles.container} sx={{ margin: 2 }}>
+        <Typography
+          variant="h6"
+          className={styles.title}
+          textAlign="center"
+          mt={2}
+          mb={2}
+        >
+          Matching Searches from Find Help Page
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
           <Typography variant="body1" className={styles.subtitle_text} mr={1}>
             Show data from the last:
           </Typography>
           <ButtonGroup>
-            <Button
-              variant={filterBy === "days" ? "contained" : "outlined"}
+            <Chip
+              label="Days"
+              clickable
+              color={filterBy === "days" ? "primary" : "default"}
               onClick={() => setFilterBy("days")}
-            >
-              Days
-            </Button>
-            
-            <Button
-              variant={filterBy === "months" ? "contained" : "outlined"}
+              sx={{ mr: 1 }}
+            />
+
+            <Chip
+              label="Months"
+              clickable
+              color={filterBy === "months" ? "primary" : "default"}
               onClick={() => setFilterBy("months")}
-            >
-              Months
-            </Button>
-            
+              sx={{ mr: 1 }}
+            />
           </ButtonGroup>
           {filterBy === "days" ? (
             <TextField
@@ -169,7 +181,14 @@ const [countyName, setCountyName] = useState('');
               className={styles.subtitle_input}
               error={daysError}
               helperText={daysError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, ml:1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           ) : (
             <TextField
@@ -181,61 +200,86 @@ const [countyName, setCountyName] = useState('');
               className={styles.subtitle_input}
               error={monthsError}
               helperText={monthsError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
-            
           )}
           <Typography variant="body1">
             {filterBy === "days" ? "days" : "months"}
           </Typography>
-          <Button
-            variant="outlined"
-            onClick={resetSearchEntries}
-            sx={{ ml: 1 }}
+          <Chip
+            label="Reset Search Filters"
+            clickable
             color="error"
-          >
-            Reset Search Entries
-          </Button>
+            variant="outlined"
+            sx={{ ml: 1 }}
+            onClick={resetSearchEntries}
+          />
+          <TextField
+            value={searchName}
+            onChange={handleSearchChange}
+            variant="outlined"
+            size="small"
+            label="Search by Service & County"
+            sx={{
+              ml: 1,
+              borderRadius: "16px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "16px",
+              },
+              width: "15%",
+            }}
+          />
         </Box>
+
         {daysError || monthsError ? (
           <Box mb={2}>
             <Alert severity="error">Value cannot be less than 1</Alert>
           </Box>
         ) : null}
         <Box className={styles.table_container} mb={2}>
-          <Table className={styles.table}>
+          <Table sx={{ border: "1px solid #dddddd", borderRadius: "16px" }}>
             <TableHead>
               <TableRow>
-                <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "fullString"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("fullString")}
-                    sx={{ fontSize: 20 }}
-                  >
-                    Service & County
-                  </TableSortLabel>
+                <TableCell sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Service & County - Searches"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
-                <TableCell align="right" className={styles.table_header_cell_right}>
-                  <TableSortLabel
-                    active={sortBy === "numSearches"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("numSearches")}
-                  >
-                    Number of Searches
-                  </TableSortLabel>
+                <TableCell align="right" sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Number of Searches"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortedData.map(({ fullString, numSearches }) => (
-                <TableRow key={fullString} className={styles.table_row}>
-                  <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
+              {filteredData.map(({ fullString, numSearches }) => (
+                <TableRow
+                  key={fullString}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    sx={{ padding: "16px" }}
+                    bgcolor="#ffffff"
+                  >
                     {fullString}
                   </TableCell>
-                  <TableCell align="right" sx={{ fontSize: 16 }}>
+                  <TableCell
+                    align="right"
+                    sx={{ padding: "16px" }}
+                    bgcolor="#ffffff"
+                  >
                     {numSearches}
                   </TableCell>
                 </TableRow>
@@ -246,6 +290,6 @@ const [countyName, setCountyName] = useState('');
       </Box>
     </main>
   );
-}; 
+};
 
 export default foundMatchTable;
