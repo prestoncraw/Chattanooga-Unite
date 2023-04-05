@@ -6,11 +6,9 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   Typography,
   ButtonGroup,
-  Button,
   Alert,
   Chip,
 } from "@mui/material";
@@ -23,12 +21,13 @@ const noMatchTable = () => {
   const [data, setData] = useState(null);
   const [sortBy, setSortBy] = useState("numSearches");
   const [order, setOrder] = useState("desc");
-  const [filterBy, setFilterBy] = useState("days");
+  const [filterBy, setFilterBy] = useState("months");
   const [countiesList, setCountiesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     setCountiesList(counties);
@@ -55,6 +54,7 @@ const noMatchTable = () => {
     setFilterBy("days");
     setDaysError(false);
     setMonthsError(false);
+    setSearchName("");
   };
 
   const noMatch = useMemo(() => {
@@ -76,10 +76,6 @@ const noMatchTable = () => {
       numSearches,
     }));
   }, [fullStringMap]);
-
-  const sortedData = useMemo(() => {
-    return orderBy(fullStringCount, [sortBy], [order]);
-  }, [fullStringCount, sortBy, order]);
 
   const handleDaysChange = useCallback(
     (e) => {
@@ -113,10 +109,15 @@ const noMatchTable = () => {
     [setMonths, setFilterBy, filterBy]
   );
 
-  const handleSortRequest = (columnType) => {
-    const isDesc = sortBy === columnType && order === "desc";
-    setOrder(isDesc ? "asc" : "desc");
-    setSortBy(columnType);
+  const sortedData = useMemo(() => {
+    const filteredData = fullStringCount.filter(({ fullString }) =>
+      fullString.toLowerCase().includes(searchText.toLowerCase())
+    );
+    return orderBy(filteredData, [sortBy], [order]);
+  }, [fullStringCount, sortBy, order, searchText]);
+
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value);
   };
 
   return (
@@ -162,7 +163,14 @@ const noMatchTable = () => {
               className={styles.subtitle_input}
               error={daysError}
               helperText={daysError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, ml: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           ) : (
             <TextField
@@ -174,7 +182,14 @@ const noMatchTable = () => {
               className={styles.subtitle_input}
               error={monthsError}
               helperText={monthsError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           )}
           <Typography variant="body1">
@@ -188,6 +203,21 @@ const noMatchTable = () => {
             sx={{ ml: 1 }}
             onClick={resetSearchEntries}
           />
+          <TextField
+            value={searchText}
+            onChange={handleSearchTextChange}
+            variant="outlined"
+            size="small"
+            label="Search by Service & County"
+            sx={{
+              ml: 1,
+              borderRadius: "16px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "16px",
+              },
+              width: "15%",
+            }}
+          />
         </Box>
         {daysError || monthsError ? (
           <Box mb={2}>
@@ -195,42 +225,42 @@ const noMatchTable = () => {
           </Box>
         ) : null}
         <Box className={styles.table_container} mb={2}>
-          <Table className={styles.table}>
+          <Table sx={{ border: "1px solid #dddddd", borderRadius: "16px" }}>
             <TableHead>
               <TableRow>
-                <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "fullString"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("fullString")}
-                    sx={{ fontSize: 20 }}
-                  >
-                    <Chip label="Service & County - Searches" />
-                  </TableSortLabel>
+                <TableCell sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Service & County - Searches"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
-                <TableCell
-                  align="right"
-                  className={styles.table_header_cell_right}
-                >
-                  <TableSortLabel
-                    active={sortBy === "numSearches"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("numSearches")}
-                  >
-                    <Chip label="Number of Searches" />
-                  </TableSortLabel>
+                <TableCell align="right" sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Number of Searches"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {sortedData.map(({ fullString, numSearches }) => (
-                <TableRow key={fullString} className={styles.table_row}>
-                  <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
+                <TableRow
+                  key={fullString}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    sx={{ padding: "16px" }}
+                    bgcolor="#ffffff"
+                  >
                     {fullString}
                   </TableCell>
-                  <TableCell align="right" sx={{ fontSize: 16 }}>
+                  <TableCell
+                    align="right"
+                    sx={{ padding: "16px" }}
+                    bgcolor="#ffffff"
+                  >
                     {numSearches}
                   </TableCell>
                 </TableRow>

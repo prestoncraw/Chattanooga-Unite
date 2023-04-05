@@ -68,7 +68,7 @@ export default function Metrics({ user, orgs }) {
           onClick={() => setSelectedComponent("searchEngagement")}
         />
       </Stack>
-      {selectedComponent === "matchTable" && <MatchTable />}
+      {selectedComponent === "matchTable" && (<MatchTable orgs={orgs} />)}
       {selectedComponent === "noMatchTable" && <NoMatchTable />}
       {selectedComponent === "searchEngagement" && (<EngangementTable orgs={orgs} />)}
     </>
@@ -76,8 +76,10 @@ export default function Metrics({ user, orgs }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch("http://localhost:3000/api/part-orgs");
-  const orgs = await res.json();
+  const apiUrl = process.env.PART_ORG_API;
+
+  const res = await fetch(`${apiUrl}`);
+    const orgs = await res.json();
   //console.log( orgs);
   const session = await getServerSession(context.req, context.res);
   if (!session) {
