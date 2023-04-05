@@ -22,7 +22,7 @@ const foundMatchTable = () => {
   const [data, setData] = useState(null);
   const [sortBy, setSortBy] = useState("numSearches");
   const [order, setOrder] = useState("desc");
-  const [filterBy, setFilterBy] = useState("days");
+  const [filterBy, setFilterBy] = useState("months");
   const [countiesList, setCountiesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [months, setMonths] = useState(1);

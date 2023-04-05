@@ -18,7 +18,7 @@ import styles from "../../styles/MatchTable.module.css";
 const EngagementTable = ({ orgs }) => {
   const [days, setDays] = useState(7);
   const [data, setData] = useState(null);
-  const [filterBy, setFilterBy] = useState("days");
+  const [filterBy, setFilterBy] = useState("months");
   const [countiesList, setCountiesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [months, setMonths] = useState(1);
