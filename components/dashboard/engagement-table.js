@@ -157,7 +157,13 @@ const EngagementTable = ({ orgs }) => {
               className={styles.subtitle_input}
               error={daysError}
               helperText={daysError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, ml: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
               onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           ) : (
@@ -170,7 +176,13 @@ const EngagementTable = ({ orgs }) => {
               className={styles.subtitle_input}
               error={monthsError}
               helperText={monthsError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
               onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           )}
@@ -190,9 +202,15 @@ const EngagementTable = ({ orgs }) => {
             onChange={(e) => setSearchQuery(e.target.value)}
             variant="outlined"
             size="small"
-            className={styles.search_input}
-            placeholder="Search"
-            sx={{ ml: 1 }}
+            label="Search by Service & County"
+            sx={{
+              ml: 1,
+              borderRadius: "16px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "16px",
+              },
+              width: "15%",
+            }}
           />
         </Box>
         {daysError || monthsError ? (
@@ -201,28 +219,38 @@ const EngagementTable = ({ orgs }) => {
           </Box>
         ) : null}
         <Box className={styles.table_container} mb={2}>
-          <Table className={styles.table}>
+          <Table sx={{ border: "1px solid #dddddd", borderRadius: "16px" }}>
             <TableHead>
               <TableRow>
-                <TableCell className={styles.table_header_cell}>
-                  <Chip label="Service & County - Searches" />
+                <TableCell sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Service & County - Searches"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
-                <TableCell
-                  align="right"
-                  className={styles.table_header_cell_right}
-                >
-                  <Chip label="Service Provider" />
+                <TableCell align="right" sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Service Provider"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
               {filteredData.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell>
+                <TableRow
+                  key={index}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell sx={{ padding: "16px" }} bgcolor="#ffffff">
                     {`${item.serviceTitle} & ${item.countyName} - Searches`}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell
+                    align="right"
+                    sx={{ padding: "16px" }}
+                    bgcolor="#ffffff"
+                  >
                     {
                       organizations.find(
                         (org) => org.id === item.service_provider_id

@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
   ButtonGroup,
-  Button,
+  Input,
   Alert,
   Chip,
 } from "@mui/material";
@@ -59,7 +59,7 @@ const foundMatchTable = () => {
     setFilterBy("days");
     setDaysError(false);
     setMonthsError(false);
-    setSearchName(""); 
+    setSearchName("");
   };
 
   const foundMatch = useMemo(() => {
@@ -181,7 +181,14 @@ const foundMatchTable = () => {
               className={styles.subtitle_input}
               error={daysError}
               helperText={daysError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, ml: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           ) : (
             <TextField
@@ -193,7 +200,14 @@ const foundMatchTable = () => {
               className={styles.subtitle_input}
               error={monthsError}
               helperText={monthsError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           )}
           <Typography variant="body1">
@@ -212,8 +226,15 @@ const foundMatchTable = () => {
             onChange={handleSearchChange}
             variant="outlined"
             size="small"
-            label="Search"
-            sx={{ ml: 1 }}
+            label="Search by Service & County"
+            sx={{
+              ml: 1,
+              borderRadius: "16px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "16px",
+              },
+              width: "15%",
+            }}
           />
         </Box>
 
@@ -223,27 +244,42 @@ const foundMatchTable = () => {
           </Box>
         ) : null}
         <Box className={styles.table_container} mb={2}>
-          <Table className={styles.table}>
+          <Table sx={{ border: "1px solid #dddddd", borderRadius: "16px" }}>
             <TableHead>
               <TableRow>
-                <TableCell className={styles.table_header_cell}>
-                    <Chip label="Service & County - Searches" />
+                <TableCell sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Service & County - Searches"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
-                <TableCell
-                  align="right"
-                  className={styles.table_header_cell_right}
-                >
-                    <Chip label="Number of Searches" />
+                <TableCell align="right" sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Number of Searches"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {filteredData.map(({ fullString, numSearches }) => (
-                <TableRow key={fullString} className={styles.table_row}>
-                  <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
+                <TableRow
+                  key={fullString}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    sx={{ padding: "16px" }}
+                    bgcolor="#ffffff"
+                  >
                     {fullString}
                   </TableCell>
-                  <TableCell align="right" sx={{ fontSize: 16 }}>
+                  <TableCell
+                    align="right"
+                    sx={{ padding: "16px" }}
+                    bgcolor="#ffffff"
+                  >
                     {numSearches}
                   </TableCell>
                 </TableRow>
