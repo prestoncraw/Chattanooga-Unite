@@ -11,6 +11,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.12",
+    "lodash": "^4.17.21",
     "mysql2": "^3.1.0",
     "next": "latest",
     "next-auth": "^4.20.1",
