@@ -98,12 +98,9 @@ const activityLog = () => {
           mt={2}
           mb={2}
         >
-          Activity Log for Updates to database
+          Activity Log for Updates to Database
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
-          <Typography variant="body1" className={styles.subtitle_text} mr={1}>
-            Placeholder text for now..
-          </Typography>
           <TextField
             value={searchName}
             onChange={handleSearchChange}
