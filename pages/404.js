@@ -35,6 +35,7 @@ export default function Custom404() {
                                 alt="Picture of Veteran and civilian shaking hands."
                                 width={300}
                                 height={300}
+                                priority
                             />}
                         </div>
                         <h1 className="title red-text">Page Not Found!</h1>

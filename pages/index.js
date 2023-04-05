@@ -38,6 +38,7 @@ export default function Home() {
               alt="Picture of Veteran and civilian shaking hands."
               width={300}
               height={300}
+              priority
             /> }
             </div>
             <h1 className="title">Veterans Resource Center<br></br>Chattanooga Unite <span className={styles.red}><i className="fa-solid fa-star"></i></span></h1>
