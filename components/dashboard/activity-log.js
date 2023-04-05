@@ -29,7 +29,6 @@ const activityLog = () => {
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  const [searchName, setSearchName] = useState("");
   const [countyName, setCountyName] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -102,7 +101,7 @@ const activityLog = () => {
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
           <TextField
-            value={searchName}
+            value={searchTerm}
             onChange={handleSearchChange}
             variant="outlined"
             size="small"
