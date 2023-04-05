@@ -2,9 +2,11 @@
 ![database overview](/docs/database/Chattanooga%20Unite%20DB.png)
 *Chattanooga Unite Database Overview*
 
-Please find a description of the tables and their functions below.
+This document contains descriptions of all tables and database relationships and [instructions for populating the database with test data](/docs/database/README.md#populating-test-data)
 
-## users
+## Table Descriptions
+
+### users
 This table is used to information about the user accounts logging in to the dashboard section of the site. Note that there is no password column as those are stored in Auth0, this table simply provides additional context about those users. There should be a 1:1 relation of items in the ```users``` table and users in the Auth0 service. 
 
 | Column | Datatype| Description | Optional? |
@@ -17,7 +19,7 @@ This table is used to information about the user accounts logging in to the dash
 | last_login | datetime | when user last logged in to website | no |
 
 
-## service_providers
+### service_providers
 This table stores all core information about a service provider. In general, this is all information that is intended to be displayed on the Chattanooga Unite website. **We envision this table growing as the capabilities of the org pages are potentially expanded.**
 
 | Column | Datatype| Description | Optional? |
@@ -35,7 +37,7 @@ This table stores all core information about a service provider. In general, thi
 | created_at | datetime | when the organization was created, automatically populated | no |
 | updated_at | datetime | the last time any properties of the service provider were changed | no |
 
-## county
+### county
 This table is used to act as the record for each county that Organizations within Chattanooga Unite service.
 | Column | Datatype| Description | Optional? |
 | --- | --- | --- | --- |
@@ -44,14 +46,14 @@ This table is used to act as the record for each county that Organizations withi
 
 > In the future it may be useful to add a state column as some county names exist in multiple states that Chattanooga Unite serves.
 
-## service
+### service
 This table is used to act as the record for each service that Organizations within Chattanooga Unite offer.
 | Column | Datatype| Description | Optional? |
 | --- | --- | --- | --- |
 | id | int | Primary key; id used to reference each service | no |
 | title | varchar | title of the service | no |
 
-## sp_counties
+### sp_counties
 This table is used to link ```service_providers``` with the ```county```s they serve. 
 
 | Column | Datatype| Description | Optional? |
@@ -60,7 +62,7 @@ This table is used to link ```service_providers``` with the ```county```s they s
 | county_id | int  | Foreign key (```county.id```); id of a county they servce | no |
 
 
-## sp_services
+### sp_services
 This table is used to link ```service_providers``` with the ```service```s they offer. 
 
 | Column | Datatype| Description | Optional? |
@@ -69,7 +71,7 @@ This table is used to link ```service_providers``` with the ```service```s they 
 | service_id | int  | Foreign key (```service.id```); id of a service they provide | no |
 
 
-## sp_search_metrics
+### sp_search_metrics
 This table provides the basis for tracking metrics on the site. As detailed in the provided Next Steps document, we think this setup works for additional planned metrics, but may need to be expanded depending on everything that ends up being tracked. 
 | Column | Datatype| Description | Optional? |
 | --- | --- | --- | --- |
@@ -79,7 +81,7 @@ This table provides the basis for tracking metrics on the site. As detailed in t
 | service_id | int | Foreign key (```service.id```); What service was searched for. If all services searched for result is **```NULL```** | no |
 | found_match | bool | Whether or not the search was able to match service providers with the query | no |
 
-## sp_logos
+### sp_logos
 This table is used to persist the service provider logo images in the database. We know this might not necessarily be best practice for storing web images, but given the constraints of the project, this avoids additional costs as opposed to using a more preferable method like S3.
 
 | Column | Datatype| Description | Optional? |
@@ -90,7 +92,7 @@ This table is used to persist the service provider logo images in the database. 
 | filename | varchar | name of file | no |
 | upload_timestamp | datetime | when file was uploaded | no |
 
-## activity_log
+### activity_log
 This table is used to track actions related to editing ```service_providers```.
 | Column | Datatype| Description | Optional? |
 | --- | --- | --- | --- |
@@ -99,3 +101,8 @@ This table is used to track actions related to editing ```service_providers```.
 | action_type | varchar | What type of action was performed (e.g. "Edit SP", "Create SP", "Delete SP") | no |
 | action_description | text | Full log of what was changed. (e.g. "Edited SP Aid and Assist (id: 12) description from 'old description' to 'new description') | no |
 | action_timestamp | datetime | Timestamp of when the action was executed | no |
+
+
+## Populating Test Data
+To populate the database with test data, you must run a command ```npm run sql-gen``` which will generate a SQL file with the database structure and some test data from existing organizations. 
+> Note: This data will vary from the data used in the production deployment 
