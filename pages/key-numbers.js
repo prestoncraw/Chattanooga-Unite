@@ -4,8 +4,7 @@ import NavBar from '../components/navbar'
 import Footer from '../components/footer';
 import styles from '../styles/KeyNum.module.css';
 import Image from 'next/image';
-
-//function KeyNumbers() {
+import AccessibilityMenu from '../components/accessibiliy-menu';
 
     const Content1 = () => {
         return <div className={styles.dropdown_content}>
@@ -15,7 +14,7 @@ import Image from 'next/image';
       const Content2 = () => {
         return <div className={styles.dropdown_content}>
             <p className={styles.description_light}>
-                (877) 4AID VET<br></br>
+                (877) 4AID VET<br></br><br></br>
                 (877) 424-3838
             </p>
         </div>
@@ -23,8 +22,8 @@ import Image from 'next/image';
       const Content3 = () => {
         return <div className={styles.dropdown_content}>
             <p className={styles.description_light}>
-                (800) 273-8255 PRESS 1<br></br>
-                Text: 838255<br></br>
+                (800) 273-8255 PRESS 1<br></br><br></br>
+                Text: 838255<br></br><br></br>
                 Confidential chat at Veterans <a className="link_light" href="https://www.veteranscrisisline.net/">CrisisLine.net</a>
             </p>
         </div>
@@ -33,7 +32,7 @@ import Image from 'next/image';
       const Content4 = () => {
         return <div className={styles.dropdown_content}>
             <p className={styles.description_light}>
-                Area Service Officers (706) 638-5544<br></br>
+                Area Service Officers (706) 638-5544<br></br><br></br>
                 Regional Service Officers (706) 272-2355
             </p>
         </div>
@@ -42,7 +41,7 @@ import Image from 'next/image';
       const Content5 = () => {
         return <div className={styles.dropdown_content}>
             <p className={styles.description_light}>
-                VA Benefits Regional Office<br></br>
+                VA Benefits Regional Office<br></br><br></br>
                 (800) 827-1000
             </p>
         </div>
@@ -181,44 +180,21 @@ import Image from 'next/image';
                                 <div className={styles.line}></div>
                             </div>
                         </div>
+                        <div className="right">
+                            <Image className={styles.vetImg}
+                                src="/images/key numbers page photo.png"
+                                alt="Picture of a smiling veteran with arms crossed over his chest."
+                                width={300}
+                                height={300}
+                            />
+                        </div>
                     </div>
                 </div>
+                <AccessibilityMenu />
                 <Footer />
             </main>
         </>
         );
       }
-/*
-
-                                <div onClick={handleClickMenu}>
-                                    <div className={styles.title_light}><h2>Veterans Service Officers <i className="fa-solid fa-sort-down"></i></h2></div>
-                                </div>
-                                {showMenu && <div className={styles.dropdown_content}>
-                                    <ul>
-                                        <p className={styles.description_light}>
-                                            Bledsoe County (423) 447-6731<br></br>
-                                            Bradley County (423) 728-7100<br></br>
-                                            Bradley County (423) 728-7149<br></br>
-                                            Grundy County (931) 592-2178<br></br>
-                                            Hamilton County (423) 634-6488<br></br>
-                                            Meigs County (423) 334-1631<br></br>
-                                            McMinn County (423) 744-1644<br></br>
-                                            Polk County (423) 338-4546<br></br>
-                                            Rhea County (423) 775-7849<br></br>
-                                            Sequatchie County (423) 949-4094
-                                        </p>
-                                    </ul>
-                                </div>}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <Footer />
-            </main>
-
-        </>
-
-    )*/
-//}
 
 export default KeyNumbers
