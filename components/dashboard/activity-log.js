@@ -170,13 +170,13 @@ const activityLog = () => {
               {logs.map((item) => (
                 <TableRow key={item.timestamp} className={styles.table_row}>
                   <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                    {item.timestamp}
+                    {item.action_timestamp}
                   </TableCell>
                   <TableCell align="left" sx={{ fontSize: 16 }}>
                     {item.email}
                   </TableCell>
                   <TableCell align="left" sx={{ fontSize: 16 }}>
-                    {item.action}
+                    {item.action_description}
                   </TableCell>
                 </TableRow>
               ))}
