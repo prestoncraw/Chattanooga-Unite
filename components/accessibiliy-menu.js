@@ -55,7 +55,7 @@ export default function AccessibilityMenu() {
             <span className={styles.tooltip_text}>Accessibility Options</span>
             <i className="fa-solid fa-universal-access">
               <div className={styles.background}>
-                <i class="fa-solid fa-circle"></i>
+                <i className="fa-solid fa-circle"></i>
               </div>
             </i>
             {showMenu && (
