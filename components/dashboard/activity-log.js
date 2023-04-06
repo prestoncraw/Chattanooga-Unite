@@ -70,12 +70,12 @@ const activityLog = () => {
           return item.email.toLowerCase().includes(searchTerm.toLowerCase());
         })
         .map((item) => {
-          let timestamp = new Date(item.search_timestamp).toLocaleString();
+          let timestamp = new Date(item.action_timestamp).toLocaleString();
           timestamp = timestamp.replace(",", " -");
           return {
             timestamp,
             email: item.email,
-            action: item.action,
+            action_description: item.action_description,
           };
         }),
       [sortBy],
@@ -170,7 +170,7 @@ const activityLog = () => {
               {logs.map((item) => (
                 <TableRow key={item.timestamp} className={styles.table_row}>
                   <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                    {item.action_timestamp}
+                    {item.timestamp}
                   </TableCell>
                   <TableCell align="left" sx={{ fontSize: 16 }}>
                     {item.email}
