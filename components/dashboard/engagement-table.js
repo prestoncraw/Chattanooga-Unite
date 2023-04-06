@@ -45,9 +45,9 @@ const EngagementTable = ({ orgs }) => {
   }, [days, months, filterBy]);
 
   const resetSearchEntries = () => {
-    setDays(1);
+    setDays(7);
     setMonths(1);
-    setFilterBy("days");
+    setFilterBy("months");
     setDaysError(false);
     setMonthsError(false);
   };
