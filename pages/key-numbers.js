@@ -145,6 +145,7 @@ import Image from 'next/image';
                             alt="Picture of Veteran with tiny house in the palm of his hand"
                             width={300}
                             height={300}
+                            priority
                             /> }
                         </div>
                         <h1 className="title">Key Number For Veterans</h1>

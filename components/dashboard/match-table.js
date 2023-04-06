@@ -160,7 +160,7 @@ const foundMatchTable = () => {
               clickable
               color={filterBy === "days" ? "primary" : "default"}
               onClick={() => setFilterBy("days")}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, height: 40 }}
             />
 
             <Chip
@@ -168,7 +168,7 @@ const foundMatchTable = () => {
               clickable
               color={filterBy === "months" ? "primary" : "default"}
               onClick={() => setFilterBy("months")}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, height: 40 }}
             />
           </ButtonGroup>
           {filterBy === "days" ? (
@@ -218,7 +218,7 @@ const foundMatchTable = () => {
             clickable
             color="error"
             variant="outlined"
-            sx={{ ml: 1 }}
+            sx={{ ml: 1, height: 40 }}
             onClick={resetSearchEntries}
           />
           <TextField
