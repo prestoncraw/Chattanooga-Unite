@@ -31,6 +31,7 @@ function YourDD214() {
               alt="Picture of Veteran and civilian shaking hands."
               width={300}
               height={300}
+              priority
             /> }
             </div>
             <h1 className="title">DD214 Information</h1>

@@ -6,30 +6,24 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   Typography,
   ButtonGroup,
-  Button,
   Alert,
+  Chip,
 } from "@mui/material";
 import { counties, services } from "../../lib/services-provided";
-import { orderBy } from "lodash";
 import styles from "../../styles/MatchTable.module.css";
 
 const EngagementTable = ({ orgs }) => {
   const [days, setDays] = useState(7);
   const [data, setData] = useState(null);
-  const [sortBy, setSortBy] = useState("numSearches");
-  const [order, setOrder] = useState("desc");
   const [filterBy, setFilterBy] = useState("days");
   const [countiesList, setCountiesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  const [searchName, setSearchName] = useState("");
-  const [countyName, setCountyName] = useState("");
 
   useEffect(() => {
     setCountiesList(counties);
@@ -58,42 +52,6 @@ const EngagementTable = ({ orgs }) => {
     setMonthsError(false);
   };
 
-  const foundMatch = useMemo(() => {
-    return (
-      data
-        ?.filter((item) => item.found_match === 1)
-        .map((item) => {
-          const service = servicesList.find((s) => s.id === item.service_id);
-          const county = countiesList.find((c) => c.id === item.county_id);
-          return {
-            serviceTitle: service?.title,
-            countyName: county?.name,
-            ...item,
-          };
-        }) || []
-    );
-  }, [data, servicesList, countiesList]);
-
-  const fullStringMap = useMemo(() => {
-    return foundMatch.reduce((map, item) => {
-      const service = servicesList.find((s) => s.id === item.service_id);
-      const county = countiesList.find((c) => c.id === item.county_id);
-      const fullString = `${service?.title} & ${county?.name}`;
-      return map.set(fullString, (map.get(fullString) || 0) + 1);
-    }, new Map());
-  }, [foundMatch, servicesList, countiesList]);
-
-  const fullStringCount = useMemo(() => {
-    return Array.from(fullStringMap).map(([fullString, numSearches]) => ({
-      fullString,
-      numSearches,
-    }));
-  }, [fullStringMap]);
-
-  const sortedData = useMemo(() => {
-    return orderBy(fullStringCount, [sortBy], [order]);
-  }, [fullStringCount, sortBy, order]);
-
   const handleDaysChange = useCallback(
     (e) => {
       const value = parseInt(e.target.value);
@@ -103,6 +61,7 @@ const EngagementTable = ({ orgs }) => {
         if (filterBy !== "days") {
           setFilterBy("days");
         }
+        e.target.select(); // Select the text within the input box
       } else {
         setDaysError(true);
       }
@@ -119,45 +78,74 @@ const EngagementTable = ({ orgs }) => {
         if (filterBy !== "months") {
           setFilterBy("months");
         }
+        e.target.select(); // Select the text within the input box
       } else {
         setMonthsError(true);
       }
     },
     [setMonths, setFilterBy, filterBy]
   );
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSortRequest = (columnType) => {
-    const isDesc = sortBy === columnType && order === "desc";
-    setOrder(isDesc ? "asc" : "desc");
-    setSortBy(columnType);
-  };
+  const filteredData = useMemo(() => {
+    const organizations = JSON.parse(orgs);
+    return (
+      data
+        ?.filter((item) =>
+          `${servicesList.find((s) => s.id === item.service_id)?.title} ${
+            countiesList.find((c) => c.id === item.county_id)?.name
+          } ${
+            organizations.find((org) => org.id === item.service_provider_id)
+              ?.name
+          }`
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+        )
+        .map((item) => {
+          const service = servicesList.find((s) => s.id === item.service_id);
+          const county = countiesList.find((c) => c.id === item.county_id);
+          return {
+            serviceTitle: service?.title,
+            countyName: county?.name,
+            ...item,
+          };
+        }) || []
+    );
+  }, [data, servicesList, countiesList, searchQuery, orgs]);
 
-  //console.log(fullStringMap)
   const organizations = JSON.parse(orgs);
   return (
     <main>
-      <Box className={styles.container}>
-        <Typography variant="h6" className={styles.title} textAlign="center" mt={2} mb={2}>
-          Metrics: Engagement for Service Providers
+      <Box className={styles.container} sx={{ margin: 2 }}>
+        <Typography
+          variant="h6"
+          className={styles.title}
+          textAlign="center"
+          mt={2}
+          mb={2}
+        >
+          Engagement for Service Providers
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
           <Typography variant="body1" className={styles.subtitle_text} mr={1}>
             Show data from the last:
           </Typography>
           <ButtonGroup>
-            <Button
-              variant={filterBy === "days" ? "contained" : "outlined"}
+            <Chip
+              label="Days"
+              clickable
+              color={filterBy === "days" ? "primary" : "default"}
               onClick={() => setFilterBy("days")}
-            >
-              Days
-            </Button>
+              sx={{ mr: 1 }}
+            />
 
-            <Button
-              variant={filterBy === "months" ? "contained" : "outlined"}
+            <Chip
+              label="Months"
+              clickable
+              color={filterBy === "months" ? "primary" : "default"}
               onClick={() => setFilterBy("months")}
-            >
-              Months
-            </Button>
+              sx={{ mr: 1 }}
+            />
           </ButtonGroup>
           {filterBy === "days" ? (
             <TextField
@@ -169,7 +157,14 @@ const EngagementTable = ({ orgs }) => {
               className={styles.subtitle_input}
               error={daysError}
               helperText={daysError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, ml: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           ) : (
             <TextField
@@ -181,21 +176,42 @@ const EngagementTable = ({ orgs }) => {
               className={styles.subtitle_input}
               error={monthsError}
               helperText={monthsError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
+              onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           )}
           <Typography variant="body1">
             {filterBy === "days" ? "days" : "months"}
           </Typography>
-          <Button
-            variant="outlined"
-            onClick={resetSearchEntries}
-            sx={{ ml: 1 }}
+          <Chip
+            label="Reset Search Filters"
+            clickable
             color="error"
-
-          >
-            Reset Search Entries
-          </Button>
+            variant="outlined"
+            sx={{ ml: 1 }}
+            onClick={resetSearchEntries}
+          />
+          <TextField
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            variant="outlined"
+            size="small"
+            label="Search by Service & County"
+            sx={{
+              ml: 1,
+              borderRadius: "16px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "16px",
+              },
+              width: "15%",
+            }}
+          />
         </Box>
         {daysError || monthsError ? (
           <Box mb={2}>
@@ -203,55 +219,46 @@ const EngagementTable = ({ orgs }) => {
           </Box>
         ) : null}
         <Box className={styles.table_container} mb={2}>
-          <Table className={styles.table}>
+          <Table sx={{ border: "1px solid #dddddd", borderRadius: "16px" }}>
             <TableHead>
               <TableRow>
-                <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "fullString"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("fullString")}
-                    sx={{ fontSize: 20 }}
-                  >
-                    Service & County
-                  </TableSortLabel>
+                <TableCell sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Service & County - Searches"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
-                <TableCell
-                  align="right"
-                  className={styles.table_header_cell_right}
-                >
-                  <TableSortLabel
-                    active={sortBy === "numSearches"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("numSearches")}
-                  >
-                    Service Provider
-                  </TableSortLabel>
+                <TableCell align="right" sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Service Provider"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
-              {data &&
-                data.map((item, index) => (
-                  <TableRow key={index} className={styles.table_row}>
-                    <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                      {
-                        servicesList.find((s) => s.id === item.service_id)
-                          ?.title
-                      }{" "}
-                      &{" "}
-                      {countiesList.find((c) => c.id === item.county_id)?.name}
-                    </TableCell>
-                    {/*<TableCell align="right" sx={{ fontSize: 16 }}>
-                      {item.service_provider_id}
-                    </TableCell>*/}
-                    <TableCell align="right" sx={{ fontSize: 16 }}>
-                    {organizations.find(org => org.id === item.service_provider_id)?.name}
-                    </TableCell>
-                  </TableRow>
-                ))}
+              {filteredData.map((item, index) => (
+                <TableRow
+                  key={index}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell sx={{ padding: "16px" }} bgcolor="#ffffff">
+                    {`${item.serviceTitle} & ${item.countyName} - Searches`}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    sx={{ padding: "16px" }}
+                    bgcolor="#ffffff"
+                  >
+                    {
+                      organizations.find(
+                        (org) => org.id === item.service_provider_id
+                      ).name
+                    }
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </Box>
@@ -259,6 +266,5 @@ const EngagementTable = ({ orgs }) => {
     </main>
   );
 };
-
 
 export default EngagementTable;

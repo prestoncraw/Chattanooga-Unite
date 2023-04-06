@@ -1,30 +1,30 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import MetricIcon from '@mui/icons-material/SignalCellularAlt';
-import ManageAccountsSharpIcon from '@mui/icons-material/ManageAccountsSharp';
-import GridIcon from '@mui/icons-material/GridView';
-import HomeIcon from '@mui/icons-material/Home';
-import Link from 'next/link';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { signOut } from 'next-auth/react';
-import Image from 'next/image';
-import { AlignVerticalCenter } from '@mui/icons-material';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import MetricIcon from "@mui/icons-material/SignalCellularAlt";
+import ManageAccountsSharpIcon from "@mui/icons-material/ManageAccountsSharp";
+import GridIcon from "@mui/icons-material/GridView";
+import HomeIcon from "@mui/icons-material/Home";
+import Link from "next/link";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { signOut } from "next-auth/react";
+import Image from "next/image";
+import { AlignVerticalCenter } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -48,14 +48,14 @@ function Navbar(props) {
   const drawer = (
     <div>
       <List>
-      <ListItem disablePadding divider>
-  <ListItemText
-    primary={name}
-    primaryTypographyProps={{ textAlign: 'center' }}
-  />
-</ListItem>
+        <ListItem disablePadding divider>
+          <ListItemText
+            primary={name}
+            primaryTypographyProps={{ textAlign: "center" }}
+          />
+        </ListItem>
         <Link href="/dashboard/">
-          <ListItem disablePadding divider >
+          <ListItem disablePadding divider>
             <ListItemButton component="a">
               <ListItemIcon>
                 <GridIcon />
@@ -78,14 +78,15 @@ function Navbar(props) {
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed">
         <Toolbar>
-        <IconButton
+          <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
@@ -96,8 +97,7 @@ function Navbar(props) {
           </IconButton>
           <Link href="/dashboard/">
             <Typography variant="h6" noWrap component="div">
-              Chattanooga Unite Admin Dashboard 
-              
+              Chattanooga Unite Admin Dashboard
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
@@ -115,21 +115,23 @@ function Navbar(props) {
             id="menu-appbar"
             anchorEl={anchorEl}
             anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: "top",
+              horizontal: "right",
             }}
             keepMounted
             transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: "top",
+              horizontal: "right",
             }}
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-<Link href="/dashboard">
-  <MenuItem component="a">{email}</MenuItem>
-</Link>
-            <MenuItem onClick={() => signOut({ redirect: false })}>Logout</MenuItem>
+            <Link href="/dashboard">
+              <MenuItem component="a">{email}</MenuItem>
+            </Link>
+            <MenuItem onClick={() => signOut({ redirect: false })}>
+              Logout
+            </MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
@@ -142,7 +144,7 @@ function Navbar(props) {
           keepMounted: true, // Better open performance on mobile.
         }}
         sx={{
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         }}
       >
         {drawer}
@@ -152,4 +154,3 @@ function Navbar(props) {
 }
 
 export default Navbar;
-

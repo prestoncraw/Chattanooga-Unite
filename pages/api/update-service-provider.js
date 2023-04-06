@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   
     const session = await getServerSession(req, res)
     if (!session) {
-      res.send("Access Denied").status(401)
+      res.status(401).send("Access Denied")
     }
 
     const { logo_url, name, description, contact_phone_number, contact_email, website_url, address, id } = req.query;

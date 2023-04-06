@@ -5,8 +5,9 @@ import Head from "next/head";
 import { Typography, Container, Box } from "@mui/material";
 
 import Navbar from "../../components/dashboard/navbar";
-import DashboardComp from "../../components/dashboard/dashboard";
+import AdminPanel from "../../components/dashboard/admin-panel";
 import getAuthUser from "../../lib/get-auth-user";
+import OrgPanel from "../../components/dashboard/org-panel";
 
 export default function Dashboard({ user, session }) {
   const { data, status } = useSession();
@@ -19,39 +20,51 @@ export default function Dashboard({ user, session }) {
   if (status === "unauthenticated") {
     return <p>Access Denied</p>;
   }
-console
+  const sharedStyles = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  console;
   return (
     <>
       <Head>
         <title>Dashboard &raquo; Admin Dashboard Chattanooga Unite</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Navbar email={userData.user_email} name={userData.Organizations[0].name} />
-        <Container maxWidth="lg">
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              pt: 8,
-            }}
-          >
-            <DashboardComp
-              name={userData.Organizations[0].name}
-              orgId={userData.Organizations[0].id}
+      {userData.is_admin && (
+        <Box sx={{ ...sharedStyles }}>
+          <Navbar
+            email={userData.user_email}
+            name={userData.Organizations[0].name}
+          />
+          <Container maxWidth="lg">
+            <Box sx={{ ...sharedStyles }}>
+              <AdminPanel
+                name={userData.Organizations[0].name}
+                orgId={userData.Organizations[0].id}
+                sx={{ ...sharedStyles }}
+              />
+            </Box>
+          </Container>
+        </Box>
+      )}
+      {userData.Organizations && (
+        <Box sx={{ ...sharedStyles }}>
+            <Navbar
+            email={userData.user_email}
+            name={userData.Organizations[0].name}
+          />
+          <Box sx={{ ...sharedStyles}}>
+            <OrgPanel
+              organizations={userData.Organizations}
+              sx={{ ...sharedStyles }}
             />
           </Box>
-        </Container>
-      </Box>
+        </Box>
+      )}
     </>
   );
 }
