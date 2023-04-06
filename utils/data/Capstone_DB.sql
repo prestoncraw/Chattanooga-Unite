@@ -43,7 +43,7 @@ CREATE TABLE `users` (
 );
 
 CREATE TABLE `sp_search_metrics` (
-  `search_id` int PRIMARY KEY DEFAULT (uuid()),
+  `search_id` int PRIMARY KEY AUTO_INCREMENT,
   `search_timestamp` datetime,
   `county_id` int,
   `service_id` int,
