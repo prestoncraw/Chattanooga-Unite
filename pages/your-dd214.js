@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styles from '../styles/dd214.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
+import AccessibilityMenu from '../components/accessibiliy-menu';
 
 function YourDD214() {
   return (
@@ -30,6 +31,7 @@ function YourDD214() {
               alt="Picture of Veteran and civilian shaking hands."
               width={300}
               height={300}
+              priority
             /> }
             </div>
             <h1 className="title">DD214 Information</h1>
@@ -60,6 +62,7 @@ function YourDD214() {
             </div>
           </div>
         </div>
+        <AccessibilityMenu />
         <Footer />
       </main>
     </>

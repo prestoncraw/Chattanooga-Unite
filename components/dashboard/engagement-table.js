@@ -6,32 +6,24 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   Typography,
   ButtonGroup,
-  Button,
   Alert,
   Chip,
 } from "@mui/material";
 import { counties, services } from "../../lib/services-provided";
-import { orderBy } from "lodash";
 import styles from "../../styles/MatchTable.module.css";
 
 const EngagementTable = ({ orgs }) => {
-  const [serviceCountySortActive, setServiceCountySortActive] = useState(false);
   const [days, setDays] = useState(7);
   const [data, setData] = useState(null);
-  const [sortBy, setSortBy] = useState("numSearches");
-  const [order, setOrder] = useState("desc");
-  const [filterBy, setFilterBy] = useState("days");
+  const [filterBy, setFilterBy] = useState("months");
   const [countiesList, setCountiesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  const [searchName, setSearchName] = useState("");
-  const [countyName, setCountyName] = useState("");
 
   useEffect(() => {
     setCountiesList(counties);
@@ -59,42 +51,6 @@ const EngagementTable = ({ orgs }) => {
     setDaysError(false);
     setMonthsError(false);
   };
-
-  const foundMatch = useMemo(() => {
-    return (
-      data
-        ?.filter((item) => item.found_match === 1)
-        .map((item) => {
-          const service = servicesList.find((s) => s.id === item.service_id);
-          const county = countiesList.find((c) => c.id === item.county_id);
-          return {
-            serviceTitle: service?.title,
-            countyName: county?.name,
-            ...item,
-          };
-        }) || []
-    );
-  }, [data, servicesList, countiesList]);
-
-  const fullStringMap = useMemo(() => {
-    return foundMatch.reduce((map, item) => {
-      const service = servicesList.find((s) => s.id === item.service_id);
-      const county = countiesList.find((c) => c.id === item.county_id);
-      const fullString = `${service?.title} & ${county?.name}`;
-      return map.set(fullString, (map.get(fullString) || 0) + 1);
-    }, new Map());
-  }, [foundMatch, servicesList, countiesList]);
-
-  const fullStringCount = useMemo(() => {
-    return Array.from(fullStringMap).map(([fullString, numSearches]) => ({
-      fullString,
-      numSearches,
-    }));
-  }, [fullStringMap]);
-
-  const sortedData = useMemo(() => {
-    return orderBy(fullStringCount, [sortBy], [order]);
-  }, [fullStringCount, sortBy, order]);
 
   const handleDaysChange = useCallback(
     (e) => {
@@ -129,14 +85,34 @@ const EngagementTable = ({ orgs }) => {
     },
     [setMonths, setFilterBy, filterBy]
   );
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSortRequest = (columnType) => {
-    const isDesc = sortBy === columnType && order === "desc";
-    setOrder(isDesc ? "asc" : "desc");
-    setSortBy(columnType);
-  };
+  const filteredData = useMemo(() => {
+    const organizations = JSON.parse(orgs);
+    return (
+      data
+        ?.filter((item) =>
+          `${servicesList.find((s) => s.id === item.service_id)?.title} ${
+            countiesList.find((c) => c.id === item.county_id)?.name
+          } ${
+            organizations.find((org) => org.id === item.service_provider_id)
+              ?.name
+          }`
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+        )
+        .map((item) => {
+          const service = servicesList.find((s) => s.id === item.service_id);
+          const county = countiesList.find((c) => c.id === item.county_id);
+          return {
+            serviceTitle: service?.title,
+            countyName: county?.name,
+            ...item,
+          };
+        }) || []
+    );
+  }, [data, servicesList, countiesList, searchQuery, orgs]);
 
-  //console.log(fullStringMap)
   const organizations = JSON.parse(orgs);
   return (
     <main>
@@ -160,7 +136,7 @@ const EngagementTable = ({ orgs }) => {
               clickable
               color={filterBy === "days" ? "primary" : "default"}
               onClick={() => setFilterBy("days")}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, height: 40  }}
             />
 
             <Chip
@@ -168,7 +144,7 @@ const EngagementTable = ({ orgs }) => {
               clickable
               color={filterBy === "months" ? "primary" : "default"}
               onClick={() => setFilterBy("months")}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, height: 40  }}
             />
           </ButtonGroup>
           {filterBy === "days" ? (
@@ -181,7 +157,13 @@ const EngagementTable = ({ orgs }) => {
               className={styles.subtitle_input}
               error={daysError}
               helperText={daysError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1, ml: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
               onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           ) : (
@@ -194,7 +176,13 @@ const EngagementTable = ({ orgs }) => {
               className={styles.subtitle_input}
               error={monthsError}
               helperText={monthsError ? "Value cannot be less than 1" : null}
-              sx={{ mr: 1 }}
+              sx={{
+                mr: 1,
+                borderRadius: "16px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "16px",
+                },
+              }}
               onFocus={(e) => e.target.select()} // Select the text within the input box when it receives focus
             />
           )}
@@ -206,8 +194,23 @@ const EngagementTable = ({ orgs }) => {
             clickable
             color="error"
             variant="outlined"
-            sx={{ ml: 1 }}
+            sx={{ ml: 1, height: 40  }}
             onClick={resetSearchEntries}
+          />
+          <TextField
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            variant="outlined"
+            size="small"
+            label="Search by Service & County"
+            sx={{
+              ml: 1,
+              borderRadius: "16px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "16px",
+              },
+              width: "15%",
+            }}
           />
         </Box>
         {daysError || monthsError ? (
@@ -216,57 +219,46 @@ const EngagementTable = ({ orgs }) => {
           </Box>
         ) : null}
         <Box className={styles.table_container} mb={2}>
-          <Table className={styles.table}>
+          <Table sx={{ border: "1px solid #dddddd", borderRadius: "16px" }}>
             <TableHead>
               <TableRow>
-                <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "fullString"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("fullString")}
-                    sx={{ fontSize: 20 }}
-                  >
-                    <Chip label="Service & County - Searches" />
-                  </TableSortLabel>
+                <TableCell sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Service & County - Searches"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
-                <TableCell
-                  align="right"
-                  className={styles.table_header_cell_right}
-                >
-                  <TableSortLabel
-                    active={sortBy === "numSearches"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("numSearches")}
-                  >
-                    <Chip label="Service Provider" />
-                  </TableSortLabel>
+                <TableCell align="right" sx={{ padding: "16px" }}>
+                  <Chip
+                    label="Service Provider"
+                    sx={{ borderRadius: "16px" }}
+                  />
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {data &&
-                data.map((item, index) => (
-                  <TableRow key={index} className={styles.table_row}>
-                    <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                      {
-                        servicesList.find((s) => s.id === item.service_id)
-                          ?.title
-                      }{" "}
-                      &{" "}
-                      {countiesList.find((c) => c.id === item.county_id)?.name}
-                    </TableCell>
 
-                    <TableCell align="right" sx={{ fontSize: 16 }}>
-                      {
-                        organizations.find(
-                          (org) => org.id === item.service_provider_id
-                        )?.name
-                      }
-                    </TableCell>
-                  </TableRow>
-                ))}
+            <TableBody>
+              {filteredData.map((item, index) => (
+                <TableRow
+                  key={index}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell sx={{ padding: "16px" }} bgcolor="#ffffff">
+                    {`${item.serviceTitle} & ${item.countyName}`}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    sx={{ padding: "16px" }}
+                    bgcolor="#ffffff"
+                  >
+                    {
+                      organizations.find(
+                        (org) => org.id === item.service_provider_id
+                      ).name
+                    }
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </Box>

@@ -27,22 +27,25 @@ export default function OrgPanel({ organizations }) {
         >
           &nbsp;
         </Typography>
+        
         <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)" }}>
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography
+        <Typography
               variant="h5"
               component="h2"
               align="center"
-              sx={{ fontWeight: "bold" }}
+              sx={{ fontWeight: "bold", mt: 2, mb: 2 }}
             >
               Service Providers
             </Typography>
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-around",
+              gap: 2,
+            }}
+          >
             {organizations.map((org) => (
               <MenuCard
                 key={org.id}

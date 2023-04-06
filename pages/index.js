@@ -2,10 +2,12 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
+import AccessibilityMenu from '../components/accessibiliy-menu';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
+
   return (
     <div>
       <Head>
@@ -26,8 +28,7 @@ export default function Home() {
           content="/images/chattanooga-unite-logo.jpg"
         />
       </Head>
-
-
+      
       <main>
         <NavBar />
         <div className="container">
@@ -38,6 +39,7 @@ export default function Home() {
               alt="Picture of Veteran and civilian shaking hands."
               width={300}
               height={300}
+              priority
             /> }
             </div>
             <h1 className="title">Veterans Resource Center<br></br>Chattanooga Unite <span className={styles.red}><i className="fa-solid fa-star"></i></span></h1>
@@ -53,7 +55,7 @@ export default function Home() {
               <div className="white_decoration"></div>
               <h1 className="title_light">Helping Veterans and Their Families</h1><br></br>
               <p className="description_light">This effort grew out of the Iraq and Afghanistan wars with a desire to partner with the Veterans Administration in providing services for the increasing challenges of these returning veterans, while satisfying current needs of existing veterans and their families.</p><br></br>
-              <p className="description_light">Epilepsy Foundation of Southeast Tennessee (EFSETN) along with over 100+ other agencies and businesses are a part of this community grassroots effort. This grassroots coalition of agencies is called Chattanooa Unite Veterans Resource Center.</p>
+              <p className="description_light">Epilepsy Foundation of Southeast Tennessee (EFSETN) along with over 100+ other agencies and businesses are a part of this community grassroots effort. This grassroots coalition of agencies is called the Chattanooga Unite Veterans Resource Center.</p>
             </div>
             <div className="right">
               <Image className="vetImg"
@@ -86,9 +88,9 @@ export default function Home() {
               />
             </div>
           </div>
-
         </div>
       </main>
+      <AccessibilityMenu />
       <Footer />
     </div>
   )

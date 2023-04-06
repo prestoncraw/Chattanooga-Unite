@@ -9,7 +9,7 @@ import {
   TableSortLabel,
   TextField,
   Typography,
-  ButtonGroup,
+  Input,
   Button,
   Alert,
   Chip,
@@ -29,8 +29,8 @@ const activityLog = () => {
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  const [searchName, setSearchName] = useState("");
   const [countyName, setCountyName] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     setCountiesList(counties);
@@ -51,33 +51,41 @@ const activityLog = () => {
   }, []);
 
   const resetSearchEntries = useCallback(() => {
-    setDays(1);
-    setMonths(1);
-    setFilterBy("days");
-    setDaysError(false);
-    setMonthsError(false);
+    setSearchTerm("");
   }, []);
 
-  const handleSortRequest = useCallback((columnType) => {
-    const isDesc = sortBy === columnType && order === "desc";
-    setOrder(isDesc ? "asc" : "desc");
-    setSortBy(columnType);
-  }, [sortBy, order]);
+  const handleSortRequest = useCallback(
+    (columnType) => {
+      const isDesc = sortBy === columnType && order === "desc";
+      setOrder(isDesc ? "asc" : "desc");
+      setSortBy(columnType);
+    },
+    [sortBy, order]
+  );
 
   const logs = useMemo(() => {
     return orderBy(
-      data.map((item) => {
-        let timestamp = new Date(item.search_timestamp).toLocaleString();
-        timestamp = timestamp.replace(",", " -");
-        return {
-          timestamp,
-          email: item.email,
-          action: item.action,
-        };
-      }),
-      [sortBy, order]
+      data
+        .filter((item) => {
+          return item.email.toLowerCase().includes(searchTerm.toLowerCase());
+        })
+        .map((item) => {
+          let timestamp = new Date(item.action_timestamp).toLocaleString();
+          timestamp = timestamp.replace(",", " -");
+          return {
+            timestamp,
+            email: item.email,
+            action_description: item.action_description,
+          };
+        }),
+      [sortBy],
+      order
     );
-  }, [data, sortBy, order]);
+  }, [data, sortBy, order, searchTerm]);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   return (
     <main>
@@ -89,12 +97,23 @@ const activityLog = () => {
           mt={2}
           mb={2}
         >
-          Activity Log for Updates to database
+          Activity Log for Updates to Database
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
-          <Typography variant="body1" className={styles.subtitle_text} mr={1}>
-            Placeholder text for now..
-          </Typography>
+          <TextField
+            value={searchTerm}
+            onChange={handleSearchChange}
+            variant="outlined"
+            size="small"
+            label="Search by Email"
+            sx={{
+              ml: 1,
+              borderRadius: "16px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "16px",
+              },
+            }}
+          />
 
           <Chip
             label="Reset Search Filters"
@@ -157,7 +176,7 @@ const activityLog = () => {
                     {item.email}
                   </TableCell>
                   <TableCell align="left" sx={{ fontSize: 16 }}>
-                    {item.action}
+                    {item.action_description}
                   </TableCell>
                 </TableRow>
               ))}

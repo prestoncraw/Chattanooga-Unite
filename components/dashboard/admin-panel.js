@@ -8,7 +8,7 @@ import MenuCard from "./menu-card";
 
 const drawerWidth = 240;
 
-function AdminPanel({ name, orgId }) {
+function AdminPanel() {
   return (
     <Box sx={{ display: "flex", gap: 2 }}>
       <Box
@@ -49,7 +49,7 @@ function AdminPanel({ name, orgId }) {
               link={"/dashboard/admin/orgs/create"}
               title={"Create a Service Provider"}
               description={"Add a new service provider to the database"}
-              image={"/images/gear-icon.png"}
+              image={"/images/edit-icon.png"}
               buttonHref={"/dashboard/admin/orgs/create"}
               size={300}
             />
