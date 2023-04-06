@@ -127,7 +127,7 @@ const OrgTable = () => {
                     </TableCell>
                     <TableCell>
                       <Link href={`/dashboard/org/${item.id}`}>
-                        {item.contact_email}
+                        {item.email}
                       </Link>
                       <Box sx={{ textAlign: "right" }}>
                         <Link href={`/dashboard/org/${item.id}`}>
