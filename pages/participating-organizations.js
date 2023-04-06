@@ -55,7 +55,9 @@ export default ParticipatingOrganizations;
 
 
 export async function getServerSideProps() {
-  const res = await fetch('http://localhost:3000/api/part-orgs');
+  const domain = process.env.DOMAIN;
+
+  const res = await fetch(`${domain}/api/part-orgs`);
   const data = await res.json();
   console.log(data); 
   return {

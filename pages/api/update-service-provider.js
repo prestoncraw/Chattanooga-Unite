@@ -29,8 +29,8 @@ export default async function handler(req, res) {
       res.status(200).send("Successfully updated service provider");
     }
    
-    const activityLogQuery = "INSERT INTO activity_log (search_timestamp, email, action) VALUES(NOW(), ?, ?)";
-    const activityLogValues = [user.user_email, `Updated service provider: '${name}'`];
+    const activityLogQuery = "INSERT INTO activity_log (action_timestamp, user_id, action_description) VALUES(NOW(), ?, ?)";
+    const activityLogValues = [user.id, `Updated service provider: '${name}'`];
 
     if(isAuthorized == true){
       const activityLog = await executeQuery({ query: activityLogQuery, values: activityLogValues });

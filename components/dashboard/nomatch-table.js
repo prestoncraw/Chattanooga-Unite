@@ -21,7 +21,7 @@ const noMatchTable = () => {
   const [data, setData] = useState(null);
   const [sortBy, setSortBy] = useState("numSearches");
   const [order, setOrder] = useState("desc");
-  const [filterBy, setFilterBy] = useState("days");
+  const [filterBy, setFilterBy] = useState("months");
   const [countiesList, setCountiesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [months, setMonths] = useState(1);
@@ -142,7 +142,7 @@ const noMatchTable = () => {
               clickable
               color={filterBy === "days" ? "primary" : "default"}
               onClick={() => setFilterBy("days")}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, height: 40  }}
             />
 
             <Chip
@@ -150,7 +150,7 @@ const noMatchTable = () => {
               clickable
               color={filterBy === "months" ? "primary" : "default"}
               onClick={() => setFilterBy("months")}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, height: 40  }}
             />
           </ButtonGroup>
           {filterBy === "days" ? (
@@ -200,7 +200,7 @@ const noMatchTable = () => {
             clickable
             color="error"
             variant="outlined"
-            sx={{ ml: 1 }}
+            sx={{ ml: 1, height: 40  }}
             onClick={resetSearchEntries}
           />
           <TextField

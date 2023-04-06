@@ -16,7 +16,7 @@ export default function MenuCard({
   size,
 }) {
   return (
-    <Card sx={{ maxWidth: 250, width: "100%", backgroundColor: "#f7f7f7" }}>
+    <Card sx={{ maxWidth: 250, width: "100%", backgroundColor: "#f7f7f7", display: "flex", flexDirection: "column" }}>
       <Link href={link}>
         <CardMedia
           sx={{
@@ -39,7 +39,7 @@ export default function MenuCard({
           {description}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ marginTop: "auto" }}>
         <Link href={buttonHref}>
           <Button size="small">View</Button>
         </Link>

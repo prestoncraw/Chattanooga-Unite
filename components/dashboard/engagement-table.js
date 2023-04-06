@@ -18,7 +18,7 @@ import styles from "../../styles/MatchTable.module.css";
 const EngagementTable = ({ orgs }) => {
   const [days, setDays] = useState(7);
   const [data, setData] = useState(null);
-  const [filterBy, setFilterBy] = useState("days");
+  const [filterBy, setFilterBy] = useState("months");
   const [countiesList, setCountiesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [months, setMonths] = useState(1);
@@ -136,7 +136,7 @@ const EngagementTable = ({ orgs }) => {
               clickable
               color={filterBy === "days" ? "primary" : "default"}
               onClick={() => setFilterBy("days")}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, height: 40  }}
             />
 
             <Chip
@@ -144,7 +144,7 @@ const EngagementTable = ({ orgs }) => {
               clickable
               color={filterBy === "months" ? "primary" : "default"}
               onClick={() => setFilterBy("months")}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, height: 40  }}
             />
           </ButtonGroup>
           {filterBy === "days" ? (
@@ -194,7 +194,7 @@ const EngagementTable = ({ orgs }) => {
             clickable
             color="error"
             variant="outlined"
-            sx={{ ml: 1 }}
+            sx={{ ml: 1, height: 40  }}
             onClick={resetSearchEntries}
           />
           <TextField
@@ -244,7 +244,7 @@ const EngagementTable = ({ orgs }) => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell sx={{ padding: "16px" }} bgcolor="#ffffff">
-                    {`${item.serviceTitle} & ${item.countyName} - Searches`}
+                    {`${item.serviceTitle} & ${item.countyName}`}
                   </TableCell>
                   <TableCell
                     align="right"
