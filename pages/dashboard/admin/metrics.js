@@ -76,8 +76,10 @@ export default function Metrics({ user, orgs }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch("http://localhost:3000/api/part-orgs");
-  const orgs = await res.json();
+  const domain = process.env.DOMAIN;
+
+  const res = await fetch(`${domain}/api/part-orgs`);
+    const orgs = await res.json();
   //console.log( orgs);
   const session = await getServerSession(context.req, context.res);
   if (!session) {

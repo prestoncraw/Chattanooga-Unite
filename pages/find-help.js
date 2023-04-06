@@ -6,6 +6,7 @@ import Footer from '../components/footer';
 import SPPreview from "../components/sp-preview";
 import Head from 'next/head';
 import { useRouter } from "next/router";
+import AccessibilityMenu from '../components/accessibiliy-menu';
 
 export default function FindHelp() {
     // three states the page can be in:
@@ -123,6 +124,7 @@ export default function FindHelp() {
 
             </div>
             <div className={styles.break}> </div>
+            <AccessibilityMenu />
             <Footer />
         </>
 
