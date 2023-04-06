@@ -3,6 +3,7 @@ import styles from '../styles/Contact.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
 import Image from 'next/image';
+import AccessibilityMenu from '../components/accessibiliy-menu';
 
 function Contact() {
     return (
@@ -60,7 +61,8 @@ function Contact() {
                     </div>
                 </div>
             </main>
-            <Footer></Footer>
+            <AccessibilityMenu />
+            <Footer />
 
         </>
 
