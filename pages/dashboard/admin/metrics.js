@@ -76,9 +76,9 @@ export default function Metrics({ user, orgs }) {
 }
 
 export async function getServerSideProps(context) {
-  const apiUrl = process.env.PART_ORG_API;
+  const domain = process.env.DOMAIN;
 
-  const res = await fetch(`${apiUrl}`);
+  const res = await fetch(`${domain}/api/part-orgs`);
     const orgs = await res.json();
   //console.log( orgs);
   const session = await getServerSession(context.req, context.res);
