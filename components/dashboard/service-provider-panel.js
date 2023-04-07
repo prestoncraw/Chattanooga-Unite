@@ -10,6 +10,8 @@ import {
   Typography,
   Chip,
   TextField,
+  Modal,
+  Button,
 } from "@mui/material";
 import { orderBy } from "lodash";
 import styles from "../../styles/MatchTable.module.css";
@@ -21,6 +23,9 @@ const OrgTable = () => {
   const [data, setData] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,6 +62,37 @@ const OrgTable = () => {
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
+  };
+  
+  const renderDeleteConfirmation = () => {
+    return (
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          bgcolor: "background.paper",
+          boxShadow: 24,
+          p: 4,
+        }}
+      >
+        <Typography variant="h6">Are you sure you want to delete?</Typography>
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+          <Button color="error" variant="contained" onClick={() => {}}>
+            Delete
+          </Button>
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={closeModal}
+            sx={{ ml: 2 }}
+          >
+            Cancel
+          </Button>
+        </Box>
+      </Box>
+    );
   };
 
   return (
@@ -126,16 +162,25 @@ const OrgTable = () => {
                       </Link>
                     </TableCell>
                     <TableCell>
-                      <Link href={`/dashboard/org/${item.id}`}>
-                        {item.email}
-                      </Link>
-                      <Box sx={{ textAlign: "right" }}>
-                        <Link href={`/dashboard/org/${item.id}`}>
-                          <EditIcon sx={{ mr: 2 }} />
-                        </Link>
-                        <DeleteForeverIcon />
-                      </Box>
-                    </TableCell>
+  <Link href={`/dashboard/org/${item.id}`}>
+    {item.email}
+  </Link>
+  <Box sx={{ textAlign: "right" }}>
+    <Link href={`/dashboard/org/${item.id}`}>
+      <EditIcon sx={{ mr: 2 }} />
+    </Link>
+    <DeleteForeverIcon onClick={openModal} />
+    <Modal
+      open={modalOpen}
+      onClose={closeModal}
+      aria-labelledby="delete-confirmation"
+      aria-describedby="confirmation-dialog-for-delete"
+    >
+      {renderDeleteConfirmation()}
+    </Modal>
+  </Box>
+</TableCell>
+
                   </TableRow>
                 ))}
             </TableBody>
