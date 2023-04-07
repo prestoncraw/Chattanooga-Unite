@@ -205,7 +205,9 @@ const [userData] = useState(user);
                     <ListItem>
                       <ListItemText primary="Service Name" secondary={name} />
                     </ListItem>
-                    
+                    <ListItem>
+                      <ListItemText primary="Email of Auth0 account" secondary={email} />
+                    </ListItem>
                   </List>
                   <Button
                     onClick={() => {
