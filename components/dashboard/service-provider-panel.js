@@ -63,7 +63,7 @@ const OrgTable = () => {
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
   };
-  
+
   const renderDeleteConfirmation = () => {
     return (
       <Box
@@ -162,25 +162,24 @@ const OrgTable = () => {
                       </Link>
                     </TableCell>
                     <TableCell>
-  <Link href={`/dashboard/org/${item.id}`}>
-    {item.email}
-  </Link>
-  <Box sx={{ textAlign: "right" }}>
-    <Link href={`/dashboard/org/${item.id}`}>
-      <EditIcon sx={{ mr: 2 }} />
-    </Link>
-    <DeleteForeverIcon onClick={openModal} />
-    <Modal
-      open={modalOpen}
-      onClose={closeModal}
-      aria-labelledby="delete-confirmation"
-      aria-describedby="confirmation-dialog-for-delete"
-    >
-      {renderDeleteConfirmation()}
-    </Modal>
-  </Box>
-</TableCell>
-
+                      <Link href={`/dashboard/org/${item.id}`}>
+                        {item.email}
+                      </Link>
+                      <Box sx={{ textAlign: "right" }}>
+                        <Link href={`/dashboard/org/${item.id}`}>
+                          <EditIcon sx={{ mr: 2 }} />
+                        </Link>
+                        <DeleteForeverIcon onClick={openModal} style={{ cursor: 'pointer' }} />
+                        <Modal
+                          open={modalOpen}
+                          onClose={closeModal}
+                          aria-labelledby="delete-confirmation"
+                          aria-describedby="confirmation-dialog-for-delete"
+                        >
+                          {renderDeleteConfirmation()}
+                        </Modal>
+                      </Box>
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>
