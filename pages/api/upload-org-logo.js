@@ -17,12 +17,16 @@ async function handler(req, res) {
     try {
         await runMiddleware(req, res, upload.single("logo"))
         console.log(req.file)
+        return res.json({ message: 'Successfully uploaded image.' })
+
+
     } catch (e) {
         /* handle error */
         console.error(e);
         console.error(`error occurred when uploading image`);
+        return res.status(500).json({ message: 'Error occurred when uploading image' });
     }
-    return res.json({ message: 'Image uploaded?!' })
+    
 }
 
 export const config = {
