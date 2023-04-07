@@ -1,11 +1,12 @@
 const fs = require("fs");
-const { readFile } = require('fs/promises')
+const { readFile } = require('fs/promises');
 const { parse } = require("csv-parse/sync");
 
 async function content(path) {
-    return await readFile(path, 'utf8')
+    return await readFile(path, 'utf8');
 }
 
+// TODO: make order alphabetical
 county_ids = {
     "bradley": 1,
     "catoosa": 2,
