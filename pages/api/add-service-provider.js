@@ -39,6 +39,6 @@ export default async function addServiceProvider(req, res) {
 
     if(isAuthorized == true){
       const activityLog = await executeQuery({ query: activityLogQuery, values: activityLogValues });
-      res.status(200).send("Successfully inserted activity log.");
+      // res.status(200).send("Successfully inserted activity log.");
     }
   }
