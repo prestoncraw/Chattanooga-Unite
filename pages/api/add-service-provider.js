@@ -70,7 +70,8 @@ export default async function addServiceProvider(req, res) {
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
       client_id: process.env.AUTH0_CLIENT_ID,
-      connection: 'Username-Password-Authentication'
+      connection: 'Username-Password-Authentication',
+      email: email
     }),
    };
 
@@ -79,6 +80,7 @@ export default async function addServiceProvider(req, res) {
     //console.log(access_token);
     const response = await fetch(`${process.env.AUTH0_ISSUER}/api/v2/users`, userRequest);
     const passwordReset = await fetch(`${process.env.AUTH0_ISSUER}/dbconnections/change_password`, resetPasswordRequest);
+    console.log(passwordReset);
     const data = await response.json();
     res.status(200).json(data);
 
