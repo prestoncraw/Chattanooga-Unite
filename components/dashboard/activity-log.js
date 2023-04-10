@@ -29,7 +29,6 @@ const activityLog = () => {
   const [months, setMonths] = useState(1);
   const [daysError, setDaysError] = useState(false);
   const [monthsError, setMonthsError] = useState(false);
-  const [searchName, setSearchName] = useState("");
   const [countyName, setCountyName] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -71,12 +70,12 @@ const activityLog = () => {
           return item.email.toLowerCase().includes(searchTerm.toLowerCase());
         })
         .map((item) => {
-          let timestamp = new Date(item.search_timestamp).toLocaleString();
+          let timestamp = new Date(item.action_timestamp).toLocaleString();
           timestamp = timestamp.replace(",", " -");
           return {
             timestamp,
             email: item.email,
-            action: item.action,
+            action_description: item.action_description,
           };
         }),
       [sortBy],
@@ -98,14 +97,11 @@ const activityLog = () => {
           mt={2}
           mb={2}
         >
-          Activity Log for Updates to database
+          Activity Log for Updates to Database
         </Typography>
         <Box className={styles.subtitle_container} mb={2}>
-          <Typography variant="body1" className={styles.subtitle_text} mr={1}>
-            Placeholder text for now..
-          </Typography>
           <TextField
-            value={searchName}
+            value={searchTerm}
             onChange={handleSearchChange}
             variant="outlined"
             size="small"
@@ -180,7 +176,7 @@ const activityLog = () => {
                     {item.email}
                   </TableCell>
                   <TableCell align="left" sx={{ fontSize: 16 }}>
-                    {item.action}
+                    {item.action_description}
                   </TableCell>
                 </TableRow>
               ))}

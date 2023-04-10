@@ -42,13 +42,18 @@ const OrgTable = () => {
       setFilteredData(
         foundMatch.filter(
           (item) =>
-          item && item.name && item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-          item && item.contact_email && item.contact_email.toLowerCase().includes(searchValue.toLowerCase())        
+            (item &&
+              item.name &&
+              item.name.toLowerCase().includes(searchValue.toLowerCase())) ||
+            (item &&
+              item.contact_email &&
+              item.contact_email
+                .toLowerCase()
+                .includes(searchValue.toLowerCase()))
         )
       );
     }
   }, [searchValue, data]);
-  
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
@@ -72,9 +77,18 @@ const OrgTable = () => {
             Search:
           </Typography>
           <TextField
-            variant="outlined"
             value={searchValue}
             onChange={handleSearchChange}
+            variant="outlined"
+            size="small"
+            label="Search by Org or Email"
+            sx={{
+              ml: 1,
+              borderRadius: "16px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "16px",
+              },
+            }}
           />
         </Box>
 
@@ -112,9 +126,9 @@ const OrgTable = () => {
                       </Link>
                     </TableCell>
                     <TableCell>
-                    <Link href={`/dashboard/org/${item.id}`}>
-                      {item.contact_email}
-                    </Link>
+                      <Link href={`/dashboard/org/${item.id}`}>
+                        {item.email}
+                      </Link>
                       <Box sx={{ textAlign: "right" }}>
                         <Link href={`/dashboard/org/${item.id}`}>
                           <EditIcon sx={{ mr: 2 }} />
