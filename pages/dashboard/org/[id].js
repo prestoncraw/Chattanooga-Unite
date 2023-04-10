@@ -246,7 +246,7 @@ function Org({ data }) {
                 {/*Service Infromation Card*/}
                 <Card
                   sx={{
-                    maxWidth: 250,
+                    maxWidth: 350,
                     width: "100%",
                     backgroundColor: "#f7f7f7",
                   }}
@@ -296,7 +296,7 @@ function Org({ data }) {
                 {/*Service Contact Card*/}
                 <Card
                   sx={{
-                    maxWidth: 250,
+                    maxWidth: 350,
                     width: "100%",
                     backgroundColor: "#f7f7f7",
                   }}
@@ -347,7 +347,7 @@ function Org({ data }) {
                 {/*Service Counties and FIle Upload*/}
                 <Card
                   sx={{
-                    maxWidth: 250,
+                    maxWidth: 350,
                     width: "100%",
                     backgroundColor: "#f7f7f7",
                   }}
@@ -358,7 +358,7 @@ function Org({ data }) {
                       Serviced Counties
                     </Typography>
                     <div>
-                      <FormControl sx={{ m: 1, width: 215 }}>
+                      <FormControl sx={{ m: 1, width: 275 }}>
                         <InputLabel id="demo-multiple-chip-label">
                           County
                         </InputLabel>
@@ -410,7 +410,7 @@ function Org({ data }) {
                       Services Provided
                     </Typography>
                     <div>
-                      <FormControl sx={{ m: 1, width: 215 }}>
+                      <FormControl sx={{ m: 1, width: 275 }}>
                         <InputLabel id="demo-multiple-chip-label">
                           Services
                         </InputLabel>
@@ -483,7 +483,7 @@ function Org({ data }) {
                   </CardContent>
                 </Card>
               </CardContent>
-              <Stack direction="row" spacing={1} sx={{ mt: 4, ml: 11, mb: 1 }}>
+              <Stack direction="row" spacing={1} sx={{ mt: 4, ml: 9, mb: 1 }}>
                 <Chip
                   label="Submit"
                   onClick={submitOpen}
