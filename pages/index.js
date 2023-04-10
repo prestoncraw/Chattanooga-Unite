@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
-import AccessibilityMenu from '../components/accessibiliy-menu';
+import AccessibilityMenu from '../components/accessibility-menu';
 import Link from 'next/link';
 import Image from 'next/image';
 
