@@ -111,3 +111,13 @@
     margin: 3px;
   }
 }
+
+.contrast .footer_container, .contrast .description, .contrast .copyright_container, .contrast .footer_description_dark, .contrast .link_container > ul > li {
+  background-color: white;
+  border: none;
+  color: black;
+}
+
+.contrast .link_container > ul > li:hover {
+  background-color: #dedede;
+}

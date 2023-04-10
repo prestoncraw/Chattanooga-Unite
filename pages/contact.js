@@ -3,7 +3,7 @@ import styles from '../styles/Contact.module.css';
 import NavBar from '../components/navbar';
 import Footer from '../components/footer';
 import Image from 'next/image';
-import AccessibilityMenu from '../components/accessibiliy-menu';
+import AccessibilityMenu from '../components/accessibility-menu';
 
 function Contact() {
     return (
