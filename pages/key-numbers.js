@@ -4,7 +4,7 @@ import NavBar from '../components/navbar'
 import Footer from '../components/footer';
 import styles from '../styles/KeyNum.module.css';
 import Image from 'next/image';
-import AccessibilityMenu from '../components/accessibiliy-menu';
+import AccessibilityMenu from '../components/accessibility-menu';
 
     const Content1 = () => {
         return <div className={styles.dropdown_content}>
@@ -115,8 +115,9 @@ import AccessibilityMenu from '../components/accessibiliy-menu';
       function KeyNumbers() {
         const [active, setActive] = useState(-1);
       
-        const toggleHandler = (id) => () =>
+        const toggleHandler = (id) => () => {
           setActive((active) => (active === id ? -1 : id));
+        };
       
         return (
             <>
@@ -126,7 +127,7 @@ import AccessibilityMenu from '../components/accessibiliy-menu';
                 <meta property="og:title" content="Key Numbers / Chattanooga Unite - Veterans Resource Center" />
                 <meta
                     property="og:description"
-                    content="Chattanooga Unite provides outreach to all military service persons including veterans and their familes by creating partnerships between VA providers and local agencies for those in the Chattanooga area."
+                    content="Chattanooga Unite provides outreach to all military service persons including veterans and their families by creating partnerships between VA providers and local agencies for those in the Chattanooga area."
                 />
                 <meta
                     property="og:image"
@@ -152,7 +153,7 @@ import AccessibilityMenu from '../components/accessibiliy-menu';
                     </div>
 
                     <div className="blueBackground">
-                        <div className="left">
+                        <div className="left" id="contrast_toggle">
                             <div className={styles.white_decoration}></div>
 
                             <div onClick={toggleHandler(1)}>

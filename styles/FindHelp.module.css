@@ -172,6 +172,27 @@
     .noServiceWarn {
         text-align: center;
     }
-    
   }
-  
+
+.contrast .container, .contrast .container h1, .contrast .results_text, .contrast .noServiceWarn {
+    background-color: white;
+    color: black;
+}
+
+.contrast .container h1 {
+    border-bottom: 2px solid black;
+}
+
+.contrast .select_box, .contrast .button {
+    border: 5px solid black;
+    color: black;
+}
+
+.contrast .select_box_img svg {
+    stroke: black;
+    fill: black;
+}
+
+.contrast .select_box:hover, .contrast .select_box_img svg:hover {
+    background-color: #dedede;
+}

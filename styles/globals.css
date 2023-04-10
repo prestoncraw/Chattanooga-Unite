@@ -7,15 +7,6 @@ body {
   height: 100%;
 }
 
-.title {
-  margin: 0 0 1rem;
-  line-height: 1.15;
-  font-size: 3.5rem;
-  color: #002147;
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
-
 .container {
   max-width: 1400px;
   padding: 0;
@@ -27,6 +18,8 @@ body {
   margin: 0 auto;
 }
 
+/* >>>>>>>> Styling for background sections <<<<<<<< */
+
 .blueBackground {
   background-color: #354E6D;
   border-top: 2px solid #002147;
@@ -37,7 +30,6 @@ body {
   background-color: #CBD1D7DD;
   border-top: 2px solid #002147;
   border-bottom: 2px solid #002147;
-
 }
 
 .grayBackgroundHead {
@@ -66,26 +58,15 @@ body {
   width:100%;
   object-fit:cover;
 }
-
-.unitedWay {
-  padding:1vw;
-}
-
-.white_decoration, .blue_decoration {
-  height: min(max(1vw, 8px), 10px);
-  width: min(max(10vw, 50px), 75px);
-  border-radius: 25px;
-  margin: 1vw;
-  min-width: 50px;
-  min-height: 5px;
-}
-
-.white_decoration{
-  background-color: white;
-}
-
-.blue_decoration{
-  background-color: #002147;
+/* >>>>>>>> Styling for titles <<<<<<<< */
+        
+.title {
+  margin: 0 0 1rem;
+  line-height: 1.15;
+  font-size: 3.5rem;
+  color: #002147;
+  text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 .title_light, .title_dark {
@@ -108,9 +89,7 @@ body {
   color: white;
 }
 
-p {
-  font-size: 1.5rem;
-}
+/* >>>>>>>> Styling for body text <<<<<<<< */
 
 .description_dark, .description_light/*, .description_dark p, .description_light p */{
   font-size: 1.5rem;
@@ -128,62 +107,6 @@ p {
   color: #354E6D;
 }
 
-.indent, .indent > a {
-  margin-left: 2rem;
-  font-weight: bold;
-}
-
-.corners {
-  background: linear-gradient(#BB133E, #BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 100% 100%, linear-gradient(#BB133E,#BB133E) 100% 100%, #ccc;
-  background-size: 50px 2px,2px 50px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  padding: 1rem;
-  width: 500px;
-  min-width: 300px;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  text-align: left;
-  margin: 1rem;
-}
-
-.centered {
-  align-items: center;
-  text-align: center;
-}
-
-.sub_title_text_centered {
-  color: white;
-  /* font-size: 1.75vw; */
-  font-size: 1.5rem;
-  text-decoration: underline;
-  text-align: center;
-}
-
-.text_centered {
-  color: white;
-  /* font-size: 1.5vw; */
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-.sub_text_centered {
-  /* font-size: 1.5vw; */
-  font-size: 1.5rem;
-}
-
-.col1 {
-  column-count: 2;
-  column-gap: 25px;
-}
-
-.col2 {
-  float: left;
-  width: 200px;
-  margin-left: 30px;
-}
-
-
 .right {
   float: right;
   text-align: right;
@@ -195,40 +118,6 @@ p {
 .left {
   float: left;
   text-align: left;
-}
-
-.btn_outline_dark {
-  border-radius: 15px;
-  font-size: 1.5rem;
-  padding: 1rem 2rem;
-  margin: 1rem;
-  width: 250px;
-  cursor: pointer;
-  background-color: #354E6D;
-  color: white;
-  border: 5px solid white;
-}
-
-.btn_outline_dark:hover {
-  background-color: #002147;
-}
-
-.right > img, .left > img {
-  position: absolute;
-  bottom:0;
-  max-height:100%;
-  max-width:25%;
-  object-fit:cover;
-  width: min(max(25vw, 100px), 300px);
-  height: auto;
-}
-
-.left > img {
-  left:0;
-}
-
-.right > img {
-  right:0;
 }
 
 .link_dark {
@@ -251,90 +140,126 @@ p {
   color: white;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.indent, .indent > a {
+  margin-left: 2rem;
+  font-weight: bold;
+}  
+/* >>>>>>>> Styling for decorations, images, and buttons <<<<<<<< */
+
+.white_decoration, .blue_decoration {
+  height: min(max(1vw, 8px), 10px);
+  width: min(max(10vw, 50px), 75px);
+  border-radius: 25px;
+  margin: 1vw;
+  min-width: 50px;
+  min-height: 5px;
 }
 
-* {
-  box-sizing: border-box;
+.white_decoration{
+  background-color: white;
 }
 
-img {
-  max-width: 100%;
+.blue_decoration{
+  background-color: #002147;
+}
+
+.corners {
+  background: linear-gradient(#BB133E, #BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 0 0, linear-gradient(#BB133E,#BB133E) 100% 100%, linear-gradient(#BB133E,#BB133E) 100% 100%, #ccc;
+  background-size: 50px 2px,2px 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  padding: 1rem;
+  width: 500px;
+  min-width: 300px;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  text-align: left;
+  margin: 1rem;
+}
+
+.right > img, .left > img {
+  position: absolute;
+  bottom:0;
+  max-height:100%;
+  max-width:25%;
+  object-fit:cover;
+  width: min(max(25vw, 100px), 300px);
   height: auto;
 }
 
-/*h1 {
-  margin: 0 0 1rem;
-  line-height: 1.15;
-  font-size: 3.5rem;
-  color: #002147;
-  text-align: center;
-  font-family: Arial, sans-serif;
-} */
-h2,
-p,
-ul {
-  margin: 0;
+.left > img {
+  left:0;
 }
 
-ul {
-  padding: 0;
-  list-style: none;
+.right > img {
+  right:0;
 }
 
-button {
-  padding: 0.5rem 1rem;
-  font-weight: bold;
+.btn_outline_dark {
+  border-radius: 15px;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  margin: 1rem;
+  width: 250px;
+  cursor: pointer;
+  background-color: #354E6D;
+  color: white;
+  border: 5px solid white;
 }
 
-.red-text {
-  color:rgb(177, 0, 0);
+.btn_outline_dark:hover {
+  background-color: #002147;
 }
 
-.bold-text {
-  font-weight: bold;
+/* >>>>>>>> Styling for high contrast settings <<<<<<<< */
+
+.contrast .grayBackgroundHead, .contrast .grayBackground, .contrast .blueBackground, .contrast .title, .contrast .title_light, .contrast .title_dark, .contrast .description_dark, .contrast .description_light {
+  background-color: white;
+  color: black;
 }
 
-/*@media only screen and (max-width: 1100px) { 
-  .red {
-    font-size: 1.5rem;
-  }
-  .vetImg {
-    display: none;
-  }
-}*/
-
-/*@media (min-width: 767px) {
-  .imageContainerHead img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .rightImageHead {
-    max-width: 100%;
-    right: 20vw;
-  }
-
-  .leftImageHead {
-    max-width: 20%;
-    left: 20vw;
-  }
+.contrast .link_dark, .contrast .link_light {
+  border-bottom: 2px solid black;
 }
 
-@media (max-width: 767px) {
-  .rightImageHead {
-    max-width: 18%;
-    right: 5.4vw;
-  }
+.contrast .link_dark:hover, .contrast .link_light:hover {
+  background-color: black;
+  color: white;
+}
 
-  .leftImageHead {
-    max-width: 17.8%;
-    left: 5.4vw;
-  }
-}*/
+.contrast button, .contrast .blue_decoration, .contrast .white_decoration {
+  background-color: black;
+  color: white;
+}
 
+.contrast button:hover {
+  background-color: white;
+  color: black;
+  border: 5px solid black;
+}
+
+.contrast .corners {
+  background: linear-gradient(black, black) 0 0, linear-gradient(black,black) 0 0, linear-gradient(black,black) 100% 100%, linear-gradient(black,black) 100% 100%, #ccc;
+  background-size: 50px 2px,2px 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
+/* >>>>>>>> Styling for reading guide <<<<<<<< */
+        
+.reading-guide {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* >>>>>>>> Styling for small screens <<<<<<<< */
+        
 @media only screen and (max-width: 600px) {
   .vetImg {
     display: none;
@@ -387,70 +312,86 @@ button {
   }
 }
 
-.contrast .grayBackgroundHead, .contrast .grayBackground, .contrast .blueBackground, .contrast .title, .contrast .title_light, .contrast .title_dark, .contrast .description_dark, .contrast .description_light {
-  background-color: white;
-  color: black;
+/* >>>>>>>> Misc. <<<<<<<<*/
+
+.centered {
+  align-items: center;
+  text-align: center;
 }
 
-.contrast .link_dark:hover, .contrast .link_light:hover {
-  background-color: black;
+.sub_title_text_centered {
   color: white;
+  /* font-size: 1.75vw; */
+  font-size: 1.5rem;
+  text-decoration: underline;
+  text-align: center;
 }
 
-.contrast button, .contrast .blue_decoration, .contrast .white_decoration {
-  background-color: black;
+.text_centered {
   color: white;
+  /* font-size: 1.5vw; */
+  font-size: 1.5rem;
+  text-align: center;
 }
 
-.contrast button:hover {
-  background-color: white;
-  color: black;
-  border: 5px solid black;
+.sub_text_centered {
+  /* font-size: 1.5vw; */
+  font-size: 1.5rem;
 }
 
-.contrast .corners {
-  background: linear-gradient(black, black) 0 0, linear-gradient(black,black) 0 0, linear-gradient(black,black) 100% 100%, linear-gradient(black,black) 100% 100%, #ccc;
-  background-size: 50px 2px,2px 50px;
-  background-color: transparent;
-  background-repeat: no-repeat;
+.col1 {
+  column-count: 2;
+  column-gap: 25px;
 }
 
-.reading-guide-toggle {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 1000;
+.col2 {
+  float: left;
+  width: 200px;
+  margin-left: 30px;
 }
 
-.reading-guide-toggle:focus {
-  outline: none;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-.reading-guide {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  pointer-events: none;
-  z-index: 999;
+* {
+  box-sizing: border-box;
 }
 
-.reading-guide::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
-  pointer-events: none;
-  transform: translateY(-50%);
+img {
+  max-width: 100%;
+  height: auto;
 }
 
-.reading-guide-active ~ *:not(.reading-guide) {
-  opacity: 0.5;
-  filter: blur(2px);
+h2,
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+}
+
+.red-text {
+  color:rgb(177, 0, 0);
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+.unitedWay {
+  padding:1vw;
 }

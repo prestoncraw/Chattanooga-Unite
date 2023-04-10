@@ -92,3 +92,12 @@
         display:flex;
     }
 }
+
+.contrast .container, .contrast .mobile_container, .contrast .mobile_menu, .contrast .mobile_container div, .contrast .container li  {
+    background-color: black;
+    border: none;
+}
+
+.contrast .container li:hover {
+    background-color: #2b2b2b;
+}
