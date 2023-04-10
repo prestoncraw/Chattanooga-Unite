@@ -109,3 +109,12 @@
     display: none;
   }
 }
+
+.contrast .title_light, .contrast .description_light, .contrast .dropdown_container, .contrast .dropdown_content {
+  color: black;
+  background-color: white;
+}
+
+.contrast .line {
+  background-color: black;
+}
