@@ -133,22 +133,10 @@ const OrgTable = () => {
             <TableHead>
               <TableRow>
                 <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={true}
-                    direction="asc"
-                    className={styles.sort_label}
-                  >
                     <Chip label="Organization Name" />
-                  </TableSortLabel>
                 </TableCell>
                 <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={false}
-                    direction="asc"
-                    className={styles.sort_label}
-                  >
                     <Chip label="Contact Email" />
-                  </TableSortLabel>
                 </TableCell>
               </TableRow>
             </TableHead>
