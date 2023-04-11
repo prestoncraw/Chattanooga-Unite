@@ -27,6 +27,9 @@ import Chip from "@mui/material/Chip";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Toolbar from "@mui/material/Toolbar";
+import { getServerSession } from "next-auth/next";
+import getAuthUser from "../../../lib/get-auth-user";
+import Navbar from "../../../components/dashboard/navbar";
 
 const drawerWidth = 240;
 const ITEM_HEIGHT = 48;
@@ -108,7 +111,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-function Org({ data }) {
+function Org({ data, user }) {
   const router = useRouter();
 
   const org_data = JSON.parse(data.data);
@@ -199,7 +202,7 @@ function Org({ data }) {
       }`
     ).then((response) => response.json());
   };
-
+  const [userData] = useState(user);
   console.log(org_data);
   return (
     <>
@@ -209,6 +212,10 @@ function Org({ data }) {
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navbar
+            email={userData.user_email}
+            name={userData.Organizations[0].name}
+          />
       <Toolbar />
       <main>
         <div className="centered">
@@ -246,7 +253,7 @@ function Org({ data }) {
                 {/*Service Infromation Card*/}
                 <Card
                   sx={{
-                    maxWidth: 250,
+                    maxWidth: 350,
                     width: "100%",
                     backgroundColor: "#f7f7f7",
                   }}
@@ -296,7 +303,7 @@ function Org({ data }) {
                 {/*Service Contact Card*/}
                 <Card
                   sx={{
-                    maxWidth: 250,
+                    maxWidth: 350,
                     width: "100%",
                     backgroundColor: "#f7f7f7",
                   }}
@@ -347,7 +354,7 @@ function Org({ data }) {
                 {/*Service Counties and FIle Upload*/}
                 <Card
                   sx={{
-                    maxWidth: 250,
+                    maxWidth: 350,
                     width: "100%",
                     backgroundColor: "#f7f7f7",
                   }}
@@ -358,7 +365,7 @@ function Org({ data }) {
                       Serviced Counties
                     </Typography>
                     <div>
-                      <FormControl sx={{ m: 1, width: 215 }}>
+                      <FormControl sx={{ m: 1, width: 275 }}>
                         <InputLabel id="demo-multiple-chip-label">
                           County
                         </InputLabel>
@@ -410,7 +417,7 @@ function Org({ data }) {
                       Services Provided
                     </Typography>
                     <div>
-                      <FormControl sx={{ m: 1, width: 215 }}>
+                      <FormControl sx={{ m: 1, width: 275 }}>
                         <InputLabel id="demo-multiple-chip-label">
                           Services
                         </InputLabel>
@@ -483,7 +490,7 @@ function Org({ data }) {
                   </CardContent>
                 </Card>
               </CardContent>
-              <Stack direction="row" spacing={1} sx={{ mt: 4, ml: 11, mb: 1 }}>
+              <Stack direction="row" spacing={1} sx={{ mt: 4, ml: 9, mb: 1 }}>
                 <Chip
                   label="Submit"
                   onClick={submitOpen}
@@ -616,14 +623,29 @@ function Org({ data }) {
 }
 
 export async function getServerSideProps(context) {
+  const session = await getServerSession(context.req, context.res);
   const res = await fetch(
     `http://localhost:3000/api/get-org?sp_id=${context.params.id}`
   );
   const data = await res.json();
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  const user = await getAuthUser(session.user);
 
   return {
-    props: { data }, // will be passed to the page component as props
+    props: {
+      user,
+      session,
+      data
+    },
   };
 }
+
 
 export default Org;
