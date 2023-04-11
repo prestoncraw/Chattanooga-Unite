@@ -1,7 +1,7 @@
 import { SessionProvider } from "next-auth/react"
 import '../styles/globals.css'
 import Script from "next/script";
-import AccessibilityMenu from "../components/accessibiliy-menu";
+import AccessibilityMenu from "../components/accessibility-menu";
 import { useRouter } from 'next/router';
 
 export default function App({

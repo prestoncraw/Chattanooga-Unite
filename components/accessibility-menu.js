@@ -91,6 +91,7 @@ export default function AccessibilityMenu() {
             {/* >>>>>>>> menu options <<<<<<<< */}
             {showMenu && (
               <div className={styles.menu_options}>
+                <div className={styles.title}>Accessibility Options</div>
                 <ul className={styles.menu_list}>
                   {/* reset button */}
                   <li onClick={resetSettings}>Reset Settings</li> 
