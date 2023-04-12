@@ -19,23 +19,23 @@ export default function OrgPanel({ organizations }) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
-        <Typography
+        {/* <Toolbar /> */}
+        {/* <Typography
           variant="h4"
           component="h1"
           sx={{ fontWeight: "bold", textAlign: "center" }}
         >
           &nbsp;
-        </Typography>
+        </Typography> */}
         
         <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)" }}>
         <Typography
               variant="h5"
               component="h2"
               align="center"
-              sx={{ fontWeight: "bold", mt: 2, mb: 2 }}
+              sx={{ fontWeight: "bold", mt: 2, mb: 0 }}
             >
-              Service Providers
+              Your Organizations
             </Typography>
           <CardContent
             sx={{
