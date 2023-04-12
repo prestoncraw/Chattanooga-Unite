@@ -62,6 +62,14 @@ function AdminPanel() {
               size={300}
             />
             <MenuCard
+              link={"/dashboard/admin/orgs/user-panel"}
+              title={"View Users"}
+              description={"Delete a user from the dashboard"}
+              buttonHref={"/dashboard/admin/orgs/user-panel"}
+              image={"/images/gear-icon.png"}
+              size={300}
+            />
+            <MenuCard
               link={"/dashboard/admin/metrics"}
               title={"Metrics"}
               description={

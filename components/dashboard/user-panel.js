@@ -19,7 +19,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import Link from "next/link";
 
-const OrgTable = () => {
+const UserTable = () => {
   const [data, setData] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -30,7 +30,7 @@ const OrgTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/part-orgs`);
+        const response = await fetch(`/api/users`);
         const data = await response.json();
         setData(data);
       } catch (error) {
@@ -42,19 +42,14 @@ const OrgTable = () => {
 
   useEffect(() => {
     if (data) {
-      const parsedData = JSON.parse(data);
+      const parsedData = data;
       const foundMatch = orderBy(parsedData, "name");
       setFilteredData(
         foundMatch.filter(
           (item) =>
-            (item &&
-              item.name &&
-              item.name.toLowerCase().includes(searchValue.toLowerCase())) ||
-            (item &&
-              item.contact_email &&
-              item.contact_email
-                .toLowerCase()
-                .includes(searchValue.toLowerCase()))
+            item &&
+            item.email &&
+            item.email.toLowerCase().includes(searchValue.toLowerCase())
         )
       );
     }
@@ -102,10 +97,10 @@ const OrgTable = () => {
           variant="h6"
           className={styles.title}
           textAlign="center"
-          mt={2}
+          mt={4}
           mb={2}
         >
-          Service Providers
+          Dashboard Users
         </Typography>
 
         <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
@@ -132,32 +127,28 @@ const OrgTable = () => {
           <Table className={styles.table}>
             <TableHead>
               <TableRow>
-                <TableCell className={styles.table_header_cell}>
-                    <Chip label="Organization Name" />
-                </TableCell>
-                <TableCell className={styles.table_header_cell}>
-                    <Chip label="Contact Email" />
+                <TableCell className={styles.table_header_cell} colSpan={2}>
+                    <Chip label="Email" />
                 </TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {filteredData &&
                 filteredData.map((item) => (
                   <TableRow key={item.id} className={styles.table_row}>
                     <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                      <Link href={`/dashboard/org/${item.id}`}>
-                        {item.name}
+                      <Link href={`/dashboard/user/${item.id}`}>
+                        {item.email}
                       </Link>
                     </TableCell>
                     <TableCell>
-                      <Link href={`/dashboard/org/${item.id}`}>
-                        {item.email}
-                      </Link>
                       <Box sx={{ textAlign: "right" }}>
-                        <Link href={`/dashboard/org/${item.id}`}>
-                          <EditIcon sx={{ mr: 2 }} />
-                        </Link>
-                        <DeleteForeverIcon onClick={openModal} style={{ cursor: 'pointer' }} />
+
+                        <DeleteForeverIcon
+                          onClick={openModal}
+                          style={{ cursor: "pointer" }}
+                        />
                         <Modal
                           open={modalOpen}
                           onClose={closeModal}
@@ -178,4 +169,4 @@ const OrgTable = () => {
   );
 };
 
-export default OrgTable;
+export default UserTable;
