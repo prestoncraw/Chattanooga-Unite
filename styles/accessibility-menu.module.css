@@ -34,7 +34,6 @@
     font-size: 50px;
     position: relative;
     border-radius: 50%;
-    border: 5px #CBD1D7 solid;
 }
 
 .background > i {
@@ -49,10 +48,7 @@
 .menu_button > i:hover {
     /* font-size: 52px; */
     cursor: pointer;
-    border: 5px #354E6D solid;
     transition: 200ms;
-    
-    
 }
 
 .menu_options {
