@@ -4,15 +4,16 @@
     background-color: white;
     color: black;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 15px;
     padding: 10px;
     font-size: large;
+    border: 2px solid black;
     
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
     bottom: 110%;
-    right: -130%;
+    right: -150%;
 }
 
 .menu_container:hover .tooltip_text {
@@ -47,23 +48,25 @@
 }
 
 .menu_options {
-    width: 200px;
+    width: fit-content;
+    height: fit-content;
     position:absolute;
     z-index: 1;
-    bottom: 110%;
-    right: -225%;
+    bottom: 105%;
+    right: -330%;
     background-color: white;
-    padding: 15px;
+    padding: 10px;
     border-radius: 15px;
+    border: 2px solid #002147;
 }
 
 .menu_list > li { 
     background-color: #4a5e77;
     color: white;
-    font-size: large;
     padding: 15px;
     text-align: center;
-    width: 100%;
+    width: 90%;
+    border: 2px solid #002147;
     margin: 10px auto;
     border-radius: 15px;
 }
@@ -74,4 +77,17 @@
 
 .menu_list .font_size:hover {
     background-color: #4a5e77;
+}
+
+ul.menu_list li.font_size > input {
+    margin: 10px;
+}
+
+.title {
+    color: #002147;
+    font-weight: bold;
+    font-size: 20px;
+    white-space: nowrap;
+    padding: 8px 15px;
+    border-bottom: 2px solid #002147;
 }
