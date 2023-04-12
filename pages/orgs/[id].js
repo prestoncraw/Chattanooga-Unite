@@ -87,7 +87,7 @@ export async function getServerSideProps(context) {
     const { service_id, county_id } = context.query;
 
     const res = await fetch(`http://localhost:3000/api/get-org?sp_id=${context.params.id}`);
-    const res2 = await fetch(`http://localhost:3000/api/metric-insert?service_id=${service_id}&county_id=${county_id}&service_provider_id=${context.params.id}`);
+    // const res2 = await fetch(`http://localhost:3000/api/metric-insert?service_id=${service_id}&county_id=${county_id}&service_provider_id=${context.params.id}`);
     const data = await res.json();
 
     return {

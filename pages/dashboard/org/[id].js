@@ -220,6 +220,7 @@ function Org({ data, user }) {
       <main>
         <div className="centered">
           <Typography variant="h2">{org_data[0].name}</Typography>
+          <div><a href={"/orgs/"+org_data[0].id} target="_blank">View {org_data[0].name}'s public page here ↗</a></div>
         </div>
 
         <br></br>

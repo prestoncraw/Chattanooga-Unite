@@ -1,13 +1,13 @@
 import executeQuery from '../../lib/db';
 import { URLSearchParams } from 'url';
-import authorizeRequest from '../../lib/authorize-request';
+import { authorizeRequest, getAuthUserID } from '../../lib/authorize-request';
 
 export default async function addServiceProvider(req, res) {
   
   if (!(await authorizeRequest(req, res, "admin"))) {
     res.status(401).send("Access Denied")
   }
-  
+
   else {
     const { name, email } = req.query;
 
@@ -34,7 +34,7 @@ export default async function addServiceProvider(req, res) {
     };
 
     const activityLogQuery = "INSERT INTO activity_log (action_timestamp, user_id, action_description) VALUES(NOW(), ?, ?)";
-    const activityLogValues = [user.id, `Added new service provider: '${name}'`];
+    const activityLogValues = [(await getAuthUserID(req, res)), `Added new service provider: '${name}'`];
 
     const activityLog = await executeQuery({ query: activityLogQuery, values: activityLogValues });
 

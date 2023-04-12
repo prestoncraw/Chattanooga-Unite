@@ -1,8 +1,5 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import MenuCard from "./menu-card";
 
@@ -19,17 +16,10 @@ function AdminPanel() {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
-        <Typography
-          variant="h4"
-          component="h1"
-          sx={{ fontWeight: "bold", textAlign: "center", mb: 2 }}
-        >
-        </Typography>
         {/* Top Cards */}
-        <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)", mb: 2 }}>
+
           <Typography
-            variant="h5"
+            variant="h4"
             component="h2"
             align="center"
             sx={{ fontWeight: "bold", mt: 2 }}
@@ -40,7 +30,7 @@ function AdminPanel() {
             sx={{
               display: "flex",
               flexDirection: "row",
-              flexWrap: "wrap",
+              flexWrap: "nowrap",
               justifyContent: "space-around",
               gap: 2,
             }}
@@ -51,7 +41,6 @@ function AdminPanel() {
               description={"Add a new service provider to the database"}
               image={"/images/edit-icon.png"}
               buttonHref={"/dashboard/admin/orgs/create"}
-              size={300}
             />
             <MenuCard
               link={"/dashboard/admin/orgs/service-provider-panel"}
@@ -59,7 +48,6 @@ function AdminPanel() {
               description={"Edit information regarding service providers"}
               buttonHref={"/dashboard/admin/orgs/service-provider-panel"}
               image={"/images/gear-icon.png"}
-              size={300}
             />
             <MenuCard
               link={"/dashboard/admin/orgs/user-panel"}
@@ -67,7 +55,6 @@ function AdminPanel() {
               description={"Delete a user from the dashboard"}
               buttonHref={"/dashboard/admin/orgs/user-panel"}
               image={"/images/gear-icon.png"}
-              size={300}
             />
             <MenuCard
               link={"/dashboard/admin/metrics"}
@@ -77,7 +64,6 @@ function AdminPanel() {
               }
               image={"/images/graph.png"}
               buttonHref={"/dashboard/admin/metrics"}
-              size={300}
             />
             <MenuCard
               link={"/dashboard/admin/activity"}
@@ -87,10 +73,8 @@ function AdminPanel() {
                 "View information regarding activity logs of the admin dashboard"
               }
               buttonHref={"/dashboard/admin/activity"}
-              size={300}
             />
           </CardContent>
-        </Card>
       </Box>
     </Box>
   );

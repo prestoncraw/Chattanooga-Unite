@@ -13,7 +13,6 @@ export default function MenuCard({
   image,
   description,
   buttonHref,
-  size,
 }) {
   return (
     <Card sx={{ maxWidth: 250, width: "100%", backgroundColor: "#f7f7f7", display: "flex", flexDirection: "column" }}>

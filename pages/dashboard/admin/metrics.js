@@ -46,7 +46,7 @@ export default function Metrics({ user, orgs }) {
       <Stack
         direction="row"
         spacing={1}
-        sx={{ justifyContent: "center", mt: 10, mb: 2 }}
+        sx={{ justifyContent: "center", mt: 2, mb: 2 }}
       >
         <Chip
           label="Matching Results"
