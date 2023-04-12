@@ -3,7 +3,7 @@ import { URLSearchParams } from 'url';
 import { authorizeRequest, getAuthUserID } from '../../lib/authorize-request';
 
 export default async function addServiceProvider(req, res) {
-  
+
   if (!(await authorizeRequest(req, res, "admin"))) {
     res.status(401).send("Access Denied")
   }
@@ -33,11 +33,6 @@ export default async function addServiceProvider(req, res) {
       }),
     };
 
-    const activityLogQuery = "INSERT INTO activity_log (action_timestamp, user_id, action_description) VALUES(NOW(), ?, ?)";
-    const activityLogValues = [(await getAuthUserID(req, res)), `Added new service provider: '${name}'`];
-
-    const activityLog = await executeQuery({ query: activityLogQuery, values: activityLogValues });
-
     const getAccess = await fetch(`${process.env.AUTH0_ISSUER}/oauth/token`, accessRequest);
     const accessData = await getAccess.json();
     const access_token = accessData.access_token;
@@ -63,8 +58,13 @@ export default async function addServiceProvider(req, res) {
 
     const response = await fetch(`${process.env.AUTH0_ISSUER}/api/v2/users`, userRequest);
     const passwordReset = await fetch(`${process.env.AUTH0_ISSUER}/dbconnections/change_password`, resetPasswordRequest);
-    console.log(passwordReset);
+
+    const activityLogQuery = "INSERT INTO activity_log (action_timestamp, user_id, action_description) VALUES(NOW(), ?, ?)";
+    const activityLogValues = [(await getAuthUserID(req, res)), `Added new service provider: '${name}'`];
+
+    const activityLog = await executeQuery({ query: activityLogQuery, values: activityLogValues });
     const data = await response.json();
+    console.log(data);
     res.status(200).json(data);
   }
 }

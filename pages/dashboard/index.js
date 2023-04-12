@@ -39,11 +39,11 @@ export default function Dashboard({ user, session }) {
                         email={userData.user_email}
                         name={userData.Organizations[0].name}
                     />
-                    {userData.is_admin && (<AdminPanel
+                    {userData.is_admin ? (<AdminPanel
                         name={userData.Organizations[0].name}
                         orgId={userData.Organizations[0].id}
                         sx={{ ...sharedStyles }}
-                    />)}
+                    />) : null}
                     {userData.Organizations && (
                         <OrgPanel
                             organizations={userData.Organizations}
