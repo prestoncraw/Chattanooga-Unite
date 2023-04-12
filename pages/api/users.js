@@ -23,6 +23,6 @@ export default async function handler(req, res) {
   if(isAuthorized == true){
     const log = await executeQuery({ query });
   const activityLog = JSON.parse(log)
-  res.json(activityLog).status(200);
+  res.json(activityLog);
   }
 }
