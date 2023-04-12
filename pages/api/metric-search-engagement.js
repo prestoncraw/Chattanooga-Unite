@@ -1,12 +1,12 @@
 import executeQuery from '../../lib/db';
-import authorizeRequest from '../../lib/authorize-request';
+import { authorizeRequest } from '../../lib/authorize-request';
 
 export default async function handler(req, res) {
 
   if (!(await authorizeRequest(req, res, "admin"))) {
     res.status(401).send("Access Denied")
   }
-  
+
   else {
     const { days } = req.query;
     const msSinceDay = Date.now() - (86400000 * days);

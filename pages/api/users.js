@@ -1,5 +1,5 @@
 import executeQuery from '../../lib/db';
-import authorizeRequest from '../../lib/authorize-request';
+import { authorizeRequest } from '../../lib/authorize-request';
 
 export default async function handler(req, res) {
 
