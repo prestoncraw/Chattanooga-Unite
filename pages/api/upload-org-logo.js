@@ -16,7 +16,9 @@ function runMiddleware(req, res, fn) {
 async function handler(req, res) {
     try {
         await runMiddleware(req, res, upload.single("logo"))
-        console.log(req.file)
+        
+        let encodedImage = req.file.buffer.toString('base64');
+        console.log(encodedImage);
         return res.json({ message: 'Successfully uploaded image.' })
 
 
