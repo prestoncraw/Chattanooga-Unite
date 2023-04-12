@@ -9,7 +9,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import getAuthUser from "../../../lib/get-auth-user";
 import { getServerSession } from "next-auth/next";
-import authorizeRequest from "../../../lib/authorize-request";
+import { authorizeRequest } from "../../../lib/authorize-request";
 import executeQuery from "../../../lib/db";
 
 export default function Metrics({ user, orgs }) {
@@ -106,7 +106,7 @@ export async function getServerSideProps(context) {
 
     // res.status(200).json(serviceProviders);
     orgs = JSON.parse(serviceProviders);
-    console.log(orgs);
+    // console.log(orgs);
 
   }
 
