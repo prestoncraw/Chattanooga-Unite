@@ -53,16 +53,10 @@ export default function Dashboard({ user, session }) {
       )}
       {userData.Organizations && (
         <Box sx={{ ...sharedStyles }}>
-            <Navbar
-            email={userData.user_email}
-            name={userData.Organizations[0].name}
-          />
-          <Box sx={{ ...sharedStyles}}>
             <OrgPanel
               organizations={userData.Organizations}
               sx={{ ...sharedStyles }}
             />
-          </Box>
         </Box>
       )}
     </>
