@@ -88,7 +88,7 @@ const EngagementTable = ({ orgs }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredData = useMemo(() => {
-    const organizations = JSON.parse(orgs);
+    const organizations = orgs;
     return (
       data
         ?.filter((item) =>
@@ -113,7 +113,7 @@ const EngagementTable = ({ orgs }) => {
     );
   }, [data, servicesList, countiesList, searchQuery, orgs]);
 
-  const organizations = JSON.parse(orgs);
+  const organizations = orgs;
   return (
     <main>
       <Box className={styles.container} sx={{ margin: 2 }}>
