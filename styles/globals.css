@@ -61,7 +61,7 @@ body {
 /* >>>>>>>> Styling for titles <<<<<<<< */
         
 .title {
-  margin: 0 0 1rem;
+  padding: 1rem 0;
   line-height: 1.15;
   font-size: 3.5rem;
   color: #002147;
@@ -94,7 +94,7 @@ body {
 .description_dark, .description_light/*, .description_dark p, .description_light p */{
   font-size: 1.5rem;
   line-height: 2rem;
-  padding: 1vw;
+  padding: 1rem;
   max-width: 75%;
   min-width: 300px;
 }
@@ -187,6 +187,12 @@ body {
   height: auto;
 }
 
+.logoImg {
+  top: 50%;
+  transform: translateY(-50%);
+  padding-right: 30px;
+}
+
 .left > img {
   left:0;
 }
@@ -261,7 +267,7 @@ body {
 /* >>>>>>>> Styling for small screens <<<<<<<< */
         
 @media only screen and (max-width: 600px) {
-  .vetImg {
+  .vetImg, .logoImg {
     display: none;
   }
 

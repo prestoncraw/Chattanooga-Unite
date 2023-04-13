@@ -127,6 +127,17 @@
     font-weight: 600;
 }
 
+.itemList {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+}
+.itemList > div {
+    user-select: none;
+    cursor: default;
+}
+
 @media only screen and (max-width: 600px) {
     .container {
       background-color: #002147CC;
@@ -171,6 +182,9 @@
     }
     .noServiceWarn {
         text-align: center;
+    }
+    .itemList {
+        justify-content: center;
     }
   }
 
