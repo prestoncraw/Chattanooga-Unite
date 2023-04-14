@@ -237,8 +237,8 @@ function Org({ data, user, servedCounties, servedServices }) {
     setSelectedServiceId(selectedServiceIds.filter((id) => id !== null));
   }, [serviceName, services]);
   
-  console.log(uniqueServiceIds);
-  console.log(servedServices)
+  //console.log(selectedServiceId);
+  console.log(selectedCountyId)
   const updateServiceProvider = (
     name,
     website_url,
@@ -251,7 +251,7 @@ function Org({ data, user, servedCounties, servedServices }) {
       `/api/update-service-provider?logo_url=${""}&name=${name}&description=${description}&contact_phone_number=${contact_phone_number}&contact_email=${contact_email}&website_url=${website_url}&address=${address}&id=${org_data[0].id}`
     ).then((response) => response.json());
 
-    fetch(`/api/update-service-county?sp_id=4&service_id=${selectedServiceId}&county_id=${selectedCountyId}`)
+    fetch(`/api/update-service-county?sp_id=${org_data[0].id}&service_id=${selectedServiceId}&county_id=${selectedCountyId}`)
     .then((response) => response.json());
   };
   const [userData] = useState(user);
