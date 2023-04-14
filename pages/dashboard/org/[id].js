@@ -30,7 +30,8 @@ import Toolbar from "@mui/material/Toolbar";
 import { getServerSession } from "next-auth/next";
 import getAuthUser from "../../../lib/get-auth-user";
 import Navbar from "../../../components/dashboard/navbar";
-
+import { authorizeRequest } from "../../../lib/authorize-request";
+import executeQuery from "../../../lib/db";
 const drawerWidth = 240;
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -42,41 +43,44 @@ const MenuProps = {
     },
   },
 };
+
 const counties = [
-  "Bledsoe",
-  "Bradley",
-  "Catoosa",
-  "Dade",
-  "Dekalb",
-  "Grundy",
-  "Hamilton",
-  "Jackson",
-  "Marion",
-  "McMinn",
-  "Meigs",
-  "Murray",
-  "Polk",
-  "Rhea",
-  "Sequatchie",
-  "Walker",
-  "Whitfield",
+  { id: 1, name: "Bledsoe" },
+  { id: 2, name: "Bradley" },
+  { id: 3, name: "Catoosa" },
+  { id: 4, name: "Dade" },
+  { id: 5, name: "Dekalb" },
+  { id: 6, name: "Grundy" },
+  { id: 7, name: "Hamilton" },
+  { id: 8, name: "Jackson" },
+  { id: 9, name: "Marion" },
+  { id: 10, name: "McMinn" },
+  { id: 11, name: "Meigs" },
+  { id: 12, name: "Murray" },
+  { id: 13, name: "Polk" },
+  { id: 14, name: "Rhea" },
+  { id: 15, name: "Sequatchie" },
+  { id: 16, name: "Walker" },
+  { id: 17, name: "Whitfield" },
 ];
+
 const services = [
-  "Advocacy",
-  "Benefits",
-  "Clothing",
-  "Dental",
-  "Education",
-  "Employment",
-  "Food",
-  "Health Care",
-  "Housing",
-  "Memorial and Burial Benefits",
-  "Therapeutic Recreation",
-  "Transportation",
-  "Utility Assistance",
-  "Other",
+  { id: 1, name: "Advocacy" },
+  { id: 2, name: "Benefits" },
+  { id: 3, name: "Clothing" },
+  { id: 4, name: "Dental" },
+  { id: 5, name: "Education" },
+  { id: 6, name: "Employment" },
+  { id: 7, name: "Food" },
+  { id: 8, name: "Health Care" },
+  { id: 9, name: "Housing" },
+  { id: 10, name: "Memorial and Burial Benefits" },
+  { id: 11, name: "Therapeutic Recreation" },
+  { id: 12, name: "Transportation" },
+  { id: 13, name: "Utility Assistance" },
+  { id: 14, name: "Other" },
 ];
+
 function getCounties(county, countyName, theme) {
   return {
     fontWeight:
@@ -111,14 +115,12 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-function Org({ data, user }) {
+function Org({ data, user, servedCounties, servedServices }) {
   const router = useRouter();
 
-  const org_data = JSON.parse(data.data);
+  const org_data = data;
   const countyTheme = useTheme();
-  const [countyName, setCountyName] = useState([]);
   const serviceTheme = useTheme();
-  const [serviceName, setServiceName] = useState([]);
   const [submit, sOpen] = useState(false);
   const submitOpen = () => sOpen(true);
   const submitClose = () => sOpen(false);
@@ -133,6 +135,24 @@ function Org({ data, user }) {
   );
   const [website_url, setWebsiteUrl] = useState(org_data[0].website_url);
   const [description, setDescription] = useState(org_data[0].description);
+  const [selectedCountyId, setSelectedCountyId] = useState();
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
+
+  const uniqueCountyIds = Array.from(new Set(servedCounties.map(({ county_id }) => county_id)));
+  const uniqueServiceIds = Array.from(new Set(servedServices.map(({ service_id }) => service_id)));
+
+  const uniqueCountyNames = uniqueCountyIds.map(id => {
+    const county = counties.find(county => county.id === id);
+    return county ? county.name : null;
+  });
+
+  const [countyName, setCountyName] = useState(uniqueCountyNames);
+
+  const uniqueServiceNames = uniqueServiceIds.map(id => {
+    const service = services.find(service => service.id === id);
+    return service ? service.name : null;
+  });
+  const [serviceName, setServiceName] = useState(uniqueServiceNames);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -177,17 +197,48 @@ function Org({ data, user }) {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    const selectedCountyIds = countyName.map(name => {
+      const selectedCounty = counties.find(county => county.name === name);
+      return selectedCounty ? selectedCounty.id : null;
+    });
+    setSelectedCountyId(selectedCountyIds.filter(id => id !== null));
+   // console.log(selectedCountyId);
+
   };
   const handleServiceChange = (event) => {
-    const {
-      target: { value },
-    } = event;
+    const { value } = event.target;
     setServiceName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    const selectedServiceIds = serviceName.map(name => {
+      const selectedService = services.find(service => service.name === name);
+      return selectedService ? selectedService.id : null;
+    });
+    setSelectedServiceId(selectedServiceIds.filter(id => id !== null));
+   // console.log(selectedServiceId);
   };
-
+  
+  useEffect(() => {
+    const selectedCountyIds = countyName.map((name) => {
+      const selectedCounty = counties.find((county) => county.name === name);
+      return selectedCounty ? selectedCounty.id : null;
+    });
+    setSelectedCountyId(selectedCountyIds.filter((id) => id !== null));
+  }, [countyName, counties]);
+  
+  useEffect(() => {
+    const selectedServiceIds = serviceName.map((name) => {
+      const selectedService = services.find(
+        (service) => service.name === name
+      );
+      return selectedService ? selectedService.id : null;
+    });
+    setSelectedServiceId(selectedServiceIds.filter((id) => id !== null));
+  }, [serviceName, services]);
+  
+  console.log(uniqueServiceIds);
+  console.log(servedServices)
   const updateServiceProvider = (
     name,
     website_url,
@@ -197,13 +248,13 @@ function Org({ data, user }) {
     contact_email
   ) => {
     fetch(
-      `/api/update-service-provider?logo_url=${""}&name=${name}&description=${description}&contact_phone_number=${contact_phone_number}&contact_email=${contact_email}&website_url=${website_url}&address=${address}&id=${
-        org_data[0].id
-      }`
+      `/api/update-service-provider?logo_url=${""}&name=${name}&description=${description}&contact_phone_number=${contact_phone_number}&contact_email=${contact_email}&website_url=${website_url}&address=${address}&id=${org_data[0].id}`
     ).then((response) => response.json());
+
+    fetch(`/api/update-service-county?sp_id=4&service_id=${selectedServiceId}&county_id=${selectedCountyId}`)
+    .then((response) => response.json());
   };
   const [userData] = useState(user);
-  console.log(org_data);
   return (
     <>
       <Head>
@@ -213,14 +264,18 @@ function Org({ data, user }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar
-            email={userData.user_email}
-            name={userData.Organizations[0].name}
-          />
+        email={userData.user_email}
+        name={userData.Organizations[0].name}
+      />
       <Toolbar />
       <main>
         <div className="centered">
           <Typography variant="h2">{org_data[0].name}</Typography>
-          <div><a href={"/orgs/"+org_data[0].id} target="_blank">View {org_data[0].name}'s public page here ↗</a></div>
+          <div>
+            <a href={"/orgs/" + org_data[0].id} target="_blank">
+              View {org_data[0].name}'s public page here ↗
+            </a>
+          </div>
         </div>
 
         <br></br>
@@ -399,15 +454,15 @@ function Org({ data, user }) {
                         >
                           {counties.map((county) => (
                             <MenuItem
-                              key={county}
-                              value={county}
+                              key={county.id}
+                              value={county.name}
                               style={getCounties(
                                 county,
                                 countyName,
                                 countyTheme
                               )}
                             >
-                              {county}
+                              {county.name}
                             </MenuItem>
                           ))}
                         </Select>
@@ -427,6 +482,7 @@ function Org({ data, user }) {
                           id="demo-multiple-chip"
                           multiple
                           value={serviceName}
+                          name={services.find(service => service.name === serviceName)?.id || ""}
                           onChange={handleServiceChange}
                           input={
                             <OutlinedInput
@@ -451,15 +507,16 @@ function Org({ data, user }) {
                         >
                           {services.map((service) => (
                             <MenuItem
-                              key={service}
-                              value={service}
+                              key={service.id}
+                              value={service.name}
+                              name={service.name}
                               style={getServices(
                                 service,
                                 serviceName,
-                                serviceTheme
+                                serviceTheme,
                               )}
                             >
-                              {service}
+                              {service.name}
                             </MenuItem>
                           ))}
                         </Select>
@@ -558,7 +615,7 @@ function Org({ data, user }) {
                     <ListItem>
                       <ListItemText
                         primary="Serviced Counties"
-                        secondary={countyName.join(", ")}
+                        secondary={countyName.join(", ") }
                       />
                     </ListItem>
                     <ListItem>
@@ -584,7 +641,9 @@ function Org({ data, user }) {
                   >
                     Submit
                   </Button>
-                  <Typography>Note a page refresh is required to see changes</Typography>
+                  <Typography>
+                    Note a page refresh is required to see changes
+                  </Typography>
                 </Box>
               </Modal>
               <Modal
@@ -625,10 +684,6 @@ function Org({ data, user }) {
 
 export async function getServerSideProps(context) {
   const session = await getServerSession(context.req, context.res);
-  const res = await fetch(
-    `http://localhost:3000/api/get-org?sp_id=${context.params.id}`
-  );
-  const data = await res.json();
   if (!session) {
     return {
       redirect: {
@@ -638,15 +693,41 @@ export async function getServerSideProps(context) {
     };
   }
   const user = await getAuthUser(session.user);
+  let servedCounties;
+  let servedServices;
+  let data;
+
+  if (!(await authorizeRequest(context.req, context.res, "admin"))) {
+    console.log("Access denied to apiuser does not haver permission to access this route");
+    // res.status(401).send("Access Denied")
+  }
+  else{
+
+    const res = `SELECT sp.* FROM service_providers sp WHERE sp.id = ?`;
+    const resData = await executeQuery({query: res, values: [context.params.id]});
+     data = JSON.parse(resData);
+
+    const query = `SELECT * FROM sp_counties WHERE service_provider_id = ?`;
+    const counties = await executeQuery({query: query, values: [context.params.id]});
+    servedCounties = JSON.parse(counties)
+
+    
+    const query2 = `SELECT * FROM sp_services WHERE service_provider_id = ?`;
+    const services = await executeQuery({query: query2, values: [context.params.id]});
+    servedServices = JSON.parse(services)
+
+  }
+  
 
   return {
     props: {
       user,
       session,
-      data
+      data,
+      servedCounties,
+      servedServices,
     },
   };
 }
-
 
 export default Org;
