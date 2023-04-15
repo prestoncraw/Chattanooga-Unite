@@ -55,7 +55,7 @@ export default async function addServiceProvider(req, res) {
       if (auth0DeleteUserAccountRequest.status == 204) {
         console.log(`Successfully deleted user in Auth0`);
         const activityLogQuery = "INSERT INTO activity_log (action_timestamp, user_id, action_description) VALUES(NOW(), ?, ?)";
-        const activityLogValues = [(await getAuthUserID(req, res)), `Deleted Auth0 user ID: ${auth0Id.auth0_id}`];
+        const activityLogValues = [(await getAuthUserID(req, res)), `Deleted Auth0 user ID: ${auth0Id[0].auth0_id}`];
         const activityLog = await executeQuery({ query: activityLogQuery, values: activityLogValues });
       }
       else {
