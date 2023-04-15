@@ -14,7 +14,7 @@ export default async function addServiceProvider(req, res) {
 
     // getting auth0 id 
     const checkAuth0UserQuery = `SELECT auth0_id FROM users WHERE email = ?`;
-    const auth0Id = await executeQuery({ query: checkAuth0UserQuery, values: [email] });
+    const auth0Id = JSON.parse(await executeQuery({ query: checkAuth0UserQuery, values: [email] }));
 
       // get auth0 access token 
       const auth0AccessTokenRequest = {
@@ -49,12 +49,13 @@ export default async function addServiceProvider(req, res) {
       };
 
       // DELETE (DELETE) user in auth0
-      const auth0DeleteUserAccountRequest = await fetch(`${process.env.AUTH0_ISSUER}/api/v2/users/${auth0Id}`, auth0DeleteUserRequest);
+      console.log(`Sending delete request to auth0 URL: ${process.env.AUTH0_ISSUER+"/api/v2/users/"+auth0Id[0].auth0_id}`)
+      const auth0DeleteUserAccountRequest = await fetch(`${process.env.AUTH0_ISSUER}/api/v2/users/${auth0Id[0].auth0_id}`, auth0DeleteUserRequest);
     
       if (auth0DeleteUserAccountRequest.status == 204) {
         console.log(`Successfully deleted user in Auth0`);
         const activityLogQuery = "INSERT INTO activity_log (action_timestamp, user_id, action_description) VALUES(NOW(), ?, ?)";
-        const activityLogValues = [(await getAuthUserID(req, res)), `Deleted Auth0 user ID: ${auth0Id}`];
+        const activityLogValues = [(await getAuthUserID(req, res)), `Deleted Auth0 user ID: ${auth0Id.auth0_id}`];
         const activityLog = await executeQuery({ query: activityLogQuery, values: activityLogValues });
       }
       else {
