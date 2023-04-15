@@ -1,7 +1,6 @@
 import executeQuery from '../../lib/db';
 import { URLSearchParams } from 'url';
 import { authorizeRequest, getAuthUserID } from '../../lib/authorize-request';
-import { randomBytes } from 'crypto';
 
 export default async function addServiceProvider(req, res) {
 
@@ -16,30 +15,35 @@ export default async function addServiceProvider(req, res) {
     const checkAuth0UserQuery = `SELECT auth0_id FROM users WHERE email = ?`;
     const auth0Id = JSON.parse(await executeQuery({ query: checkAuth0UserQuery, values: [email] }));
 
-      // get auth0 access token 
-      const auth0AccessTokenRequest = {
-        method: 'POST',
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          grant_type: 'client_credentials',
-          client_id: process.env.AUTH0_MANAGEMENT_CLIENT_ID,
-          client_secret: process.env.AUTH0_MANAGEMENT_CLIENT_SECRET,
-          audience: `${process.env.AUTH0_ISSUER}/api/v2/`
-        }),
-      };
+    // get auth0 access token 
+    const auth0AccessTokenRequest = {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'client_credentials',
+        client_id: process.env.AUTH0_MANAGEMENT_CLIENT_ID,
+        client_secret: process.env.AUTH0_MANAGEMENT_CLIENT_SECRET,
+        audience: `${process.env.AUTH0_ISSUER}/api/v2/`
+      }),
+    };
 
-      // GET auth0 access token
-      const auth0AccessRequest = await fetch(`${process.env.AUTH0_ISSUER}/oauth/token`, auth0AccessTokenRequest);
-      const auth0AccessToken = await auth0AccessRequest.json();
+    // GET auth0 access token
+    const auth0AccessRequest = await fetch(`${process.env.AUTH0_ISSUER}/oauth/token`, auth0AccessTokenRequest);
+    const auth0AccessToken = await auth0AccessRequest.json();
 
-      if (auth0AccessRequest.status == 200) {
-        console.log(`Successfully obtained access token from Auth0`);
-      }
-      else {
-        console.error(`Error getting access token from Auth0: ${auth0AccessToken}`);
-        res.status(500).send("Unable to delete user account. The system was unable to get an access token from Auth0.");
-      }
+    if (auth0AccessRequest.status == 200) {
+      console.log(`Successfully obtained access token from Auth0`);
+    }
+    else {
+      console.error(`Error getting access token from Auth0: ${auth0AccessToken}`);
+      res.status(500).send("Unable to delete user account. The system was unable to get an access token from Auth0.");
+    }
 
+    const spCheckQuery = `SELECT * FROM service_providers JOIN users ON service_providers.owner_id = users.id WHERE users.email = ?`;
+    const spCheckValues = [email];
+    const spCheck = await executeQuery({ query: spCheckQuery, values: [spCheckValues] });
+
+    if (spCheckQuery.length > 2) {
       const auth0DeleteUserRequest = {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${auth0AccessToken.access_token}` },
@@ -49,9 +53,9 @@ export default async function addServiceProvider(req, res) {
       };
 
       // DELETE (DELETE) user in auth0
-      console.log(`Sending delete request to auth0 URL: ${process.env.AUTH0_ISSUER+"/api/v2/users/"+auth0Id[0].auth0_id}`)
+      console.log(`Sending delete request to auth0 URL: ${process.env.AUTH0_ISSUER + "/api/v2/users/" + auth0Id[0].auth0_id}`)
       const auth0DeleteUserAccountRequest = await fetch(`${process.env.AUTH0_ISSUER}/api/v2/users/${auth0Id[0].auth0_id}`, auth0DeleteUserRequest);
-    
+
       if (auth0DeleteUserAccountRequest.status == 204) {
         console.log(`Successfully deleted user in Auth0`);
         const activityLogQuery = "INSERT INTO activity_log (action_timestamp, user_id, action_description) VALUES(NOW(), ?, ?)";
@@ -65,27 +69,23 @@ export default async function addServiceProvider(req, res) {
         res.status(500).send("Unable to delete user account. The system received an error from Auth0 when attempting to delete the account.");
       }
 
-      const spCheckQuery = `SELECT * FROM service_providers JOIN users ON service_providers.owner_id = users.id WHERE users.email = ?`;
-      const spCheckValues = [email];
-      const spCheck = await executeQuery({ query: spCheckQuery, values: [spCheckValues]});
-
-      if(spCheck.length > 2){
       // Delete user from database     
       const spOwnerIdQuery = `SELECT u.*, sp.name, sp.id FROM users u JOIN service_providers sp ON sp.owner_id = u.id WHERE u.email = ?;`
       const deleteUserQuery = `DELETE FROM users WHERE email = ?`;
+
       const deleteUserValues = [email];
       const spOwnerIdValues = [email];
 
-      const getOwnerId = await executeQuery({ query: spOwnerIdQuery, values: [spOwnerIdValues]});
+      const getOwnerId = await executeQuery({ query: spOwnerIdQuery, values: [spOwnerIdValues] });
       const deleteUserDB = await executeQuery({ query: deleteUserQuery, values: [deleteUserValues] });
       console.log("deleting user from the database.");
-      }
-
-      else{
-        res.status(500).send("User has a Service Provider attached. Delete the Service Provider before deleting the user.");
-      }
     }
 
-    res.status(200).send("Successfully deleted user.");
+    else {
+      res.status(500).send("User has a Service Provider attached. Delete the Service Provider before deleting the user.");
+    }
   }
+
+  res.status(200).send("Successfully deleted user.");
+}
 
