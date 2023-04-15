@@ -65,15 +65,25 @@ export default async function addServiceProvider(req, res) {
         res.status(500).send("Unable to delete user account. The system received an error from Auth0 when attempting to delete the account.");
       }
 
-      // Delete user from database
+      const spCheckQuery = `SELECT * FROM service_providers JOIN users ON service_providers.owner_id = users.id WHERE users.email = ?`;
+      const spCheckValues = [email];
+      const spCheck = await executeQuery({ query: spCheckQuery, values: [spCheckValues]});
+
+      if(spCheck.length > 2){
+      // Delete user from database     
       const spOwnerIdQuery = `SELECT u.*, sp.name, sp.id FROM users u JOIN service_providers sp ON sp.owner_id = u.id WHERE u.email = ?;`
       const deleteUserQuery = `DELETE FROM users WHERE email = ?`;
       const deleteUserValues = [email];
       const spOwnerIdValues = [email];
 
-      const getOwnerId = await executeQuery({ query: spOwnerIdQuery, values: [spOwnerIdValues]})
+      const getOwnerId = await executeQuery({ query: spOwnerIdQuery, values: [spOwnerIdValues]});
       const deleteUserDB = await executeQuery({ query: deleteUserQuery, values: [deleteUserValues] });
       console.log("deleting user from the database.");
+      }
+
+      else{
+        res.status(500).send("User has a Service Provider attached. Delete the Service Provider before deleting the user.");
+      }
     }
 
     res.status(200).send("Successfully deleted user.");
