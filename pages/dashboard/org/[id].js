@@ -45,12 +45,12 @@ const MenuProps = {
 };
 
 const counties = [
-  { id: 1, name: "Bledsoe" },
-  { id: 2, name: "Bradley" },
-  { id: 3, name: "Catoosa" },
-  { id: 4, name: "Dade" },
-  { id: 5, name: "Dekalb" },
-  { id: 6, name: "Grundy" },
+  { id: 1, name: "Bradley" },
+  { id: 2, name: "Catoosa" },
+  { id: 3, name: "Dekalb" },
+  { id: 4, name: "Grundy" },
+  { id: 5, name: "Bledsoe" },
+  { id: 6, name: "Dade" },
   { id: 7, name: "Hamilton" },
   { id: 8, name: "Jackson" },
   { id: 9, name: "Marion" },
@@ -75,10 +75,10 @@ const services = [
   { id: 8, name: "Health Care" },
   { id: 9, name: "Housing" },
   { id: 10, name: "Memorial and Burial Benefits" },
-  { id: 11, name: "Therapeutic Recreation" },
-  { id: 12, name: "Transportation" },
-  { id: 13, name: "Utility Assistance" },
-  { id: 14, name: "Other" },
+  { id: 11, name: "Other" },
+  { id: 12, name: "Therapeutic Recreation" },
+  { id: 13, name: "Transportation" },
+  { id: 14, name: "Utility Assistance" },
 ];
 
 function getCounties(county, countyName, theme) {
@@ -138,8 +138,8 @@ function Org({ data, user, servedCounties, servedServices }) {
   const [selectedCountyId, setSelectedCountyId] = useState();
   const [selectedServiceId, setSelectedServiceId] = useState(null);
 
-  const uniqueCountyIds = Array.from(new Set(servedCounties.map(({ county_id }) => county_id)));
-  const uniqueServiceIds = Array.from(new Set(servedServices.map(({ service_id }) => service_id)));
+  const uniqueServiceIds = Array.from(new Set(servedCounties.map(({ county_id }) => county_id))); // I know these values seem backwards... couldnt trace down the issue before turning in the project
+  const uniqueCountyIds = Array.from(new Set(servedServices.map(({ service_id }) => service_id))); // I know these values seem backwards... couldnt trace down the issue before turning in the project
 
   const uniqueCountyNames = uniqueCountyIds.map(id => {
     const county = counties.find(county => county.id === id);
@@ -205,6 +205,7 @@ function Org({ data, user, servedCounties, servedServices }) {
    // console.log(selectedCountyId);
 
   };
+
   const handleServiceChange = (event) => {
     const { value } = event.target;
     setServiceName(
@@ -251,10 +252,12 @@ function Org({ data, user, servedCounties, servedServices }) {
       `/api/update-service-provider?logo_url=${""}&name=${name}&description=${description}&contact_phone_number=${contact_phone_number}&contact_email=${contact_email}&website_url=${website_url}&address=${address}&id=${org_data[0].id}`
     ).then((response) => response.json());
 
-    fetch(`/api/update-service-county?sp_id=${org_data[0].id}&service_id=${selectedServiceId}&county_id=${selectedCountyId}`)
+    fetch(`/api/update-service-county?sp_id=${org_data[0].id}&service_id=${selectedServiceId.join(',')}&county_id=${selectedCountyId.join(',')}`)
     .then((response) => response.json());
   };
   const [userData] = useState(user);
+  console.log("this is servedCounties", servedCounties);
+  console.log("this is servedServices", servedServices);
   return (
     <>
       <Head>
@@ -621,7 +624,7 @@ function Org({ data, user, servedCounties, servedServices }) {
                     <ListItem>
                       <ListItemText
                         primary="Services Provided"
-                        secondary={serviceName.join(", ")}
+                        secondary={serviceName.join(", ") }
                       />
                     </ListItem>
                   </List>{" "}
