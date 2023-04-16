@@ -26,16 +26,16 @@ function YourDD214() {
         <div className="container">
           <div className="grayBackgroundHead centered">
             <div className="titleBackground">
-              { <Image
-              src="/images/handshake.png"
-              alt="Picture of Veteran and civilian shaking hands."
-              width={300}
-              height={300}
-              priority
-            /> }
+              {<Image
+                src="/images/handshake.png"
+                alt="Picture of Veteran and civilian shaking hands."
+                width={300}
+                height={300}
+                priority
+              />}
             </div>
             <h1 className="title">DD214 Information</h1>
-              <p className="corners description_dark">Your DD214 number is important. Learn more about how to access it here.</p>
+            <p className="corners description_dark">Your DD214 number is important. Learn more about how to access it here.</p>
           </div>
           <div className="blueBackground">
             <div className="left">
@@ -46,8 +46,9 @@ function YourDD214() {
                   For information and services, your DD214 is vital. For help in getting a copy of your DD214, call the Veteran Service Officer for your county, or you may contact the Department of Veteran Affairs:
                   <br></br><br></br>
                   <span className="indent">
-                    (423) 634-7125<br></br>
-                    <a className="link_light" href='www.archives.gov/veterans/military-service-records/'>Military Service Records</a>
+                    <a href='tel:+14236347125'>(423) 634-7125</a><br></br></span>
+                  <span className="indent">
+                    <a className="link_light" href='https://www.archives.gov/veterans/military-service-records/'>Military Service Records</a>
                   </span>
                 </p>
               </div>
