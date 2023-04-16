@@ -19,6 +19,8 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Toolbar from "@mui/material/Toolbar";
 import Navbar from "../../../../components/dashboard/navbar";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const drawerWidth = 240;
 const ITEM_HEIGHT = 48;
@@ -31,7 +33,6 @@ const MenuProps = {
     },
   },
 };
-
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -52,13 +53,16 @@ const style = {
   p: 4,
 };
 function Org({ user }) {
-const [userData] = useState(user);
-  
+  const [userData] = useState(user);
+
   const [submit, sOpen] = useState(false);
   const submitOpen = () => sOpen(true);
   const submitClose = () => sOpen(false);
   const [name, setName] = useState();
   const [email, setEmail] = useState();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -68,18 +72,28 @@ const [userData] = useState(user);
     setEmail(event.target.value);
   };
 
-  const insertServiceProvider = (
-  ) => {
-    fetch(
-      `/api/add-service-provider?name=${name}&email=${email}`
-    ).then((response) => response.json());
+  const insertServiceProvider = () => {
+    fetch(`/api/add-service-provider?name=${name}&email=${email}`).then(
+      (response) => {
+        if (response.status === 200) {
+          setSnackbarSeverity("success");
+          setSnackbarMessage("Organization successfully created.");
+        } else {
+          setSnackbarSeverity("error");
+          setSnackbarMessage("Error occurred while creating organization. Check server logs for more information.");
+        }
+        setSnackbarOpen(true);
+        return response.json();
+      }
+    );
   };
 
   return (
     <>
       <Head>
         <title>
-          Create Organization &raquo; Chattanooga Unite - Veterans Resource Center
+          Create Organization &raquo; Chattanooga Unite - Veterans Resource
+          Center
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -122,7 +136,7 @@ const [userData] = useState(user);
                 }}
               >
                 {/*Service Infromation Card*/}
-                
+
                 {/*Service Contact Card*/}
                 <Card
                   sx={{
@@ -166,8 +180,6 @@ const [userData] = useState(user);
                 </Card>
 
                 {/*Service Counties and FIle Upload*/}
-
-
               </CardContent>
               <Stack direction="row" spacing={1} sx={{ mt: 4, ml: 11, mb: 1 }}>
                 <Chip
@@ -196,10 +208,16 @@ const [userData] = useState(user);
                   </Typography>
                   <List>
                     <ListItem>
-                      <ListItemText primary="Organization Name:" secondary={name} />
+                      <ListItemText
+                        primary="Organization Name:"
+                        secondary={name}
+                      />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Account Email:" secondary={email} />
+                      <ListItemText
+                        primary="Account Email:"
+                        secondary={email}
+                      />
                     </ListItem>
                   </List>
                   <Button
@@ -211,13 +229,31 @@ const [userData] = useState(user);
                   >
                     Create Org
                   </Button>
-                  <Button secondary sx={{ mt: 2, color: "red" }} onClick={submitClose}>
+                  <Button
+                    secondary
+                    sx={{ mt: 2, color: "red" }}
+                    onClick={submitClose}
+                  >
                     Cancel
                   </Button>
                   {/* <Typography>Note a page refresh is required to see changes</Typography> */}
                 </Box>
               </Modal>
             </Card>
+            <Snackbar
+              open={snackbarOpen}
+              autoHideDuration={6000}
+              onClose={() => setSnackbarOpen(false)}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            >
+              <Alert
+                onClose={() => setSnackbarOpen(false)}
+                severity={snackbarSeverity}
+                variant="filled"
+              >
+                {snackbarMessage}
+              </Alert>
+            </Snackbar>
           </Box>
         </Box>
       </main>
@@ -227,28 +263,26 @@ const [userData] = useState(user);
   // Render post...
 }
 
-
 export default Org;
 
-
 export async function getServerSideProps(context) {
-    const domain = process.env.DOMAIN;
-  
-    const session = await getServerSession(context.req, context.res);
-    if (!session) {
-      return {
-        redirect: {
-          destination: "/",
-          permanent: false,
-        },
-      };
-    }
-    const user = await getAuthUser(session.user);
-  
+  const domain = process.env.DOMAIN;
+
+  const session = await getServerSession(context.req, context.res);
+  if (!session) {
     return {
-      props: {
-        user,
-        session,
+      redirect: {
+        destination: "/",
+        permanent: false,
       },
     };
   }
+  const user = await getAuthUser(session.user);
+
+  return {
+    props: {
+      user,
+      session,
+    },
+  };
+}
