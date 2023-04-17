@@ -134,6 +134,6 @@ export default async function addServiceProvider(req, res) {
     const activityLog = await executeQuery({ query: activityLogQuery, values: activityLogValues });
 
 
-    res.send(`Successfully created new service provider, ID: ${newSPID[0].id}`);
+    res.status(200).send({ success: true, spID: newSPID[0].id });
   }
 }

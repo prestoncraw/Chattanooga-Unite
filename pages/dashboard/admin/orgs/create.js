@@ -21,6 +21,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Navbar from "../../../../components/dashboard/navbar";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import Link from "next/link";
 
 const drawerWidth = 240;
 const ITEM_HEIGHT = 48;
@@ -63,6 +66,7 @@ function Org({ user }) {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [spID, setSpID] = useState(null);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -73,20 +77,37 @@ function Org({ user }) {
   };
 
   const insertServiceProvider = () => {
-    fetch(`/api/add-service-provider?name=${name}&email=${email}`).then(
-      (response) => {
-        if (response.status === 200) {
+    fetch(`/api/add-service-provider?name=${name}&email=${email}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(
+          "this is the response in the handle delete function: ",
+          data
+        );
+  
+        if (data.success) {
+          setSpID(data.spID); // Update the spID state
           setSnackbarSeverity("success");
           setSnackbarMessage("Organization successfully created.");
+          // Use data.spID here to link the new org in the Snackbar or elsewhere
         } else {
           setSnackbarSeverity("error");
-          setSnackbarMessage("Error occurred while creating organization. Check server logs for more information.");
+          setSnackbarMessage(
+            "Error occurred while creating organization. Check server logs for more information."
+          );
         }
         setSnackbarOpen(true);
-        return response.json();
-      }
-    );
+      })
+      .catch((error) => {
+        // Handle network error
+        setSnackbarSeverity("error");
+        setSnackbarMessage(
+          "Network error occurred while creating organization. Check server logs for more information."
+        );
+        setSnackbarOpen(true);
+      });
   };
+  
 
   return (
     <>
@@ -206,6 +227,9 @@ function Org({ user }) {
                   >
                     Confirm Information
                   </Typography>
+                  <Typography variant="body2" sx={{ mt: 1, color: "red" }}>
+                    ** Note: A refresh is required to see the changes made.**
+                  </Typography>
                   <List>
                     <ListItem>
                       <ListItemText
@@ -241,19 +265,28 @@ function Org({ user }) {
               </Modal>
             </Card>
             <Snackbar
-              open={snackbarOpen}
-              autoHideDuration={6000}
-              onClose={() => setSnackbarOpen(false)}
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            >
-              <Alert
-                onClose={() => setSnackbarOpen(false)}
-                severity={snackbarSeverity}
-                variant="filled"
-              >
-                {snackbarMessage}
-              </Alert>
-            </Snackbar>
+      open={snackbarOpen}
+      autoHideDuration={6000}
+      onClose={() => setSnackbarOpen(false)}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+    >
+      <Alert
+        onClose={() => setSnackbarOpen(false)}
+        severity={snackbarSeverity}
+        variant="filled"
+        action={
+          snackbarSeverity === "success" && spID ? (
+            <Link href={`/dashboard/org/${spID}`} passHref>
+              <IconButton color="inherit" size="small">
+                <OpenInNewIcon fontSize="inherit" />
+              </IconButton>
+            </Link>
+          ) : null
+        }
+      >
+        {snackbarMessage}
+      </Alert>
+    </Snackbar>
           </Box>
         </Box>
       </main>

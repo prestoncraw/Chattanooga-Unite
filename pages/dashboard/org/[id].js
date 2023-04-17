@@ -646,7 +646,7 @@ function Org({ data, user, servedCounties, servedServices }) {
                             <Typography variant="h6">
                               Serviced Counties
                               <br />
-                              <Typography variant="caption" component="span">
+                              <Typography variant="caption" component="span" sx={{color: "red"}}>
                                 *Note: You cannot undo serviced counties once
                                 inserted into the database.*
                               </Typography>
@@ -661,7 +661,7 @@ function Org({ data, user, servedCounties, servedServices }) {
                             <Typography variant="h6">
                               Services Provided
                               <br />
-                              <Typography variant="caption" component="span">
+                              <Typography variant="caption" component="span" sx={{color: "red"}}>
                                 *Note: You cannot undo services provided once
                                 inserted into the database.*
                               </Typography>

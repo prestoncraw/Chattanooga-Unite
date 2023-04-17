@@ -106,7 +106,7 @@ const UserTable = () => {
         }}
       >
         <Typography variant="h6">Are you sure you want to delete?</Typography>
-        <Typography variant="body2" sx={{ mt: 1 }}>
+        <Typography variant="body2" sx={{ mt: 1, color: "red" }}>
          ** Note: A refresh is required to see the changes made.**
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
