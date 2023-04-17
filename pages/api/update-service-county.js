@@ -17,22 +17,28 @@ export default async function handler(req, res) {
         const servicesResults = [];
         const countiesResults = [];
 
+
+
         for (const serviceId of serviceIds) {
-            const existingService = await executeQuery({ query: `SELECT * FROM sp_services WHERE service_provider_id = ? AND service_id = ?`, values: [sp_id, serviceId] });
-            console.log(existingService)
-            if (existingService.length === 2) {
-                const serv = await executeQuery({ query: `INSERT INTO sp_services VALUES (?, ?)`, values: [sp_id, serviceId] });
-                servicesResults.push(serv);
-                console.log(serv)
+            if (!isNaN(parseInt(serviceId))) {
+                const existingService = await executeQuery({ query: `SELECT * FROM sp_services WHERE service_provider_id = ? AND service_id = ?`, values: [sp_id, serviceId] });
+                console.log(existingService)
+                if (existingService.length === 2) {
+                    const serv = await executeQuery({ query: `INSERT INTO sp_services VALUES (?, ?)`, values: [sp_id, serviceId] });
+                    servicesResults.push(serv);
+                    console.log(serv)
+                }
             }
         }
 
         for (const countyId of countyIds) {
-            const existingCounty = await executeQuery({ query: `SELECT * FROM sp_counties WHERE service_provider_id  = ? AND county_id = ?`, values: [sp_id, countyId] });
+            if (!isNaN(parseInt(countyId))) {
+                const existingCounty = await executeQuery({ query: `SELECT * FROM sp_counties WHERE service_provider_id  = ? AND county_id = ?`, values: [sp_id, countyId] });
 
-            if (existingCounty.length === 2) {
-                const count = await executeQuery({ query: `INSERT INTO sp_counties VALUES (?, ?)`, values: [sp_id, countyId] });
-                countiesResults.push(count);
+                if (existingCounty.length === 2) {
+                    const count = await executeQuery({ query: `INSERT INTO sp_counties VALUES (?, ?)`, values: [sp_id, countyId] });
+                    countiesResults.push(count);
+                }
             }
         }
 

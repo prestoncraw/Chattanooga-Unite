@@ -262,11 +262,7 @@ function Org({ data, user, servedCounties, servedServices }) {
     ).then((response) => response.json());
 
     fetch(
-      `/api/update-service-county?sp_id=${
-        org_data[0].id
-      }&service_id=${selectedServiceId.join(
-        ","
-      )}&county_id=${selectedCountyId.join(",")}`
+      `/api/update-service-county?sp_id=${org_data[0].id}&service_id=${selectedServiceId}&county_id=${selectedCountyId}`
     ).then((response) => {
       if (response.status === 200) {
         setSnackbarSeverity("success");
@@ -603,59 +599,79 @@ function Org({ data, user, servedCounties, servedServices }) {
                 aria-labelledby="Changes"
                 aria-describedby="lists the changes made in the editing process "
               >
-                <Box sx={style}>
+                <Box sx={{ ...style, width: "90vw", maxHeight: "90vh" }}>
                   <Typography
                     id="Changes"
                     variant="h6"
                     component="h2"
                     align="center"
                   >
-                    Changes Made
+                   Preview for {name}
                   </Typography>
-                  <List>
-                    <ListItem>
-                      <ListItemText primary="Service Name" secondary={name} />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText
-                        primary="Description"
-                        secondary={description}
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText
-                        primary="Website URL"
-                        secondary={website_url}
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText
-                        primary="Contact Email"
-                        secondary={contact_email}
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText
-                        primary="Phone Number"
-                        secondary={phone_number}
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText primary="Address" secondary={address} />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText
-                        primary="Serviced Counties"
-                        secondary={countyName.join(", ")}
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText
-                        primary="Services Provided"
-                        secondary={serviceName.join(", ")}
-                      />
-                    </ListItem>
-                  </List>{" "}
+                  <Box sx={{ maxHeight: "60vh", overflow: "auto" }}>
+                    <List>
+                      <ListItem>
+                        <ListItemText primary="Service Name" secondary={name} />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText
+                          primary="Description"
+                          secondary={description}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText
+                          primary="Website URL"
+                          secondary={website_url}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText
+                          primary="Contact Email"
+                          secondary={contact_email}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText
+                          primary="Phone Number"
+                          secondary={phone_number}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText primary="Address" secondary={address} />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText
+                          primary={
+                            <Typography variant="h6">
+                              Serviced Counties
+                              <br />
+                              <Typography variant="caption" component="span">
+                                *Note: You cannot undo serviced counties once
+                                inserted into the database.*
+                              </Typography>
+                            </Typography>
+                          }
+                          secondary={countyName.join(", ")}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText
+                          primary={
+                            <Typography variant="h6">
+                              Services Provided
+                              <br />
+                              <Typography variant="caption" component="span">
+                                *Note: You cannot undo services provided once
+                                inserted into the database.*
+                              </Typography>
+                            </Typography>
+                          }
+                          secondary={countyName.join(", ")}
+                        />
+                      </ListItem>
+                    </List>{" "}
+                  </Box>
                   <Button
                     onClick={() => {
                       updateServiceProvider(
@@ -672,8 +688,8 @@ function Org({ data, user, servedCounties, servedServices }) {
                   >
                     Submit
                   </Button>
-                  <Typography>
-                    Note a page refresh is required to see changes
+                  <Typography style={{ color: "red" }}>
+                    *Note a page refresh is required to see changes*
                   </Typography>
                 </Box>
               </Modal>
