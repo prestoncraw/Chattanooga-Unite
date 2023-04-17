@@ -36,12 +36,9 @@ export default function Dashboard({ user, session }) {
             </Head>
                 <Box sx={{ ...sharedStyles }}>
                     <Navbar
-                        // email={userData.user_email}
-                        // name={userData.Organizations[0].name}
+                        email={userData.user_email}
                     />
                     {userData.is_admin ? (<AdminPanel
-                        // name={userData.Organizations[0].name}
-                        // orgId={userData.Organizations[0].id}
                         sx={{ ...sharedStyles }}
                     />) : null}
                     {userData.Organizations && (

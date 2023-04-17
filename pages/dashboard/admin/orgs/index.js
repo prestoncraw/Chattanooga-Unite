@@ -32,7 +32,7 @@ export default function Orgs({ user, session }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Navbar />
+            <Navbar email={userData.email} />
 
             <Typography variant="h2" component="div" style={{ mt: 8 }}>
                 Dashboard Menu
