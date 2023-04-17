@@ -264,9 +264,7 @@ function Org({ data, user, servedCounties, servedServices }) {
     fetch(
       `/api/update-service-county?sp_id=${
         org_data[0].id
-      }&service_id=${selectedServiceId.join(
-        ","
-      )}&county_id=${selectedCountyId.join(",")}`
+      }&service_id=${selectedServiceId}&county_id=${selectedCountyId}`
     ).then((response) => {
       if (response.status === 200) {
         setSnackbarSeverity("success");
