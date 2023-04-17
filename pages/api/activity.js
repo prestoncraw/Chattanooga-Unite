@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   else {
-    const query = `SELECT a.*, u.* FROM activity_log a JOIN users u ON a.user_id = u.id`;
+    const query = `SELECT a.*, u.* FROM activity_log a JOIN users u ON a.user_id = u.id ORDER BY a.action_timestamp DESC LIMIT 100`;
     const log = await executeQuery({ query });
     const activityLog = JSON.parse(log)
     res.status(200).json(activityLog);
