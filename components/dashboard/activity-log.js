@@ -135,34 +135,13 @@ const activityLog = () => {
             <TableHead>
               <TableRow>
                 <TableCell className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "timestamp"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("timestamp")}
-                  >
-                    <Chip label="Timestamp" />
-                  </TableSortLabel>
+                  <Chip label="Timestamp" />
                 </TableCell>
                 <TableCell align="left" className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "email"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("email")}
-                  >
-                    <Chip label="Email" />
-                  </TableSortLabel>
+                  <Chip label="Email" />
                 </TableCell>
                 <TableCell align="left" className={styles.table_header_cell}>
-                  <TableSortLabel
-                    active={sortBy === "action"}
-                    direction={order}
-                    className={styles.sort_label}
-                    onClick={() => handleSortRequest("action")}
-                  >
-                    <Chip label="Action" />
-                  </TableSortLabel>
+                  <Chip label="Action" />
                 </TableCell>
               </TableRow>
             </TableHead>
