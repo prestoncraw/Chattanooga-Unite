@@ -32,6 +32,9 @@ import getAuthUser from "../../../lib/get-auth-user";
 import Navbar from "../../../components/dashboard/navbar";
 import { authorizeRequest } from "../../../lib/authorize-request";
 import executeQuery from "../../../lib/db";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
 const drawerWidth = 240;
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -45,12 +48,12 @@ const MenuProps = {
 };
 
 const counties = [
-  { id: 1, name: "Bledsoe" },
-  { id: 2, name: "Bradley" },
-  { id: 3, name: "Catoosa" },
-  { id: 4, name: "Dade" },
-  { id: 5, name: "Dekalb" },
-  { id: 6, name: "Grundy" },
+  { id: 1, name: "Bradley" },
+  { id: 2, name: "Catoosa" },
+  { id: 3, name: "Dekalb" },
+  { id: 4, name: "Grundy" },
+  { id: 5, name: "Bledsoe" },
+  { id: 6, name: "Dade" },
   { id: 7, name: "Hamilton" },
   { id: 8, name: "Jackson" },
   { id: 9, name: "Marion" },
@@ -75,10 +78,10 @@ const services = [
   { id: 8, name: "Health Care" },
   { id: 9, name: "Housing" },
   { id: 10, name: "Memorial and Burial Benefits" },
-  { id: 11, name: "Therapeutic Recreation" },
-  { id: 12, name: "Transportation" },
-  { id: 13, name: "Utility Assistance" },
-  { id: 14, name: "Other" },
+  { id: 11, name: "Other" },
+  { id: 12, name: "Therapeutic Recreation" },
+  { id: 13, name: "Transportation" },
+  { id: 14, name: "Utility Assistance" },
 ];
 
 function getCounties(county, countyName, theme) {
@@ -137,19 +140,26 @@ function Org({ data, user, servedCounties, servedServices }) {
   const [description, setDescription] = useState(org_data[0].description);
   const [selectedCountyId, setSelectedCountyId] = useState();
   const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  const uniqueCountyIds = Array.from(new Set(servedCounties.map(({ county_id }) => county_id)));
-  const uniqueServiceIds = Array.from(new Set(servedServices.map(({ service_id }) => service_id)));
+  const uniqueServiceIds = Array.from(
+    new Set(servedCounties.map(({ county_id }) => county_id))
+  ); // I know these values seem backwards... couldnt trace down the issue before turning in the project
+  const uniqueCountyIds = Array.from(
+    new Set(servedServices.map(({ service_id }) => service_id))
+  ); // I know these values seem backwards... couldnt trace down the issue before turning in the project
 
-  const uniqueCountyNames = uniqueCountyIds.map(id => {
-    const county = counties.find(county => county.id === id);
+  const uniqueCountyNames = uniqueCountyIds.map((id) => {
+    const county = counties.find((county) => county.id === id);
     return county ? county.name : null;
   });
 
   const [countyName, setCountyName] = useState(uniqueCountyNames);
 
-  const uniqueServiceNames = uniqueServiceIds.map(id => {
-    const service = services.find(service => service.id === id);
+  const uniqueServiceNames = uniqueServiceIds.map((id) => {
+    const service = services.find((service) => service.id === id);
     return service ? service.name : null;
   });
   const [serviceName, setServiceName] = useState(uniqueServiceNames);
@@ -197,28 +207,28 @@ function Org({ data, user, servedCounties, servedServices }) {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
-    const selectedCountyIds = countyName.map(name => {
-      const selectedCounty = counties.find(county => county.name === name);
+    const selectedCountyIds = countyName.map((name) => {
+      const selectedCounty = counties.find((county) => county.name === name);
       return selectedCounty ? selectedCounty.id : null;
     });
-    setSelectedCountyId(selectedCountyIds.filter(id => id !== null));
-   // console.log(selectedCountyId);
-
+    setSelectedCountyId(selectedCountyIds.filter((id) => id !== null));
+    // console.log(selectedCountyId);
   };
+
   const handleServiceChange = (event) => {
     const { value } = event.target;
     setServiceName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
-    const selectedServiceIds = serviceName.map(name => {
-      const selectedService = services.find(service => service.name === name);
+    const selectedServiceIds = serviceName.map((name) => {
+      const selectedService = services.find((service) => service.name === name);
       return selectedService ? selectedService.id : null;
     });
-    setSelectedServiceId(selectedServiceIds.filter(id => id !== null));
-   // console.log(selectedServiceId);
+    setSelectedServiceId(selectedServiceIds.filter((id) => id !== null));
+    // console.log(selectedServiceId);
   };
-  
+
   useEffect(() => {
     const selectedCountyIds = countyName.map((name) => {
       const selectedCounty = counties.find((county) => county.name === name);
@@ -226,19 +236,17 @@ function Org({ data, user, servedCounties, servedServices }) {
     });
     setSelectedCountyId(selectedCountyIds.filter((id) => id !== null));
   }, [countyName, counties]);
-  
+
   useEffect(() => {
     const selectedServiceIds = serviceName.map((name) => {
-      const selectedService = services.find(
-        (service) => service.name === name
-      );
+      const selectedService = services.find((service) => service.name === name);
       return selectedService ? selectedService.id : null;
     });
     setSelectedServiceId(selectedServiceIds.filter((id) => id !== null));
   }, [serviceName, services]);
-  
+
   //console.log(selectedServiceId);
-  console.log(selectedCountyId)
+  console.log(selectedCountyId);
   const updateServiceProvider = (
     name,
     website_url,
@@ -248,13 +256,32 @@ function Org({ data, user, servedCounties, servedServices }) {
     contact_email
   ) => {
     fetch(
-      `/api/update-service-provider?logo_url=${""}&name=${name}&description=${description}&contact_phone_number=${contact_phone_number}&contact_email=${contact_email}&website_url=${website_url}&address=${address}&id=${org_data[0].id}`
+      `/api/update-service-provider?logo_url=${""}&name=${name}&description=${description}&contact_phone_number=${contact_phone_number}&contact_email=${contact_email}&website_url=${website_url}&address=${address}&id=${
+        org_data[0].id
+      }`
     ).then((response) => response.json());
 
-    fetch(`/api/update-service-county?sp_id=${org_data[0].id}&service_id=${selectedServiceId}&county_id=${selectedCountyId}`)
-    .then((response) => response.json());
+    fetch(
+      `/api/update-service-county?sp_id=${
+        org_data[0].id
+      }&service_id=${selectedServiceId.join(
+        ","
+      )}&county_id=${selectedCountyId.join(",")}`
+    ).then((response) => {
+      if (response.status === 200) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Organization updated created.");
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error occurred while updating organization.");
+      }
+      setSnackbarOpen(true);
+      return response.json();
+    });
   };
   const [userData] = useState(user);
+  console.log("this is servedCounties", servedCounties);
+  console.log("this is servedServices", servedServices);
   return (
     <>
       <Head>
@@ -482,7 +509,11 @@ function Org({ data, user, servedCounties, servedServices }) {
                           id="demo-multiple-chip"
                           multiple
                           value={serviceName}
-                          name={services.find(service => service.name === serviceName)?.id || ""}
+                          name={
+                            services.find(
+                              (service) => service.name === serviceName
+                            )?.id || ""
+                          }
                           onChange={handleServiceChange}
                           input={
                             <OutlinedInput
@@ -513,7 +544,7 @@ function Org({ data, user, servedCounties, servedServices }) {
                               style={getServices(
                                 service,
                                 serviceName,
-                                serviceTheme,
+                                serviceTheme
                               )}
                             >
                               {service.name}
@@ -615,7 +646,7 @@ function Org({ data, user, servedCounties, servedServices }) {
                     <ListItem>
                       <ListItemText
                         primary="Serviced Counties"
-                        secondary={countyName.join(", ") }
+                        secondary={countyName.join(", ")}
                       />
                     </ListItem>
                     <ListItem>
@@ -673,6 +704,20 @@ function Org({ data, user, servedCounties, servedServices }) {
                 </Box>
               </Modal>
             </Card>
+            <Snackbar
+              open={snackbarOpen}
+              autoHideDuration={6000}
+              onClose={() => setSnackbarOpen(false)}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            >
+              <Alert
+                onClose={() => setSnackbarOpen(false)}
+                severity={snackbarSeverity}
+                variant="filled"
+              >
+                {snackbarMessage}
+              </Alert>
+            </Snackbar>
           </Box>
         </Box>
       </main>
@@ -698,26 +743,32 @@ export async function getServerSideProps(context) {
   let data;
 
   if (!(await authorizeRequest(context.req, context.res, "admin"))) {
-    console.log("Access denied to apiuser does not haver permission to access this route");
+    console.log(
+      "Access denied to apiuser does not haver permission to access this route"
+    );
     // res.status(401).send("Access Denied")
-  }
-  else{
-
+  } else {
     const res = `SELECT sp.* FROM service_providers sp WHERE sp.id = ?`;
-    const resData = await executeQuery({query: res, values: [context.params.id]});
-     data = JSON.parse(resData);
+    const resData = await executeQuery({
+      query: res,
+      values: [context.params.id],
+    });
+    data = JSON.parse(resData);
 
     const query = `SELECT * FROM sp_counties WHERE service_provider_id = ?`;
-    const counties = await executeQuery({query: query, values: [context.params.id]});
-    servedCounties = JSON.parse(counties)
+    const counties = await executeQuery({
+      query: query,
+      values: [context.params.id],
+    });
+    servedCounties = JSON.parse(counties);
 
-    
     const query2 = `SELECT * FROM sp_services WHERE service_provider_id = ?`;
-    const services = await executeQuery({query: query2, values: [context.params.id]});
-    servedServices = JSON.parse(services)
-
+    const services = await executeQuery({
+      query: query2,
+      values: [context.params.id],
+    });
+    servedServices = JSON.parse(services);
   }
-  
 
   return {
     props: {
