@@ -758,7 +758,7 @@ export async function getServerSideProps(context) {
   let servedServices;
   let data;
 
-  if (!(await authorizeRequest(context.req, context.res, "admin"))) {
+  if (!(await authorizeRequest(context.req, context.res, "sp", context.params.id))) {
     console.log(
       "Access denied to apiuser does not haver permission to access this route"
     );
