@@ -22,10 +22,16 @@ import Link from "next/link";
 const OrgTable = () => {
   const [data, setData] = useState(null);
   const [searchValue, setSearchValue] = useState("");
+  const [orgName, setOrgName] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => setModalOpen(true);
+  const openModal = (orgId, orgName) => {
+    setOrgToDelete(orgId);
+    setModalOpen(true);
+    setOrgName(orgName)
+  };
   const closeModal = () => setModalOpen(false);
+  const [orgToDelete, setOrgToDelete] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,6 +70,27 @@ const OrgTable = () => {
     setSearchValue(e.target.value);
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(
+        `/api/delete-service-provider?id=${orgToDelete}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Successfully deleted the organization");
+        // Refresh the data or remove the deleted organization from the state
+      } else {
+        console.error("Error deleting the organization");
+      }
+    } catch (error) {
+      console.error("Error deleting the organization:", error);
+    }
+    closeModal();
+  };
+
   const renderDeleteConfirmation = () => {
     return (
       <Box
@@ -77,11 +104,12 @@ const OrgTable = () => {
           p: 4,
         }}
       >
-        <Typography variant="h6">Are you sure you want to delete?</Typography>
+        <Typography variant="h6">Are you sure you want to delete? - {orgName}</Typography>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-          <Button color="error" variant="contained" onClick={() => {}}>
+          <Button color="error" variant="contained" onClick={handleDelete}>
             Delete
           </Button>
+
           <Button
             color="primary"
             variant="outlined"
@@ -133,10 +161,10 @@ const OrgTable = () => {
             <TableHead>
               <TableRow>
                 <TableCell className={styles.table_header_cell}>
-                    <Chip label="Organization Name" />
+                  <Chip label="Organization Name" />
                 </TableCell>
                 <TableCell className={styles.table_header_cell}>
-                    <Chip label="Contact Email" />
+                  <Chip label="Contact Email" />
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -157,7 +185,11 @@ const OrgTable = () => {
                         <Link href={`/dashboard/org/${item.id}`}>
                           <EditIcon sx={{ mr: 2 }} />
                         </Link>
-                        <DeleteForeverIcon onClick={openModal} style={{ cursor: 'pointer' }} />
+                        <DeleteForeverIcon
+                          onClick={() => openModal(item.id, item.name)}
+                          style={{ cursor: "pointer" }}
+                        />
+
                         <Modal
                           open={modalOpen}
                           onClose={closeModal}
