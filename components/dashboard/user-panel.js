@@ -6,7 +6,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
   Typography,
   Chip,
   TextField,
@@ -16,16 +15,23 @@ import {
 import { orderBy } from "lodash";
 import styles from "../../styles/MatchTable.module.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
-import Link from "next/link";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const UserTable = () => {
   const [data, setData] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => setModalOpen(true);
+  const openModal = (email) => {
+    setEmailToDelete(email);
+    setModalOpen(true);
+  };
   const closeModal = () => setModalOpen(false);
+  const [emailToDelete, setEmailToDelete] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,6 +65,33 @@ const UserTable = () => {
     setSearchValue(e.target.value);
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(
+        `/api/delete-user-account?email=${emailToDelete}`,
+        {
+          method: "DELETE",
+        }
+      );
+  
+      if (response.status === 200) {
+        console.log("Successfully deleted the user account");
+        setSnackbarSeverity("success");
+        setSnackbarMessage("User account successfully deleted.");
+      } else {
+        console.error("Error deleting the user account");
+        setSnackbarSeverity("error");
+        setSnackbarMessage(
+          "Error occurred while deleting user account. Please make sure all service providers associated with this user are deleted first."
+        );
+      }
+      setSnackbarOpen(true); // Add this line
+    } catch (error) {
+      console.error("Error deleting the user account:", error);
+    }
+    closeModal();
+  };
+  
   const renderDeleteConfirmation = () => {
     return (
       <Box
@@ -73,8 +106,11 @@ const UserTable = () => {
         }}
       >
         <Typography variant="h6">Are you sure you want to delete?</Typography>
+        <Typography variant="body2" sx={{ mt: 1 }}>
+         ** Note: A refresh is required to see the changes made.**
+        </Typography>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-          <Button color="error" variant="contained" onClick={() => {}}>
+          <Button color="error" variant="contained" onClick={handleDelete}>
             Delete
           </Button>
           <Button
@@ -102,7 +138,6 @@ const UserTable = () => {
         >
           Dashboard Users
         </Typography>
-
         <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
           <Typography variant="subtitle1" sx={{ marginRight: 1 }}>
             Search:
@@ -122,31 +157,26 @@ const UserTable = () => {
             }}
           />
         </Box>
-
         <Box className={styles.table_container} mb={2}>
           <Table className={styles.table}>
             <TableHead>
               <TableRow>
                 <TableCell className={styles.table_header_cell} colSpan={2}>
-                    <Chip label="Email" />
+                  <Chip label="Email" />
                 </TableCell>
               </TableRow>
             </TableHead>
-
             <TableBody>
               {filteredData &&
                 filteredData.map((item) => (
                   <TableRow key={item.id} className={styles.table_row}>
                     <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                      <Link href={`/dashboard/user/${item.id}`}>
-                        {item.email}
-                      </Link>
+                      {item.email}
                     </TableCell>
                     <TableCell>
                       <Box sx={{ textAlign: "right" }}>
-
                         <DeleteForeverIcon
-                          onClick={openModal}
+                          onClick={() => openModal(item.email)}
                           style={{ cursor: "pointer" }}
                         />
                         <Modal
@@ -163,6 +193,20 @@ const UserTable = () => {
                 ))}
             </TableBody>
           </Table>
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={6000}
+            onClose={() => setSnackbarOpen(false)}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          >
+            <Alert
+              onClose={() => setSnackbarOpen(false)}
+              severity={snackbarSeverity}
+              variant="filled"
+            >
+              {snackbarMessage}
+            </Alert>
+          </Snackbar>
         </Box>
       </Box>
     </main>

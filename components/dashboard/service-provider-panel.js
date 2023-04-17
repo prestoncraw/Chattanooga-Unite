@@ -122,6 +122,9 @@ const OrgTable = () => {
         <Typography variant="h6">
           Are you sure you want to delete? - {orgName}
         </Typography>
+        <Typography variant="body2" sx={{ mt: 1 }}>
+         ** Note: A refresh is required to see the changes made.**
+        </Typography>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
           <Button color="error" variant="contained" onClick={handleDelete}>
             Delete

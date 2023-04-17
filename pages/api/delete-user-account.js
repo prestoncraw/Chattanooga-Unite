@@ -79,7 +79,7 @@ export default async function handler(req, res) {
             const deleteUserQuery = `DELETE FROM users WHERE id = ?`;
             const deletionInfo = JSON.parse(await executeQuery({ query: deleteUserQuery, values: [userInfo[0].u_id] }));
 
-            res.send(`Deleted ${emailNormalized}`);
+            res.status(200).send(`Deleted ${emailNormalized}`);
 
         }
 
