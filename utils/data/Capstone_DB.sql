@@ -35,6 +35,7 @@ CREATE TABLE `sp_counties` (
 
 CREATE TABLE `users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
+  `auth0_id` varchar(255),
   `email` varchar(255) UNIQUE,
   `name` varchar(255),
   `is_admin` bool DEFAULT 0,
@@ -72,8 +73,9 @@ CREATE TABLE `activity_log` (
 CREATE TABLE `sp_logos` (
   `id` int PRIMARY KEY,
   `sp_id` int,
-  `image` blob,
+  `image` longblob,
   `filename` varchar(255),
+  `type` varchar(255),
   `upload_timestamp` datetime DEFAULT (now())
 );
 

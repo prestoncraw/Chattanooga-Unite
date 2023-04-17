@@ -89,17 +89,19 @@
 }
 
 .select_box_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-size: 1.1rem;
-    margin-bottom: 5px;
-    padding-top: 5px;
-    height: 30px;
+    height: 50px;
+    align-items: center;
+    text-align: center;
 }
 
 .select_box_img {
     height: 90px;
     margin: auto;
     font-size: 54pt;
-    padding-top: 10px;
 }
 
 .select_box_img div div {
@@ -109,9 +111,9 @@
 }
 
 .select_box_img svg{
+    padding-top: 10px;
     height: 90px;
     width: 90px;
-    padding-bottom: 15px;
     stroke:#BB133E;
     fill: #BB133E;
 }
@@ -125,6 +127,17 @@
     font-size: 1.4rem;
     color: white;
     font-weight: 600;
+}
+
+.itemList {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+}
+.itemList > div {
+    user-select: none;
+    cursor: default;
 }
 
 @media only screen and (max-width: 600px) {
@@ -171,6 +184,9 @@
     }
     .noServiceWarn {
         text-align: center;
+    }
+    .itemList {
+        justify-content: center;
     }
   }
 

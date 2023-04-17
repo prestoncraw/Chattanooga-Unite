@@ -100,7 +100,7 @@ This table is used to track actions related to editing ```service_providers```.
 | user_is_admin | bool | whether or not user performed action as admin | no |
 | action_type | varchar | What type of action was performed (e.g. "Edit SP", "Create SP", "Delete SP") | no |
 | action_description | text | Full log of what was changed. (e.g. "Edited SP Aid and Assist (id: 12) description from 'old description' to 'new description') | no |
-| action_timestamp | datetime | Timestamp of when the action was executed | no |
+| action_timestamp | datetime | Timestamp of when the action was executed, **in UTC (without timestamp)** | no |
 
 
 ## Populating Test Data

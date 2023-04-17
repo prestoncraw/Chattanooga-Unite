@@ -15,7 +15,7 @@ export default function AccessibilityMenu() {
   };
 
   const [fontSize, setFontSize] = useState(16);
-  const [contrast, setContrast] = useState('normal');
+  const [contrast, setContrast] = useState(false);
   const [readingGuide, setReadingGuide] = useState(false);
   const [mouseY, setMouseY] = useState(0);
 
@@ -52,7 +52,7 @@ export default function AccessibilityMenu() {
 
   // switch contrast mode 
   const updateContrast = (value) => {
-    setContrast(value);
+    setContrast(!contrast);
     document.documentElement.classList.toggle('contrast');
     document.documentElement.classList.toggle(KeyNum.contrast);
     document.documentElement.classList.toggle(FindHelp.contrast);
@@ -64,7 +64,7 @@ export default function AccessibilityMenu() {
   // reset all menu settings to original state 
   const resetSettings = () => {
     setFontSize(16);
-    setContrast('normal');
+    setContrast(false);
     setReadingGuide(false);
     document.documentElement.style.fontSize = '16px';
     document.documentElement.classList.remove('contrast');
@@ -102,7 +102,7 @@ export default function AccessibilityMenu() {
                   </li>
 
                   {/* contrast button */}
-                  <li onClick={updateContrast}>High Contrast</li>
+                  <li onClick={updateContrast}>{contrast ? 'Disable ' : 'Enable '} High Contrast</li>
 
                   {/* font slider */}
                   <li className={styles.font_size}>

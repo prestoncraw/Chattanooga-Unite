@@ -6,7 +6,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel,
   Typography,
   Chip,
   TextField,
@@ -16,27 +15,22 @@ import {
 import { orderBy } from "lodash";
 import styles from "../../styles/MatchTable.module.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
-import Link from "next/link";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { useRouter } from "next/router";
 
-
-const OrgTable = () => {
+const UserTable = () => {
   const router = useRouter();
   const [data, setData] = useState(null);
   const [searchValue, setSearchValue] = useState("");
-  const [orgName, setOrgName] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const openModal = (orgId, orgName) => {
-    setOrgToDelete(orgId);
+  const openModal = (email) => {
+    setEmailToDelete(email);
     setModalOpen(true);
-    setOrgName(orgName);
   };
   const closeModal = () => setModalOpen(false);
-  const [orgToDelete, setOrgToDelete] = useState(null);
+  const [emailToDelete, setEmailToDelete] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -44,7 +38,7 @@ const OrgTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/part-orgs`);
+        const response = await fetch(`/api/users`);
         const data = await response.json();
         setData(data);
       } catch (error) {
@@ -56,19 +50,14 @@ const OrgTable = () => {
 
   useEffect(() => {
     if (data) {
-      const parsedData = JSON.parse(data);
+      const parsedData = data;
       const foundMatch = orderBy(parsedData, "name");
       setFilteredData(
         foundMatch.filter(
           (item) =>
-            (item &&
-              item.name &&
-              item.name.toLowerCase().includes(searchValue.toLowerCase())) ||
-            (item &&
-              item.contact_email &&
-              item.contact_email
-                .toLowerCase()
-                .includes(searchValue.toLowerCase()))
+            item &&
+            item.email &&
+            item.email.toLowerCase().includes(searchValue.toLowerCase())
         )
       );
     }
@@ -81,39 +70,34 @@ const OrgTable = () => {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `/api/delete-service-provider?id=${orgToDelete}&name=${orgName}`,
+        `/api/delete-user-account?email=${emailToDelete}`,
         {
           method: "DELETE",
         }
       );
-
+  
       if (response.status === 200) {
-        console.log("Successfully deleted the organization");
+        console.log("Successfully deleted the user account");
         setSnackbarSeverity("success");
-        setSnackbarMessage("Organization successfully deleted.");
-
-        // Reload the page
+        setSnackbarMessage("User account successfully deleted.");
         setTimeout(() => {
           router.reload();
         }, 1500);
-        } else {
-        console.error("Error deleting the organization");
+      } 
+      else {
+        console.error("Error deleting the user account");
         setSnackbarSeverity("error");
         setSnackbarMessage(
-          "Error occurred while deleting organization. Check server logs for more information."
+          "Error occurred while deleting user account. Please make sure all service providers associated with this user are deleted first."
         );
       }
+      setSnackbarOpen(true); // Add this line
     } catch (error) {
-      console.error("Error deleting the organization:", error);
-      setSnackbarSeverity("error");
-      setSnackbarMessage(
-        "Error occurred while deleting organization. Check server logs for more information."
-      );
+      console.error("Error deleting the user account:", error);
     }
-    setSnackbarOpen(true);
     closeModal();
   };
-
+  
   const renderDeleteConfirmation = () => {
     return (
       <Box
@@ -127,15 +111,11 @@ const OrgTable = () => {
           p: 4,
         }}
       >
-        <Typography variant="h6">
-          Are you sure you want to delete? - {orgName}
-        </Typography>
-
+        <Typography variant="h6">Are you sure you want to delete?</Typography>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
           <Button color="error" variant="contained" onClick={handleDelete}>
             Delete
           </Button>
-
           <Button
             color="primary"
             variant="outlined"
@@ -156,12 +136,11 @@ const OrgTable = () => {
           variant="h6"
           className={styles.title}
           textAlign="center"
-          mt={2}
+          mt={4}
           mb={2}
         >
-          Service Providers
+          Dashboard Users
         </Typography>
-
         <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
           <Typography variant="subtitle1" sx={{ marginRight: 1 }}>
             Search:
@@ -181,16 +160,12 @@ const OrgTable = () => {
             }}
           />
         </Box>
-
         <Box className={styles.table_container} mb={2}>
           <Table className={styles.table}>
             <TableHead>
               <TableRow>
-                <TableCell className={styles.table_header_cell}>
-                  <Chip label="Organization Name" />
-                </TableCell>
-                <TableCell className={styles.table_header_cell}>
-                  <Chip label="Contact Email" />
+                <TableCell className={styles.table_header_cell} colSpan={2}>
+                  <Chip label="Email" />
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -199,23 +174,14 @@ const OrgTable = () => {
                 filteredData.map((item) => (
                   <TableRow key={item.id} className={styles.table_row}>
                     <TableCell component="th" scope="row" sx={{ fontSize: 16 }}>
-                      <Link href={`/dashboard/org/${item.id}`}>
-                        {item.name}
-                      </Link>
+                      {item.email}
                     </TableCell>
                     <TableCell>
-                      <Link href={`/dashboard/org/${item.id}`}>
-                        {item.email}
-                      </Link>
                       <Box sx={{ textAlign: "right" }}>
-                        <Link href={`/dashboard/org/${item.id}`}>
-                          <EditIcon sx={{ mr: 2 }} />
-                        </Link>
                         <DeleteForeverIcon
-                          onClick={() => openModal(item.id, item.name)}
+                          onClick={() => openModal(item.email)}
                           style={{ cursor: "pointer" }}
                         />
-
                         <Modal
                           open={modalOpen}
                           onClose={closeModal}
@@ -250,4 +216,4 @@ const OrgTable = () => {
   );
 };
 
-export default OrgTable;
+export default UserTable;

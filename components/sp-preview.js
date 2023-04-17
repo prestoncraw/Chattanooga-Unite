@@ -20,16 +20,16 @@ export default function SPPreview({ provider, service_id, county_id }) {
                 <div className={styles.providerName}>{provider.name}</div>
                 <div className={styles.providerContacts}>
                     <div className={styles.contactsRow}>
-                        {provider.description !== "" && <div onClick={handleDescriptionToggle}>
+                        {/* {provider.description !== "" && <div onClick={handleDescriptionToggle}>
                             View Description <span className={styles.bold}>∨</span>
                         </div>}
                         {
                            provider.description === "" && <div>
                            <span className={styles.bold}></span>
                        </div> 
-                        }
+                        } */}
                         <div className={styles.contactsWebsite}>
-                        <Link href={{pathname: "/orgs/"+ provider.id, query: {service_id: service_id, county_id: county_id}}}>View Organization Information ↗</Link>
+                        <Link href={{pathname: "/orgs/"+ provider.id, query: {service_id: service_id, county_id: county_id}}}>View Organization's Page ↗</Link>
                             {/*<a href={"/orgs/"+ provider.id}>View Organization Information ↗</a>*/}
                         </div>
                     </div>

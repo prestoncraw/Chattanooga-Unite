@@ -2,7 +2,6 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
@@ -13,18 +12,13 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import MetricIcon from "@mui/icons-material/SignalCellularAlt";
-import ManageAccountsSharpIcon from "@mui/icons-material/ManageAccountsSharp";
 import GridIcon from "@mui/icons-material/GridView";
 import HomeIcon from "@mui/icons-material/Home";
 import Link from "next/link";
-import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { signOut } from "next-auth/react";
-import Image from "next/image";
-import { AlignVerticalCenter } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -50,13 +44,13 @@ function Navbar(props) {
       <List>
         <ListItem disablePadding divider>
           <ListItemText
-            primary={name}
+            primary={"Options"}
             primaryTypographyProps={{ textAlign: "center" }}
           />
         </ListItem>
         <Link href="/dashboard/">
           <ListItem disablePadding divider>
-            <ListItemButton component="a">
+            <ListItemButton>
               <ListItemIcon>
                 <GridIcon />
               </ListItemIcon>
@@ -66,7 +60,7 @@ function Navbar(props) {
         </Link>
         <Link href="/">
           <ListItem disablePadding divider>
-            <ListItemButton component="a">
+            <ListItemButton>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -126,15 +120,14 @@ function Navbar(props) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <Link href="/dashboard">
-              <MenuItem component="a">{email}</MenuItem>
-            </Link>
+
             <MenuItem onClick={() => signOut({ redirect: false })}>
-              Logout
+              Logout from {email}
             </MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
+      <Toolbar />
       <Drawer
         container={container}
         variant="temporary"

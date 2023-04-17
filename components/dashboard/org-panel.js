@@ -19,31 +19,31 @@ export default function OrgPanel({ organizations }) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
-        <Typography
+        {/* <Toolbar /> */}
+        {/* <Typography
           variant="h4"
           component="h1"
           sx={{ fontWeight: "bold", textAlign: "center" }}
         >
           &nbsp;
-        </Typography>
+        </Typography> */}
         
-        <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)" }}>
+        {/* <Card sx={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)" }}> */}
         <Typography
-              variant="h5"
+              variant="h4"
               component="h2"
               align="center"
-              sx={{ fontWeight: "bold", mt: 2, mb: 2 }}
+              sx={{ fontWeight: "bold", mt: 2, mb: 0 }}
             >
-              Service Providers
+              Your Organizations
             </Typography>
           <CardContent
             sx={{
               display: "flex",
               flexDirection: "row",
-              flexWrap: "wrap",
+              flexWrap: "nowrap",
               justifyContent: "space-around",
-              gap: 2,
+              gap: 2
             }}
           >
             {organizations.map((org) => (
@@ -52,13 +52,13 @@ export default function OrgPanel({ organizations }) {
                 link={`/dashboard/org/${org.id}`}
                 title={org.name}
                 image={"/images/helping-hands.png"}
-                description={"Edit information regarding your organization"}
+                description={"Edit this organization's details"}
                 buttonHref={`/dashboard/org/${org.id}`}
                 size={300}
               />
             ))}
           </CardContent>
-        </Card>
+        {/* </Card> */}
       </Box>
     </Box>
   );

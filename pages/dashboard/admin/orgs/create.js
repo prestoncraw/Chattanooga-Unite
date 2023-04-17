@@ -1,13 +1,9 @@
-import { useSession, getSession, signOut } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import getAuthUser from "../../../../lib/get-auth-user";
 import Head from "next/head";
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Button from "@mui/material/Button";
-import FilterHdrIcon from "@mui/icons-material/FilterHdr";
 import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Cancel";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -15,21 +11,19 @@ import Card from "@mui/material/Card";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import { useTheme } from "@mui/material/styles";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Toolbar from "@mui/material/Toolbar";
 import Navbar from "../../../../components/dashboard/navbar";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import Link from "next/link";
 
 const drawerWidth = 240;
 const ITEM_HEIGHT = 48;
@@ -42,7 +36,6 @@ const MenuProps = {
     },
   },
 };
-
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -63,13 +56,17 @@ const style = {
   p: 4,
 };
 function Org({ user }) {
-const [userData] = useState(user);
-  
+  const [userData] = useState(user);
+
   const [submit, sOpen] = useState(false);
   const submitOpen = () => sOpen(true);
   const submitClose = () => sOpen(false);
   const [name, setName] = useState();
   const [email, setEmail] = useState();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [spID, setSpID] = useState(null);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -79,18 +76,45 @@ const [userData] = useState(user);
     setEmail(event.target.value);
   };
 
-  const insertServiceProvider = (
-  ) => {
-    fetch(
-      `/api/add-service-provider?name=${name}&email=${email}`
-    ).then((response) => response.json());
+  const insertServiceProvider = () => {
+    fetch(`/api/add-service-provider?name=${name}&email=${email}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(
+          "this is the response in the handle delete function: ",
+          data
+        );
+  
+        if (data.success) {
+          setSpID(data.spID); // Update the spID state
+          setSnackbarSeverity("success");
+          setSnackbarMessage("Organization successfully created.");
+          // Use data.spID here to link the new org in the Snackbar or elsewhere
+        } else {
+          setSnackbarSeverity("error");
+          setSnackbarMessage(
+            "Error occurred while creating organization. Check server logs for more information."
+          );
+        }
+        setSnackbarOpen(true);
+      })
+      .catch((error) => {
+        // Handle network error
+        setSnackbarSeverity("error");
+        setSnackbarMessage(
+          "Network error occurred while creating organization. Check server logs for more information."
+        );
+        setSnackbarOpen(true);
+      });
   };
+  
 
   return (
     <>
       <Head>
         <title>
-          Create Organization &raquo; Chattanooga Unite - Veterans Resource Center
+          Create Organization &raquo; Chattanooga Unite - Veterans Resource
+          Center
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -121,7 +145,7 @@ const [userData] = useState(user);
                 align="center"
                 sx={{ fontWeight: "bold", mt: 2 }}
               >
-                Create Service Provider
+                Add new Service Provider
               </Typography>
               <CardContent
                 sx={{
@@ -133,7 +157,7 @@ const [userData] = useState(user);
                 }}
               >
                 {/*Service Infromation Card*/}
-                
+
                 {/*Service Contact Card*/}
                 <Card
                   sx={{
@@ -144,12 +168,14 @@ const [userData] = useState(user);
                 >
                   <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                      Service Provider Name
+                      Name
                     </Typography>
                     <TextField
                       sx={{ marginBottom: 4 }}
                       id="Name"
-                      defaultValue="Enter Service Provider Name"
+                      placeholder="Organization Name"
+                      helperText="The name of the organization you are creating. Can be changed later."
+                      required
                       onChange={handleNameChange}
                       variant="standard"
                       fullWidth
@@ -157,12 +183,14 @@ const [userData] = useState(user);
                       rows={1}
                     />
                     <Typography variant="body2" color="text.secondary">
-                      Auth0 Email
+                      Email
                     </Typography>
                     <TextField
                       sx={{ marginBottom: 4 }}
                       id="Email"
-                      defaultValue="Enter email of Auth0 user you want to own this service provider"
+                      placeholder="Organization email"
+                      required
+                      helperText="Email for the person who will manage this organization's account. A user can have multiple organizations, use the same email and all orgs under that email will share a login account. Cannot be changed later."
                       onChange={handleEmailChange}
                       variant="standard"
                       fullWidth
@@ -173,8 +201,6 @@ const [userData] = useState(user);
                 </Card>
 
                 {/*Service Counties and FIle Upload*/}
-
-
               </CardContent>
               <Stack direction="row" spacing={1} sx={{ mt: 4, ml: 11, mb: 1 }}>
                 <Chip
@@ -199,14 +225,23 @@ const [userData] = useState(user);
                     component="h2"
                     align="center"
                   >
-                    Changes Made
+                    Confirm Information
+                  </Typography>
+                  <Typography variant="body2" sx={{ mt: 1, color: "red" }}>
+                    ** Note: A refresh is required to see the changes made.**
                   </Typography>
                   <List>
                     <ListItem>
-                      <ListItemText primary="Service Name" secondary={name} />
+                      <ListItemText
+                        primary="Organization Name:"
+                        secondary={name}
+                      />
                     </ListItem>
                     <ListItem>
-                      <ListItemText primary="Email of Auth0 account" secondary={email} />
+                      <ListItemText
+                        primary="Account Email:"
+                        secondary={email}
+                      />
                     </ListItem>
                   </List>
                   <Button
@@ -216,12 +251,42 @@ const [userData] = useState(user);
                     }}
                     sx={{ mt: 2 }}
                   >
-                    Submit
+                    Create Org
                   </Button>
-                  <Typography>Note a page refresh is required to see changes</Typography>
+                  <Button
+                    secondary
+                    sx={{ mt: 2, color: "red" }}
+                    onClick={submitClose}
+                  >
+                    Cancel
+                  </Button>
+                  {/* <Typography>Note a page refresh is required to see changes</Typography> */}
                 </Box>
               </Modal>
             </Card>
+            <Snackbar
+      open={snackbarOpen}
+      autoHideDuration={6000}
+      onClose={() => setSnackbarOpen(false)}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+    >
+      <Alert
+        onClose={() => setSnackbarOpen(false)}
+        severity={snackbarSeverity}
+        variant="filled"
+        action={
+          snackbarSeverity === "success" && spID ? (
+            <Link href={`/dashboard/org/${spID}`} passHref>
+              <IconButton color="inherit" size="small">
+                <OpenInNewIcon fontSize="inherit" />
+              </IconButton>
+            </Link>
+          ) : null
+        }
+      >
+        {snackbarMessage}
+      </Alert>
+    </Snackbar>
           </Box>
         </Box>
       </main>
@@ -231,28 +296,26 @@ const [userData] = useState(user);
   // Render post...
 }
 
-
 export default Org;
 
-
 export async function getServerSideProps(context) {
-    const domain = process.env.DOMAIN;
-  
-    const session = await getServerSession(context.req, context.res);
-    if (!session) {
-      return {
-        redirect: {
-          destination: "/",
-          permanent: false,
-        },
-      };
-    }
-    const user = await getAuthUser(session.user);
-  
+  const domain = process.env.DOMAIN;
+
+  const session = await getServerSession(context.req, context.res);
+  if (!session) {
     return {
-      props: {
-        user,
-        session,
+      redirect: {
+        destination: "/",
+        permanent: false,
       },
     };
   }
+  const user = await getAuthUser(session.user);
+
+  return {
+    props: {
+      user,
+      session,
+    },
+  };
+}

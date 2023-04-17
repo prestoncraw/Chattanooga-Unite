@@ -2,13 +2,12 @@ import { useSession } from "next-auth/react"
 import { useState  } from "react";
 import { getServerSession } from "next-auth/next"
 import Head from 'next/head';
-import * as React from 'react';
 import Navbar from '../../../../components/dashboard/navbar';
-import { Typography } from "@mui/material";
+import UserTable from '../../../../components/dashboard/user-panel';
 
 import getAuthUser from "../../../../lib/get-auth-user";
 
-export default function Orgs({ user, session }) {
+export default function Activity({ user, session }) {
     const { status } = useSession();
 
 
@@ -28,17 +27,12 @@ export default function Orgs({ user, session }) {
     return (
         <>
             <Head>
-                <title>View All Organizations &raquo; Admin Dashboard Chattanooga Unite</title>
+                <title>View All Users &raquo; Admin Dashboard Chattanooga Unite</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Navbar email={userData.email} />
-
-            <Typography variant="h2" component="div" style={{ mt: 8 }}>
-                Dashboard Menu
-            </Typography>
-
-            <div>A table of all organizations will be displayed here.</div>
+            <Navbar />
+            <UserTable />
         </>
     );
 }

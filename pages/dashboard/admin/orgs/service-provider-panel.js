@@ -2,9 +2,7 @@ import { useSession } from "next-auth/react"
 import { useState  } from "react";
 import { getServerSession } from "next-auth/next"
 import Head from 'next/head';
-import * as React from 'react';
 import Navbar from '../../../../components/dashboard/navbar';
-import { Typography } from "@mui/material";
 import OrgTable from '../../../../components/dashboard/service-provider-panel';
 
 import getAuthUser from "../../../../lib/get-auth-user";
@@ -34,10 +32,6 @@ export default function Activity({ user, session }) {
             </Head>
 
             <Navbar />
-
-            <Typography variant="h2" component="div" style={{ mt: 8 }}>
-                Dashboard Menu
-            </Typography>
 
             <OrgTable />
         </>
