@@ -20,8 +20,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import Link from "next/link";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { useRouter } from "next/router";
+
 
 const OrgTable = () => {
+  const router = useRouter();
   const [data, setData] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [orgName, setOrgName] = useState("");
@@ -88,7 +91,12 @@ const OrgTable = () => {
         console.log("Successfully deleted the organization");
         setSnackbarSeverity("success");
         setSnackbarMessage("Organization successfully deleted.");
-      } else {
+
+        // Reload the page
+        setTimeout(() => {
+          router.reload();
+        }, 1500);
+        } else {
         console.error("Error deleting the organization");
         setSnackbarSeverity("error");
         setSnackbarMessage(
@@ -122,9 +130,7 @@ const OrgTable = () => {
         <Typography variant="h6">
           Are you sure you want to delete? - {orgName}
         </Typography>
-        <Typography variant="body2" sx={{ mt: 1, color: "red" }}>
-         ** Note: A refresh is required to see the changes made.**
-        </Typography>
+
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
           <Button color="error" variant="contained" onClick={handleDelete}>
             Delete
