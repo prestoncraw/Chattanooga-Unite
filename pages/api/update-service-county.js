@@ -8,8 +8,6 @@ export default async function handler(req, res) {
         console.log("Access denied to api/part-orgs user does not haver permission to access this route");
         res.status(401).send("Access Denied");
     } else {
-        const testCounty = "11";
-        const testService = "11";
 
         const countyIds = service_id.split(",");
         const serviceIds = county_id.split(",");
@@ -18,6 +16,9 @@ export default async function handler(req, res) {
         const countiesResults = [];
 
 
+        // Delete existing records associated with sp_id
+        await executeQuery({ query: `DELETE FROM sp_services WHERE service_provider_id = ?`, values: [sp_id] });
+        await executeQuery({ query: `DELETE FROM sp_counties WHERE service_provider_id = ?`, values: [sp_id] });
 
         for (const serviceId of serviceIds) {
             if (!isNaN(parseInt(serviceId))) {
