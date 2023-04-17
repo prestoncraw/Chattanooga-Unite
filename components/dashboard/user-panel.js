@@ -17,8 +17,10 @@ import styles from "../../styles/MatchTable.module.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { useRouter } from "next/router";
 
 const UserTable = () => {
+  const router = useRouter();
   const [data, setData] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -78,7 +80,11 @@ const UserTable = () => {
         console.log("Successfully deleted the user account");
         setSnackbarSeverity("success");
         setSnackbarMessage("User account successfully deleted.");
-      } else {
+        setTimeout(() => {
+          router.reload();
+        }, 1500);
+      } 
+      else {
         console.error("Error deleting the user account");
         setSnackbarSeverity("error");
         setSnackbarMessage(
@@ -106,9 +112,6 @@ const UserTable = () => {
         }}
       >
         <Typography variant="h6">Are you sure you want to delete?</Typography>
-        <Typography variant="body2" sx={{ mt: 1, color: "red" }}>
-         ** Note: A refresh is required to see the changes made.**
-        </Typography>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
           <Button color="error" variant="contained" onClick={handleDelete}>
             Delete

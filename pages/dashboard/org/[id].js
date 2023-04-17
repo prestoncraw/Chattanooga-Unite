@@ -667,7 +667,7 @@ function Org({ data, user, servedCounties, servedServices }) {
                               </Typography>
                             </Typography>
                           }
-                          secondary={countyName.join(", ")}
+                          secondary={serviceName.join(", ")}
                         />
                       </ListItem>
                     </List>{" "}
