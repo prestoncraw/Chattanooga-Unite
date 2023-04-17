@@ -606,7 +606,7 @@ function Org({ data, user, servedCounties, servedServices }) {
                     component="h2"
                     align="center"
                   >
-                    Changes Made
+                   Preview for {name}
                   </Typography>
                   <Box sx={{ maxHeight: "60vh", overflow: "auto" }}>
                     <List>
@@ -647,8 +647,8 @@ function Org({ data, user, servedCounties, servedServices }) {
                               Serviced Counties
                               <br />
                               <Typography variant="caption" component="span">
-                                Note: You cannot undo serviced counties once
-                                inserted into the database.
+                                *Note: You cannot undo serviced counties once
+                                inserted into the database.*
                               </Typography>
                             </Typography>
                           }
@@ -662,8 +662,8 @@ function Org({ data, user, servedCounties, servedServices }) {
                               Services Provided
                               <br />
                               <Typography variant="caption" component="span">
-                                Note: You cannot undo services provided once
-                                inserted into the database.
+                                *Note: You cannot undo services provided once
+                                inserted into the database.*
                               </Typography>
                             </Typography>
                           }
@@ -688,8 +688,8 @@ function Org({ data, user, servedCounties, servedServices }) {
                   >
                     Submit
                   </Button>
-                  <Typography>
-                    Note a page refresh is required to see changes
+                  <Typography style={{ color: "red" }}>
+                    *Note a page refresh is required to see changes*
                   </Typography>
                 </Box>
               </Modal>
