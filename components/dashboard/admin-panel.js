@@ -54,7 +54,7 @@ function AdminPanel() {
               title={"View Users"}
               description={"Delete a user from the dashboard"}
               buttonHref={"/dashboard/admin/orgs/user-panel"}
-              image={"/images/gear-icon.png"}
+              image={"/images/trash.svg"}
             />
             <MenuCard
               link={"/dashboard/admin/metrics"}
