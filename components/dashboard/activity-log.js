@@ -70,7 +70,7 @@ const activityLog = () => {
           return item.email.toLowerCase().includes(searchTerm.toLowerCase());
         })
         .map((item) => {
-          let timestamp = new Date(item.action_timestamp).toLocaleString();
+          let timestamp = new Date(item.action_timestamp).toLocaleString("en-US", {timeZone: "America/New_York"});
           timestamp = timestamp.replace(",", " -");
           return {
             timestamp,
