@@ -266,7 +266,7 @@ function Org({ data, user, servedCounties, servedServices }) {
     ).then((response) => {
       if (response.status === 200) {
         setSnackbarSeverity("success");
-        setSnackbarMessage("Organization updated created.");
+        setSnackbarMessage("Organization updated sucessfully.");
       } else {
         setSnackbarSeverity("error");
         setSnackbarMessage("Error occurred while updating organization.");
