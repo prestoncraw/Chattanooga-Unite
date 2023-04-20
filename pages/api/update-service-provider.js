@@ -58,6 +58,7 @@ export default async function handler(req, res) {
     //  WHERE id = ?`;
 
     //const serviceProviders = await executeQuery({ query: update_sp_query, values: spValues });
+    console.log(`User ID: ${await getAuthUserID(req, res)}`);
     
 
     const activityLogQuery = "INSERT INTO activity_log (action_timestamp, user_id, action_description) VALUES(NOW(), ?, ?)";
