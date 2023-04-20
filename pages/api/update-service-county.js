@@ -4,8 +4,8 @@ import { authorizeRequest } from '../../lib/authorize-request';
 export default async function handler(req, res) {
     const { service_id, county_id, sp_id } = req.query;
 
-    if (!(await authorizeRequest(req, res, "admin"))) {
-        console.log("Access denied to api/part-orgs user does not haver permission to access this route");
+    if (!(await authorizeRequest(req, res, "sp", sp_id))) {
+        console.log("Access denied to api/update-service-county user does not haver permission to access this route");
         res.status(401).send("Access Denied");
     } else {
 
