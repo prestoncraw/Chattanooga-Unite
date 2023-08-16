@@ -20,7 +20,6 @@ export default function FindHelp() {
     const [serviceProviders, setServiceProviders] = useState([]);
 
     useEffect(() => {
-
         //console.log(`CURRENT APP STATE:\nSERVICE_ID: ${service}\nCOUNTY_ID: ${county}`);
 
         // change to make it match with only valid options
@@ -70,8 +69,6 @@ export default function FindHelp() {
             router.push(router);
         } 
 
-     //   console.log(`HANDLECOUNTYCHANGE: service: ${service}`);
-
         // fetch the matching SPs
         fetch(`/api/find-help?service_id=${service}&county_id=${county}`)
             .then(response => response.json())
@@ -103,9 +100,9 @@ export default function FindHelp() {
             <NavBar />
             <div className={styles.container}>
 
-                {step === 'service' && <h1>What Do You Need Help With?</h1>}
-                {step === 'county' && <h1>Which County Are You In?</h1>}
-                {step === 'result' && <h1>These Organizations Can Provide Help</h1>}
+                {step === 'service' && <h1>What do you need assistance with?</h1>}
+                {step === 'county' && <h1>In which county do you reside?</h1>}
+                {step === 'result' && <h1>These organizations can provide assistance</h1>}
 
                 <div className={styles.break}> </div>
                 <div className={styles.content_container}>

@@ -49,7 +49,7 @@ import AccessibilityMenu from '../components/accessibility-menu';
 
       const Content6 = () => {
         return <div className={styles.dropdown_content}>
-            <p className={styles.description_light}>
+            <div className={styles.description_light}>
                 <div className={styles.row}>
                     <div className={styles.column}>Bledsoe County</div>
                     <div className={styles.column}>(423) 447-6731</div>
@@ -108,7 +108,7 @@ import AccessibilityMenu from '../components/accessibility-menu';
                     <div className={styles.column}>Sequatchie County</div>
                     <div className={styles.column}>(423) 949-4094</div>
                 </div>
-            </p>
+            </div>
         </div>
       };
       

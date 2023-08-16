@@ -1,24 +1,23 @@
 # Chattanooga Unite Senior Capstone Project Documentation
-
-This directory is intended to serve as the primary record for all project documents/information being passed to the next group inheriting this project. 
+This directory is intended to serve as a primary record for all project documents/information being passed to the next group inheriting this project. 
 
 ## Project background
-link to project document
-
-This project was originally inherited from a previous group, but as they ran into many issues and we weren't particularly satisfied with how the project was left to us, we decided to start this project from stract. The documents from the first group are available under [Fall 2022 Documents](/docs/Fall%202022%20Documents/), but you will notice that we do not rely on any of their work for the project.
+This project was originally inherited from a previous group, but as they ran into many issues and we weren't particularly satisfied with how the project was left to us, we decided to start this project from scratch.
 
 ## Project Architecture Overview 
 
 ### Website Overview
 The website consists of two parts: the public "front-end" part, and the admin dashboard.
 
-#### Front end
-~~talk about individual components, accessibility, etc~~
+### Front end
+Most pages on the public side of this site are fairly simple, static pages, however there is one page in particular that is worth noting. The **Find Help page** (```/find-help```) allows users to input a few parameters and locate service providers
 
-#### Admin dashboard
+
+
+### Admin dashboard
 
 ### Database
-Please see [database](/docs/database/README.md) for an in-depth explanation of the database.
+Please see [database documentation](/docs/database/README.md) for an in-depth explanation of the database.
 
 ### Auth0
 Rather than worrying about developing, securing, and hosting our own login system, we decided that it would be best to use a reliable third-party solution. We decided that [Auth0](https://auth0.com) fit the projects needs and budget (free). Please see [Auth0.md](/docs/Auth0.md) for the entire setup instructions for this service.

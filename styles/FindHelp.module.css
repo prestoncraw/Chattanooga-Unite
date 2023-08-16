@@ -86,6 +86,7 @@
     border-radius: 20px;
     background-color: #ffffff;
     /* background-color: #CBD1D7CC; */
+    user-select: none;
 }
 
 .select_box_text {
@@ -120,7 +121,8 @@
 
 .select_box:hover {
     cursor: pointer;
-    background-color: white;
+    background-color: #e6e6e6;
+    transition: 200ms;
 }
 
 .noServiceWarn {

@@ -10,7 +10,7 @@
   height: fit-content;
 }
 
-.dropdown_content > p {
+.dropdown_content > div  {
   max-width: 100%;
 }
 
