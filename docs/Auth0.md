@@ -9,6 +9,8 @@ First create a free Auth0 account on [Auth0's website](auth0.com).
 
 Once logged in with your account, create a new tenant. 
 
+![chrome_ASzuw6xXi9](https://github.com/prestoncraw/Chattanooga-Unite/assets/43215443/b78c13ed-0114-4bb0-a2e5-5416bf28ab4d)
+
 > Keep in mind the tenant domain cannot be changed and will be visible to the end user. 
 
 Select **Applications** on the left side menu. And then select the **Create Application** button. You will need to create two applications using this process.
@@ -17,9 +19,13 @@ First create the application that will deal with the website's log in authenicat
 
 Select **Regular Web Application** for the application type and create the application. You may skip the featured quickstart and jump to the **settings** tab.
 
+![chrome_3J6J8OBuQD](https://github.com/prestoncraw/Chattanooga-Unite/assets/43215443/f7a9feb9-5ac5-4695-8242-331ba4149ce2)
+
 There's a number of customization options on this screen which we recommend you utilize, but for now we will skip those.
 
 Here you will need to copy a number of important variables. Find the **Domain**, **Client ID**, and **Client Secret**. You will need to copy these values to a ```.env``` file at the root of the project directory. 
+
+![chrome_a3vYcjEUe7](https://github.com/prestoncraw/Chattanooga-Unite/assets/43215443/202e090f-e625-4922-87cb-b59c9ccac996)
 
 ```
 AUTH0_CLIENT_ID=<your client id>
@@ -35,6 +41,8 @@ If you are setting this environment up for development, you may give a localhost
 
 Now go back to the **Applications** tab and create another application which will deal with creating and deleting user accounts in Auth0. We called this application "Chattanooga Unite User Service". This application will need to be a **Machine to Machine Application**
 
+![chrome_Acqr5DQyYf](https://github.com/prestoncraw/Chattanooga-Unite/assets/43215443/ffdaf178-5277-47e5-b985-5e6665151c4c)
+
 This will prompt you to select an API, select **Auth0 Management API**. You will need to grant this API the following permissions: ```read:client_grants, read:users, update:users, delete:users, create:users```.
 
 Again you will need to copy the **Client ID** and **Client Secret**. Store these in the same ```.env``` file.
@@ -43,7 +51,5 @@ AUTH0_MANAGEMENT_CLIENT_ID=<your client id>
 AUTH0_MANAGEMENT_CLIENT_SECRET=<your client secret>
 ```
 > Since the domain remains the same, we don't have to copy it again. 
-
-## Application Interactions
 
 
